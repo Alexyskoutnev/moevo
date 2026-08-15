@@ -35,6 +35,10 @@ dependencies = [
 [project.optional-dependencies]
 # Only needed to reproduce the Claude Code baseline in Table 1.
 baselines = ["claude-agent-sdk>=0.1.48"]
+# The SkyDiscover scalar-selection baseline is a separate framework and is not
+# on PyPI. Install it from source to reproduce the SkyDiscover rows:
+#   https://github.com/skydiscover-ai/skydiscover
+# MOEvo's own engine does not depend on it.
 
 [project.scripts]
 moevo = "moevo.cli:main"

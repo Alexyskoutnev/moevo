@@ -235,8 +235,14 @@ def _check_path(path: str, cwd: Path) -> tuple[Path, str | None]:
 
     Returns (resolved_path, error_message). error_message is None if OK.
     """
-    resolved = (cwd / path).resolve()
-    if not str(resolved).startswith(str(cwd)):
+    # Resolve both sides: comparing a resolved path against an unresolved cwd
+    # produces false rejections whenever the workspace path contains a symlink
+    # (macOS /tmp -> /private/tmp is the common case).
+    root = cwd.resolve()
+    resolved = (root / path).resolve()
+    # Path.is_relative_to, not str.startswith: a prefix comparison lets
+    # /work/ws-evil escape a sandbox rooted at /work/ws.
+    if not resolved.is_relative_to(root):
         return resolved, f"Error: path '{path}' is outside the working directory."
     return resolved, None
 

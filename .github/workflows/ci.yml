@@ -1,0 +1,39 @@
+# CI is a thin wrapper: all the logic lives in test.sh so contributors can run
+# exactly what CI runs with `bash test.sh` locally.
+name: ci
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  schedule:
+    # Nightly. The LLM SDKs move fast; this catches upstream breakage before
+    # a user does.
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: "python ${{ matrix.python-version }}"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      # Actions are pinned to commit SHAs, not tags: a tag can be moved to point
+      # at different code after review.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Lint, build the wheel, and test the installed package
+        run: bash test.sh

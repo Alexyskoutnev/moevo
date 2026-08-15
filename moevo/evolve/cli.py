@@ -29,9 +29,12 @@ def parse_args() -> argparse.Namespace:
     # Engine: skydiscover (scalar fitness) or moevo (multi-objective Pareto)
     p.add_argument(
         "--engine",
-        default="skydiscover",
+        default="moevo",
         choices=["skydiscover", "moevo"],
-        help="Evolution engine (default: skydiscover)",
+        help=(
+            "Evolution engine (default: moevo). The skydiscover baseline needs the "
+            "separate skydiscover package; see the README."
+        ),
     )
 
     # Which zipper slices to evolve across. GDPval has 8 dev slices (S1-S8, 22

@@ -1,0 +1,31 @@
+# Install with: pre-commit install
+# Run over everything with: pre-commit run --all-files
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-ast
+      - id: check-merge-conflict
+      - id: check-toml
+      - id: check-yaml
+      - id: end-of-file-fixer
+        files: \.(py|md)$
+      - id: trailing-whitespace
+        files: \.(py|md)$
+      - id: debug-statements
+        files: \.py$
+      - id: mixed-line-ending
+        args: [--fix=lf]
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.16.3
+    hooks:
+      - id: ruff
+      - id: ruff-format
+
+  # Credentials must never reach a public history: once pushed, rewriting is
+  # unreliable (forks, cached SHA views, PR refs all retain the blob).
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.24.2
+    hooks:
+      - id: gitleaks

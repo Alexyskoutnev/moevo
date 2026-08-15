@@ -28,3 +28,7 @@ build/
 .idea/
 .vscode/
 *.swp
+
+# Wheel build and scratch test environment (see test.sh)
+/dist/
+/_testing/

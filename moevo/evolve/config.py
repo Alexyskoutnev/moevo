@@ -2,27 +2,34 @@
 
 from __future__ import annotations
 
-from skydiscover.config import (
-    _DB_CONFIG_BY_TYPE,
-    AdaEvolveDatabaseConfig,
-    Config,
-    ContextBuilderConfig,
-    EvaluatorConfig,
-    LLMConfig,
-    LLMModelConfig,
-    MonitorConfig,
-    SearchConfig,
-)
+try:
+    from skydiscover.config import (
+        _DB_CONFIG_BY_TYPE,
+        AdaEvolveDatabaseConfig,
+        Config,
+        ContextBuilderConfig,
+        EvaluatorConfig,
+        LLMConfig,
+        LLMModelConfig,
+        MonitorConfig,
+        SearchConfig,
+    )
+except ImportError as exc:  # pragma: no cover - exercised only without the extra
+    raise ImportError(
+        "The SkyDiscover scalar-selection baseline requires the separate "
+        "`skydiscover` package, which is not distributed with moevo:\n"
+        "    https://github.com/skydiscover-ai/skydiscover\n"
+        "It is needed only to reproduce the SkyDiscover rows of Tables 1-3. "
+        "The MOEvo engine itself has no such dependency -- run with "
+        "`--engine moevo` (the default)."
+    ) from exc
 
-SYSTEM_MESSAGE = """\
-You are evolving the SOURCE CODE of an AI coding agent. The agent is a single
-Python file that receives a task, works in an isolated directory, and produces
-output files. It is scored on task completion quality.
+# The mutation system prompt is defined once, in the engine, and reused here so
+# the two engines cannot silently drift apart -- it is the experimental control
+# in the Pareto-vs-scalar comparison.
+from moevo.generation.prompt import SYSTEM_MESSAGE  # noqa: E402
 
-The entire file is yours to change — config, prompts, tools, the agent loop,
-helper functions, error handling. Add or remove tools. Change the architecture.
-The only constraint is the score: working code that scores higher survives.
-"""
+__all__ = ["SYSTEM_MESSAGE", "build_config"]
 
 
 def build_config(model: str, iterations: int, search: str = "adaevolve") -> Config:

@@ -76,6 +76,14 @@ different program per slice; the held-out numbers come from one final agent on u
 Safety is flat across every method (50–52%), so the honest reading there is *no observed
 degradation*, not a demonstrated trade-off.
 
+## Before you run this
+
+MOEvo evolves an agent by rewriting its source and executing it. **LLM-authored
+code is run in-process, and the agent's shell tool inherits your environment
+including your API keys.** The per-task workspace is a working directory, not a
+sandbox. Run this in a container or a disposable VM, with throwaway API keys and
+a spend limit. See [SECURITY.md](SECURITY.md).
+
 ## Install
 
 ```sh
@@ -141,6 +149,12 @@ python -m moevo.evolve.run_evolve --seed openai --slice S1   # evolution, per sl
 python experiments/run_eval_slices.py       # Table 3: held-out E1/E2
 python experiments/run_cross_judge.py       # Appendix D: independent Gemini judge
 ```
+
+Reproducing the **SkyDiscover** scalar-selection rows additionally requires that
+framework, which is a separate project and not on PyPI —
+[github.com/skydiscover-ai/skydiscover](https://github.com/skydiscover-ai/skydiscover).
+Install it, then pass `--engine skydiscover`. MOEvo's own engine has no such
+dependency and is the default.
 
 Each evolution configuration is roughly 40 iterations, about 3.5 hours and ~$125 in API spend.
 Every configuration in the paper is a **single run** — there are no error bars, and the

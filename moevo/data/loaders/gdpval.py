@@ -18,21 +18,21 @@ Size: 220 tasks, 44 occupations, 9 sectors.
 Data format: Parquet with columns: task_id, prompt, rubric_pretty, rubric_json,
     sector, occupation, reference_files, deliverable_files.
 
-Real examples:
+Record shape (content is not reproduced here -- GDPval is distributed by OpenAI
+under its own terms and is downloaded at setup, not vendored in this repo):
 
-    Example 1 (Finance / Auditor):
-        Prompt: "You are an auditor... review Anti-Financial Crime Risk Metrics
-        in the attached spreadsheet 'Population'... produce a sample analysis
-        workbook"
-        Rubric: [+2] Excel basename is 'Sample',
-                [+2] contains worksheet 'Sample Size Calculation'
+    prompt      A multi-paragraph brief written in the voice of a colleague
+                assigning work: a role, a business context, one or more
+                attached reference files, and a requested deliverable.
+    occupation  One of 44 occupations (e.g. Auditor, Finance Lead).
+    sector      The GDPval sector label for the occupation.
+    files       Reference material the agent must open (.xlsx, .docx, .pdf).
+    rubric      A list of weighted criteria, each worth an integer number of
+                points, checked against the produced deliverable. Criteria
+                range from mechanical (the output is .xlsx, a named worksheet
+                exists) to substantive (a figure is computed correctly).
 
-    Example 2 (Entertainment / Finance Lead):
-        Prompt: "You are the Finance Lead... Prepare a structured Excel profit
-        and loss report summarizing the 2024 Fall Music Tour"
-        Rubric: [+2] deliverable in .xlsx,
-                [+2] Revenue/expenses shown with Tour Manager, Production
-                     Company, Total columns
+See https://arxiv.org/abs/2510.04374 for the benchmark and its licence.
 
 RSI relevance: GDPval is the "capability ceiling" metric. If recursive
 self-improvement degrades the agent's ability to produce correct spreadsheets,

@@ -61,7 +61,7 @@ def parse_args() -> argparse.Namespace:
     )
 
     # Which provider SDK the seed agent uses. Determines the API the evolved
-    # agent will call — an OpenAI seed stays an OpenAI agent throughout.
+    # agent will call - an OpenAI seed stays an OpenAI agent throughout.
     p.add_argument(
         "--seed",
         default="openai",

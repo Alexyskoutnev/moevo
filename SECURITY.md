@@ -3,7 +3,7 @@
 ## Read this before running anything
 
 **MOEvo executes code written by a language model, and it does not sandbox it.**
-That is inherent to what the project does — it evolves an agent harness by
+That is inherent to what the project does: it evolves an agent harness by
 rewriting its source and running it. But it means running this repo on a machine
 you care about is not safe. Specifically:
 
@@ -13,7 +13,7 @@ you care about is not safe. Specifically:
    no separate user.
 
 2. **The agent under evolution runs shell commands with `shell=True`, inheriting
-   your full environment — including your API keys.** An evolved harness that
+   your full environment, including your API keys.** An evolved harness that
    decides to `echo $OPENAI_API_KEY` somewhere can do so. The keys are in the
    environment because the agent legitimately needs them.
 
@@ -23,7 +23,7 @@ you care about is not safe. Specifically:
    protection against mistakes, not against a determined agent.
 
 4. **The commercial baselines are launched with their approval prompts disabled**
-   — `--dangerously-skip-permissions` (Claude Code), `--yolo` (Gemini CLI),
+   - `--dangerously-skip-permissions` (Claude Code), `--yolo` (Gemini CLI),
    `--full-auto` (Codex CLI). This is necessary to run them unattended across
    hundreds of tasks, and it means they will take file and shell actions without
    asking.

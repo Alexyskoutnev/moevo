@@ -154,7 +154,7 @@ async def main() -> None:
     print("\nTasks to evaluate:")
     for i, s in enumerate(samples[:10]):
         occ = s.metadata.get("occupation", "unknown")
-        print(f"  {i + 1}. [{occ}] {s.id[:12]}... — {s.prompt[:80]}...")
+        print(f"  {i + 1}. [{occ}] {s.id[:12]}... - {s.prompt[:80]}...")
     if len(samples) > 10:
         print(f"  ... and {len(samples) - 10} more")
 
@@ -169,7 +169,7 @@ async def main() -> None:
     work_dir = output_dir / "workspace"
     work_dir.mkdir(parents=True, exist_ok=True)
 
-    # Run evaluation — Gemini judge is default, --no-judge for keyword heuristic
+    # Run evaluation - Gemini judge is default, --no-judge for keyword heuristic
     use_judge = not args.no_judge
     evaluator_label = "Gemini judge (frozen)" if use_judge else "keyword heuristic"
     print(

@@ -6,7 +6,7 @@ dist/
 build/
 .venv/
 
-# Secrets — never commit real keys; see .env.example
+# Secrets - never commit real keys; see .env.example
 .env
 
 # Benchmark data, downloaded via experiments/download_datasets.py.

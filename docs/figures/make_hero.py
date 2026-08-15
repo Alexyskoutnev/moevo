@@ -265,7 +265,7 @@ def main() -> None:
         loop=0,
         optimize=True,
     )
-    print(f"wrote {out} — {len(frames)} frames, {out.stat().st_size / 1e6:.1f} MB")
+    print(f"wrote {out} - {len(frames)} frames, {out.stat().st_size / 1e6:.1f} MB")
 
 
 if __name__ == "__main__":

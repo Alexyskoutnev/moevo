@@ -1,4 +1,4 @@
-"""moevo — Multi-Objective Evolutionary Code Optimization.
+"""moevo - Multi-Objective Evolutionary Code Optimization.
 
 A lean framework for evolving code using LLM-based mutation with
 NSGA-II Pareto selection via pymoo.

@@ -1,8 +1,8 @@
 """Zipper schedule splitter for GDPval.
 
 Splits the 220-task GDPval dataset into 10 slices of 22 tasks each:
-  - 8 dev slices  (S1–S8): for iterative development and tuning.
-  - 2 eval slices (E1–E2): held-out evaluation, run only at the end.
+  - 8 dev slices  (S1-S8): for iterative development and tuning.
+  - 2 eval slices (E1-E2): held-out evaluation, run only at the end.
 
 Tasks are assigned round-robin by occupation so every slice gets a
 representative mix of occupations.
@@ -46,13 +46,13 @@ def zipper_split(samples: list[Sample]) -> ZipperSplit:
     4. Flatten into a single ordered list (occupation-major order).
     5. Round-robin assign tasks across 10 slices so each slice gets
        a representative mix of occupations.
-    6. First 8 slices are dev (S1–S8), last 2 are eval (E1–E2).
+    6. First 8 slices are dev (S1-S8), last 2 are eval (E1-E2).
 
     Args:
         samples: List of GDPval samples (must be exactly 220).
 
     Returns:
-        ZipperSplit with dev_slices (S1–S8) and eval_slices (E1–E2).
+        ZipperSplit with dev_slices (S1-S8) and eval_slices (E1-E2).
     """
     # Group by occupation.
     by_occupation: dict[str, list[Sample]] = {}
@@ -88,7 +88,7 @@ def zipper_split(samples: list[Sample]) -> ZipperSplit:
             f"Slice {idx} has {len(sl)} tasks, expected {TASKS_PER_SLICE}"
         )
 
-    # Name them: S1–S8 for dev, E1–E2 for eval.
+    # Name them: S1-S8 for dev, E1-E2 for eval.
     dev_slices = {f"S{i + 1}": slices[i] for i in range(NUM_DEV_SLICES)}
     eval_slices = {f"E{i + 1}": slices[NUM_DEV_SLICES + i] for i in range(NUM_EVAL_SLICES)}
 

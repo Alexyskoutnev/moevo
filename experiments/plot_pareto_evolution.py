@@ -253,7 +253,7 @@ def main():
         "Claude Code": (70.3, 50.4, "^", BASELINE_CLAUDE),
     }
 
-    # Create figure — 2x4 grid for S1-S8
+    # Create figure - 2x4 grid for S1-S8
     fig, axes = plt.subplots(2, 4, figsize=(16, 7.5), sharex=True, sharey=True)
     fig.suptitle(
         "Pareto Front Evolution Across Development Slices", fontsize=16, fontweight="bold", y=0.98

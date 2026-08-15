@@ -1,7 +1,7 @@
 """NSGA-II Pareto ranking and selection via pymoo.
 
 Uses pymoo as a utility library for non-dominated sorting, crowding distance,
-and hypervolume — but NOT its optimization loop.
+and hypervolume - but NOT its optimization loop.
 """
 
 from __future__ import annotations

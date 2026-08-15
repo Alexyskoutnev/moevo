@@ -12,7 +12,7 @@ The loop works like this:
      c. Extract the best code and carry it to the next slice
   3. Save the final evolved code + trajectory of scores
 
-Each slice has completely different tasks, so improvements must generalize —
+Each slice has completely different tasks, so improvements must generalize -
 code that overfits to one slice's tasks will score poorly on the next.
 
 Usage:
@@ -259,7 +259,7 @@ def main():
 
     setup_logging(args.verbose, output_dir / "evolve.log")
 
-    # Load seed — either custom file or provider default
+    # Load seed - either custom file or provider default
     if args.seed_file:
         seed_path = Path(args.seed_file)
     else:
@@ -363,7 +363,7 @@ def main():
 
         # Full-slice re-evaluation: run the evolved harness on ALL tasks in this
         # slice (not just the 3-task search-time sample). This gives a clean,
-        # unbiased score for reporting — following EC benchmarking best practice
+        # unbiased score for reporting - following EC benchmarking best practice
         # (Bartz-Beielstein et al., 2020).
         full_slice_score = None
         try:
@@ -409,7 +409,7 @@ def main():
                 f"{t['evolved_score'] * 100:.1f}%",
                 f"{t.get('full_slice_score', 0) * 100:.1f}%"
                 if t.get("full_slice_score") is not None
-                else "—",
+                else "-",
                 str(t["code_lines"]),
             ]
             for t in trajectory

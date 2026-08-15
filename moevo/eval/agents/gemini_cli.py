@@ -1,4 +1,4 @@
-"""Gemini CLI agent backend — runs tasks via the Google Gemini CLI.
+"""Gemini CLI agent backend - runs tasks via the Google Gemini CLI.
 
 Uses -o json (single JSON object) for reliability. The stream-json format
 can cause infinite retry loops on API 500 errors, leading to timeouts.

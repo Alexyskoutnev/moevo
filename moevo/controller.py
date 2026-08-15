@@ -31,7 +31,7 @@ class MoevoController:
         # Load evaluator
         self._evaluate_fn = load_evaluate_fn(cfg.evaluator_path)
 
-        # Initialize fresh (don't resume from stale checkpoints in cascade mode —
+        # Initialize fresh (don't resume from stale checkpoints in cascade mode -
         # each slice should start clean with its own seed evaluation)
         start_iteration = 0
         if not cfg.fresh_start:
@@ -181,7 +181,7 @@ class MoevoController:
                     )
                     continue
 
-                # Size cap — reject bloated mutations that break future diffs
+                # Size cap - reject bloated mutations that break future diffs
                 if cfg.max_code_lines > 0:
                     lines = child_code.count("\n") + 1
                     if lines > cfg.max_code_lines:

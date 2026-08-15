@@ -20,7 +20,7 @@ class TestParetoDatabase:
 
     def test_pruning_keeps_pareto_optimal(self):
         db = ParetoDatabase(objectives=["a", "b"], population_size=4, num_islands=1)
-        # Add programs — capacity is 4/1 = 4, min 2
+        # Add programs - capacity is 4/1 = 4, min 2
         programs = [
             _make("front1", island=0, a=0.9, b=0.1),
             _make("front2", island=0, a=0.1, b=0.9),

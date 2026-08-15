@@ -1,4 +1,4 @@
-"""Claude Code agent backend — runs tasks via the Claude Code CLI."""
+"""Claude Code agent backend - runs tasks via the Claude Code CLI."""
 
 from __future__ import annotations
 

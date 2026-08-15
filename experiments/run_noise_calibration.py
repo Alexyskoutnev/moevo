@@ -140,7 +140,7 @@ def main():
     logger.info("=" * 60)
     logger.info("RESULTS")
     logger.info("  Mean:   %.1f%% ± %.1f%%", mean * 100, stdev * 100)
-    logger.info("  Range:  %.1f%% — %.1f%%", min_score * 100, max_score * 100)
+    logger.info("  Range:  %.1f%% - %.1f%%", min_score * 100, max_score * 100)
     logger.info("  Stdev:  %.1f%%", stdev * 100)
     logger.info("  All:    %s", [f"{s:.1f}" for s in scores_pct])
     logger.info("  Time:   %.0fs", elapsed)

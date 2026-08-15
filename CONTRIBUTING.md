@@ -4,7 +4,7 @@ Thank you for looking at this.
 
 This repository accompanies a paper. Its purpose is to let others reproduce and
 build on the results, so at this time we do not plan to accept non-trivial
-feature contributions — keeping the released code faithful to what the paper
+feature contributions. Keeping the released code faithful to what the paper
 reports matters more here than growing it. You are of course free to fork it for
 your own purposes, as the [MIT licence](LICENSE) permits.
 
@@ -16,7 +16,7 @@ Contributions that are very welcome:
 - **Reproduction reports.** If you ran an experiment and got materially
   different numbers, we would like to know. Note that every configuration in the
   paper is a single run with no error bars, so small differences are expected.
-- **Fixes for genuine defects** — crashes, incorrect maths, documentation that
+- **Fixes for genuine defects:** crashes, incorrect maths, documentation that
   describes behaviour the code does not have.
 
 ## Before opening a pull request

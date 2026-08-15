@@ -1,4 +1,4 @@
-"""OpenAI Codex CLI agent backend — runs tasks via the Codex CLI.
+"""OpenAI Codex CLI agent backend - runs tasks via the Codex CLI.
 
 Codex JSONL format:
   {"type":"thread.started","thread_id":"..."}

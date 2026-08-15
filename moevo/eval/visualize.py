@@ -134,7 +134,7 @@ def plot_baseline_trajectory(
     """Plot per-agent scores across slices from a trajectory.json file.
 
     Produces a line chart with one line per agent (claude, gemini, codex)
-    showing their score on each slice (S1–S8, E1, E2). A vertical dashed
+    showing their score on each slice (S1-S8, E1, E2). A vertical dashed
     line separates dev slices from eval slices.
 
     Args:
@@ -146,7 +146,7 @@ def plot_baseline_trajectory(
         matplotlib Figure, or None if plotting deps are missing.
     """
     if not _HAS_PLOTTING:
-        logger.warning("matplotlib/numpy not installed — plotting disabled")
+        logger.warning("matplotlib/numpy not installed - plotting disabled")
         return None
 
     path = Path(trajectory_path)
@@ -266,7 +266,7 @@ class ResultsViz:
         """Check if plotting deps are available. Warn once if not."""
         if not _HAS_PLOTTING:
             logger.warning(
-                "matplotlib/numpy not installed — plotting disabled. "
+                "matplotlib/numpy not installed - plotting disabled. "
                 "Install with: pip install matplotlib numpy"
             )
             return False
@@ -330,7 +330,7 @@ class ResultsViz:
         )
         print("─" * 90)
         for i, run in enumerate(self._runs):
-            label = run.label or "—"
+            label = run.label or "-"
             print(
                 f"{i:>3}  {run.run_dir:<35} {label:<20} "
                 f"{run.avg_score:>6.1%} {run.num_tasks:>5} "

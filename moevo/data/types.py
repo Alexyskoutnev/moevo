@@ -19,9 +19,9 @@ class Split(Enum):
 class BenchmarkType(Enum):
     """Categories of benchmarks in the RSI pipeline."""
 
-    ECONOMIC = "economic"  # GDPval — real-world professional tasks.
+    ECONOMIC = "economic"  # GDPval - real-world professional tasks.
     HALLUCINATION = "hallucination"  # TruthfulQA, SimpleQA.
-    INSTRUCTION = "instruction"  # IFEval — constraint following.
+    INSTRUCTION = "instruction"  # IFEval - constraint following.
     SAFETY = "safety"  # HarmBench, OR-Bench.
 
 

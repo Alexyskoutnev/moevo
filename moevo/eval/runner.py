@@ -1,4 +1,4 @@
-"""Evaluation runner — sends GDPval tasks to agent backends and scores responses."""
+"""Evaluation runner - sends GDPval tasks to agent backends and scores responses."""
 
 from __future__ import annotations
 
@@ -243,7 +243,7 @@ class GDPvalRunner:
 
         occupation = sample.metadata.get("occupation", "unknown")
         logger.debug(
-            "[%s] Starting task %s (%s) — workspace: %s",
+            "[%s] Starting task %s (%s) - workspace: %s",
             self._agent.name(),
             sample.id[:12],
             occupation,
@@ -305,7 +305,7 @@ class GDPvalRunner:
                 eval_duration = time.monotonic() - eval_start
                 if trace.eval_result:
                     logger.info(
-                        "[eval] Task %s scored: %.1f/%.1f (%.0f%%) — %d/%d criteria (%.1fs)",
+                        "[eval] Task %s scored: %.1f/%.1f (%.0f%%) - %d/%d criteria (%.1fs)",
                         sample.id[:12],
                         trace.eval_result.score,
                         trace.eval_result.max_score,
@@ -358,7 +358,7 @@ class GDPvalRunner:
                 ]
                 running_avg = sum(r.normalized_score for r in scored) / len(scored) if scored else 0
                 logger.info(
-                    "[batch] Progress: %d/%d done — running avg: %.1f%%",
+                    "[batch] Progress: %d/%d done - running avg: %.1f%%",
                     i + 1,
                     len(samples),
                     running_avg * 100,
@@ -393,7 +393,7 @@ class GDPvalRunner:
             elapsed = time.monotonic() - start
             avg = sum(scores) / len(scores) * 100 if scores else 0
             logger.info(
-                "[batch] Done: %d tasks in %.0fs — avg %.1f%%, %d errors",
+                "[batch] Done: %d tasks in %.0fs - avg %.1f%%, %d errors",
                 len(samples),
                 elapsed,
                 avg,

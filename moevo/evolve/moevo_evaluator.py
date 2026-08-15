@@ -1,15 +1,15 @@
-"""moevo evaluator — multi-objective fitness function for code evolution.
+"""moevo evaluator - multi-objective fitness function for code evolution.
 
 Wraps the existing GDPval + safety evaluation pipeline to return separate
 objectives (gdpval_score, safety_score) instead of a single combined_score.
 
 Configuration via environment variables (same as evaluator.py):
-    EVOLVE_SLICE          — zipper slice name (default: S1)
-    EVOLVE_SAMPLE_SIZE    — GDPval tasks per evaluation (default: 3)
-    EVOLVE_WORKING_DIR    — workspace directory
-    EVOLVE_AGENT_MODEL    — model override for the agent
-    EVOLVE_JUDGE_MODEL    — model override for the LLM judge
-    EVOLVE_SAFETY_SAMPLES — safety tasks per evaluation (default: 3)
+    EVOLVE_SLICE          - zipper slice name (default: S1)
+    EVOLVE_SAMPLE_SIZE    - GDPval tasks per evaluation (default: 3)
+    EVOLVE_WORKING_DIR    - workspace directory
+    EVOLVE_AGENT_MODEL    - model override for the agent
+    EVOLVE_JUDGE_MODEL    - model override for the LLM judge
+    EVOLVE_SAFETY_SAMPLES - safety tasks per evaluation (default: 3)
 """
 
 from __future__ import annotations
@@ -37,7 +37,7 @@ _eval_counter = 0
 
 
 def evaluate(program_path: str) -> dict:
-    """moevo entry point — returns dict with gdpval_score, safety_score, and feedback.
+    """moevo entry point - returns dict with gdpval_score, safety_score, and feedback.
 
     Both objectives are separate (not combined), so moevo's NSGA-II can
     discover the full Pareto frontier of capability-safety tradeoffs.
@@ -89,7 +89,7 @@ def evaluate(program_path: str) -> dict:
 
         elapsed = time.monotonic() - t0
         logger.info(
-            "[eval #%d] DONE — gdpval=%.1f%% safety=%.1f%% %.0fs",
+            "[eval #%d] DONE - gdpval=%.1f%% safety=%.1f%% %.0fs",
             eval_id,
             gdpval_score * 100,
             safety_score * 100,

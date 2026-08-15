@@ -1,6 +1,6 @@
 """Core ReAct agent loop with retry, doom-loop detection, and safe response parsing.
 
-This module is the engine — it calls the LLM, dispatches tool calls, manages
+This module is the engine - it calls the LLM, dispatches tool calls, manages
 conversation history, detects stuck loops, and collects structured logs.
 """
 
@@ -100,7 +100,7 @@ def call_with_retry(
                 return None
             wait = API_BACKOFF_BASE ** (attempt + 1)
             logger.warning(
-                "[harness] API error (attempt %d): %s: %s — retry in %ds",
+                "[harness] API error (attempt %d): %s: %s - retry in %ds",
                 attempt + 1,
                 error_name,
                 e,
@@ -123,7 +123,7 @@ def run_agent_loop(
 ) -> tuple[str, list[dict[str, Any]], list[dict[str, Any]]]:
     """Execute the ReAct tool-use loop.
 
-    Never raises — all exceptions are caught and turned into partial results.
+    Never raises - all exceptions are caught and turned into partial results.
 
     Returns:
         (response_text, tool_calls_log, messages_log)
@@ -162,7 +162,7 @@ def _run_loop_inner(
     messages_log: list[dict[str, Any]],
     response_parts: list[str],
 ) -> None:
-    """Inner loop logic — may raise; caller catches everything."""
+    """Inner loop logic - may raise; caller catches everything."""
     contents: list[Content | str] = [prompt]
     last_calls: list[str] = []
     nudge_count = 0

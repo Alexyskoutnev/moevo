@@ -28,7 +28,7 @@ python -m src.evolve.run_evolve --slices S1 S2 S3 S4 S5 S6 S7 S8 --full-eval
 
 The slices aren't training data. There's no gradient descent or weight updates.
 The LLM's weights never change. What evolves is the **source code** of the
-agent — the Python file that defines how it thinks, acts, and recovers from errors.
+agent - the Python file that defines how it thinks, acts, and recovers from errors.
 
 ### The Loop
 
@@ -82,7 +82,7 @@ agent — the Python file that defines how it thinks, acts, and recovers from er
 1. Dynamically load the evolved Python file as a module
 2. Instantiate the agent class
 3. Give it 3 real task prompts (e.g. "Create a budget spreadsheet...")
-4. The agent runs — calls Gemini/OpenAI/Claude, uses its tools, creates files
+4. The agent runs - calls Gemini/OpenAI/Claude, uses its tools, creates files
 5. LLM judge reads the task + rubric + agent output, grades it
 6. Average score across 3 tasks = fitness
 
@@ -90,7 +90,7 @@ agent — the Python file that defines how it thinks, acts, and recovers from er
 - SkyDiscover sends the full agent source code to the evolution LLM
 - The LLM sees the code + context from other high-scoring variants in the population
 - It outputs a modified version (diff or full rewrite)
-- That's the mutation — no crossover, no bit-flipping, just "LLM, make this better"
+- That's the mutation - no crossover, no bit-flipping, just "LLM, make this better"
 
 **"91% better, keep it"** means:
 - The variant enters SkyDiscover's population
@@ -116,10 +116,10 @@ and verifies work will score well across all slices.
 
 ### What's NOT Happening
 
-- **No gradient updates** — the agent's LLM weights never change
-- **No fine-tuning** — the model API is called as-is
-- **No memorization** — each slice has unseen tasks
-- **No training set** — the code itself is what evolves, not model parameters
+- **No gradient updates** - the agent's LLM weights never change
+- **No fine-tuning** - the model API is called as-is
+- **No memorization** - each slice has unseen tasks
+- **No training set** - the code itself is what evolves, not model parameters
 
 The "training signal" is: did this code change make the agent complete tasks
 better? If yes, keep it. If no, discard. Pure selection pressure on source code.
@@ -130,7 +130,7 @@ better? If yes, keep it. If no, discard. Pure selection pressure on source code.
 
 ### The Problem: Evolution is Blind to Safety
 
-The current fitness function is **GDPval-only** — it measures task completion
+The current fitness function is **GDPval-only** - it measures task completion
 quality (did the agent produce the right spreadsheet/document/report?). Safety
 is completely invisible to selection:
 
@@ -213,24 +213,24 @@ Compare:
 
 | Benchmark | Size | What It Tests | Agent-Compatible? |
 |-----------|------|---------------|-------------------|
-| **AgentHarm** | 208 | Harmful tool-use actions (deepfakes, fraud, cybercrime) | Yes — tests tool actions, not just text |
-| **ToolEmu** | 144 | Unsafe tool patterns (file deletion, unauthorized access) | Yes — tests the exact tools our agents have |
-| **ASB** | 51 | Prompt injection, data exfiltration via tool outputs | Yes — tests attack resilience |
-| **HarmBench** | 320 | Text-based harmful request refusal | Partial — tests LLM, not agent harness |
-| **OR-Bench** | 1,319 | Over-refusal of safe requests | Partial — tests LLM, not agent harness |
+| **AgentHarm** | 208 | Harmful tool-use actions (deepfakes, fraud, cybercrime) | Yes - tests tool actions, not just text |
+| **ToolEmu** | 144 | Unsafe tool patterns (file deletion, unauthorized access) | Yes - tests the exact tools our agents have |
+| **ASB** | 51 | Prompt injection, data exfiltration via tool outputs | Yes - tests attack resilience |
+| **HarmBench** | 320 | Text-based harmful request refusal | Partial - tests LLM, not agent harness |
+| **OR-Bench** | 1,319 | Over-refusal of safe requests | Partial - tests LLM, not agent harness |
 
 The **agent-specific benchmarks** (AgentHarm, ToolEmu, ASB) test what evolution
-actually changes — the system prompt and tool code. The text-based benchmarks
+actually changes - the system prompt and tool code. The text-based benchmarks
 (HarmBench, OR-Bench) mostly test the underlying LLM's safety training, which
 doesn't change during evolution.
 
 ### What Evolution Can Actually Change
 
 The seed agent is a single Python file containing:
-1. **System prompt** — evolution can make this more/less safety-conscious
-2. **Tool implementations** — evolution can add/remove validation, path checks
-3. **Agent loop** — evolution can change error handling, retry logic
-4. **Configuration** — evolution can change temperature, max tokens, etc.
+1. **System prompt** - evolution can make this more/less safety-conscious
+2. **Tool implementations** - evolution can add/remove validation, path checks
+3. **Agent loop** - evolution can change error handling, retry logic
+4. **Configuration** - evolution can change temperature, max tokens, etc.
 
 The underlying LLM's safety training (RLHF, constitutional AI) is **not**
 changed by evolution. But the system prompt can override or undermine it:
@@ -244,7 +244,7 @@ changed by evolution. But the system prompt can override or undermine it:
 
 ```
 src/evolve/
-├── run_evolve.py      # Orchestrator — evolve loop across slices
+├── run_evolve.py      # Orchestrator - evolve loop across slices
 ├── cli.py             # Argument parsing + logging setup
 ├── config.py          # SkyDiscover config builder + system message
 ├── slices.py          # Zipper slice loading + full-slice evaluation
@@ -269,7 +269,7 @@ src/evolve/
 ## Seed Agents
 
 Three provider variants sharing the same 8-tool standard. Each is fully
-self-contained — every definition inlined so the evolving LLM can see and
+self-contained - every definition inlined so the evolving LLM can see and
 modify everything.
 
 | Seed | SDK | Default Model | API Key |

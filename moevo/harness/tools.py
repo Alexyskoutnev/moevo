@@ -1,13 +1,13 @@
 """Tool declarations and implementations for the custom harness agent.
 
 Provides 7 tools modeled after Claude Code and Codex CLI:
-    bash      — Execute shell commands
-    read_file — Read file contents (with offset/limit)
-    write_file— Create or overwrite files
-    edit_file — Find-and-replace edits
-    list_dir  — List directory contents
-    grep      — Search file contents by regex
-    glob      — Find files by name pattern
+    bash      - Execute shell commands
+    read_file - Read file contents (with offset/limit)
+    write_file- Create or overwrite files
+    edit_file - Find-and-replace edits
+    list_dir  - List directory contents
+    grep      - Search file contents by regex
+    glob      - Find files by name pattern
 """
 
 from __future__ import annotations
@@ -212,7 +212,7 @@ def _check_path(path: str, cwd: Path) -> tuple[Path, str | None]:
 
 
 def _list_available_files(cwd: Path) -> str:
-    """List files in workspace root — used in error messages."""
+    """List files in workspace root - used in error messages."""
     entries = []
     for item in sorted(cwd.iterdir()):
         if item.name.startswith("."):

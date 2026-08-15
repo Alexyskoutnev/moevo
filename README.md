@@ -4,7 +4,7 @@
 
 ### Multi-Objective Pareto Evolution of Coding-Agent Harnesses
 
-**Evolving the code around a frozen LLM on two objectives at once — capability and safety — without picking a trade-off weight in advance.**
+**Evolving the code around a frozen LLM on two objectives at once, capability and safety, without picking a trade-off weight in advance.**
 
 [![Paper](https://img.shields.io/badge/paper-citation-b31b1b.svg)](#citation)
 [![Python](https://img.shields.io/badge/python-3.11-3776ab.svg)](pyproject.toml)
@@ -15,9 +15,9 @@
 
 <img src="docs/figures/hero.gif" width="92%" alt="Pareto vs scalar selection on the same candidate stream">
 
-<sub><b>One candidate stream, two selection rules, replayed over the real S1–S8 fronts.</b>
+<sub><b>One candidate stream, two selection rules, replayed over the real S1-S8 fronts.</b>
 Each new harness lands in the capability × safety plane on both sides at once. The
-Pareto side keeps every non-dominated candidate — the front advances as a staircase
+Pareto side keeps every non-dominated candidate: the front advances as a staircase
 and dominated variants stay in the population, dimmed. The scalar side keeps only the
 argmax of 0.5·capability + 0.5·safety: one survivor, everything else discarded. Same
 budget rules, 82.0% vs 61.7% GDPval after eight slices.</sub>
@@ -28,8 +28,8 @@ budget rules, 82.0% vs 61.7% GDPval after eight slices.</sub>
 
 ## What this is
 
-An agent *harness* — the prompts, tool definitions, control flow, and error handling wrapped
-around a frozen LLM — is ordinary Python. MOEvo evolves that Python.
+An agent *harness*, meaning the prompts, tool definitions, control flow, and error handling
+wrapped around a frozen LLM, is ordinary Python. MOEvo evolves that Python.
 
 The usual approach scores each candidate with one number. That forces you to fix a trade-off
 weight before you know the trade-off, and it throws away any mutation that helps one objective
@@ -39,8 +39,8 @@ improvements are kept instead of being averaged away, and they compound over gen
 
 Two objectives, both maximised:
 
-- **Capability** — [GDPval](https://arxiv.org/abs/2510.04374), 220 real professional tasks across 44 occupations.
-- **Safety** — [ToolEmu](https://arxiv.org/abs/2309.15817), 144 tool-use scenarios with a hidden hazard in each.
+- **Capability:** [GDPval](https://arxiv.org/abs/2510.04374), 220 real professional tasks across 44 occupations.
+- **Safety:** [ToolEmu](https://arxiv.org/abs/2309.15817), 144 tool-use scenarios with a hidden hazard in each.
 
 <div align="center">
 <img src="docs/figures/fig_pipeline_v3.png" width="92%" alt="The MOEvo evolution pipeline">
@@ -57,14 +57,14 @@ Starting from a minimal seed agent with four tools and no error handling.
 Interactive results, per-slice evolution traces, and the discovered harness diffs
 are at **[moevo.vercel.app](https://moevo.vercel.app)**.
 
-**Development slices** (S1–S8, 22 GDPval tasks each):
+**Development slices** (S1-S8, 22 GDPval tasks each):
 
 | Method | Selection | GDPval |
 |---|---|--:|
 | **MOEvo pro** | NSGA-II Pareto | **82.0** |
 | MOEvo flash | NSGA-II Pareto | 77.9 |
-| Codex CLI (unevolved) | — | 75.3 |
-| Claude Code (unevolved) | — | 70.3 |
+| Codex CLI (unevolved) | - | 75.3 |
+| Claude Code (unevolved) | - | 70.3 |
 | SkyDiscover flash | linear, *w*=0.5 | 62.6 |
 | SkyDiscover pro | linear, *w*=0.5 | 61.7 |
 
@@ -84,10 +84,10 @@ MOEvo pro beats SkyDiscover pro by 20.3 points on development slices and by 21.1
 data, using half the iteration budget, while SkyDiscover flash collapses to 17.0%.
 
 The result we do **not** claim is that the evolved agent beats the commercial harnesses in
-general. On held-out slices it does not — 61.1% against Codex CLI's 71.3% and Claude Code's
+general. On held-out slices it does not: 61.1% against Codex CLI's 71.3% and Claude Code's
 69.4%. The development-slice numbers come from each slice's carry-forward agent, which is a
 different program per slice; the held-out numbers come from one final agent on unseen tasks.
-Safety is flat across every method (50–52%), so the honest reading there is *no observed
+Safety is flat across every method (50-52%), so the honest reading there is *no observed
 degradation*, not a demonstrated trade-off.
 
 ## Before you run this
@@ -111,7 +111,7 @@ additionally needs `ANTHROPIC_API_KEY` and `pip install -e ".[baselines]"`.
 
 ## Quickstart
 
-Evolve a program against your own evaluator — this is the engine on its own, no benchmarks:
+Evolve a program against your own evaluator. This is the engine on its own, no benchmarks:
 
 ```python
 import asyncio
@@ -145,20 +145,20 @@ python experiments/run_cross_judge.py       # Appendix D: independent Gemini jud
 ```
 
 Reproducing the **SkyDiscover** scalar-selection rows additionally requires that
-framework, which is a separate project and not on PyPI —
+framework, which is a separate project and not on PyPI -
 [github.com/skydiscover-ai/skydiscover](https://github.com/skydiscover-ai/skydiscover).
 Install it, then pass `--engine skydiscover`. MOEvo's own engine has no such
 dependency and is the default.
 
 Each evolution configuration is roughly 40 iterations, about 3.5 hours and ~$125 in API spend.
-Every configuration in the paper is a **single run** — there are no error bars, and the
+Every configuration in the paper is a **single run**. There are no error bars, and the
 differences between nearby numbers should not be over-read.
 
 ## Limitations
 
 ToolEmu is a text-only proxy: the agent responds to a described scenario, it does not execute
 real tool calls. These scores are not evidence of real-world safety. Evolved harnesses write
-and run code — review them and sandbox them before running them anywhere that matters.
+and run code. Review them and sandbox them before running them anywhere that matters.
 
 ## Citation
 
@@ -174,5 +174,5 @@ and run code — review them and sandbox them before running them anywhere that 
 
 ## License
 
-MIT — see [LICENSE](LICENSE). GDPval and ToolEmu carry their own licences and are downloaded
+MIT, see [LICENSE](LICENSE). GDPval and ToolEmu carry their own licences and are downloaded
 at setup rather than redistributed here.

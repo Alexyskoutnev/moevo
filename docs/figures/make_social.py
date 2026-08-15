@@ -84,7 +84,7 @@ def social() -> None:
         ("capability", BLUE, "bold"),
         ("  ×  ", MUT, "normal"),
         ("safety", ORANGE, "bold"),
-        ("   — no fixed trade-off weight", MUT, "normal"),
+        ("    ·  no fixed trade-off weight", MUT, "normal"),
     ]
     x = x0 + 0.003
     for txt, col, wt in segs:

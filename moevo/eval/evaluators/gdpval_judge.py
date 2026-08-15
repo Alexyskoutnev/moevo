@@ -220,7 +220,7 @@ Evaluate the RESPONSE against each criterion in the RUBRIC. Return JSON only."""
         total_score = float(data["total_score"])
         max_score = float(data["max_score"])
 
-        # Clamp score to [0, max_score] — judge penalty criteria can
+        # Clamp score to [0, max_score] - judge penalty criteria can
         # push the raw total negative, which is not meaningful.
         if max_score > 0:
             total_score = max(0.0, min(total_score, max_score))

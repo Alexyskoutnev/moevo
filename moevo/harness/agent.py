@@ -1,4 +1,4 @@
-"""CustomHarnessAgent — production-ready general-purpose agent.
+"""CustomHarnessAgent - production-ready general-purpose agent.
 
 Subclasses BaseAgent for integration with the GDPval evaluation pipeline.
 All logic is delegated to the loop, tools, prompt, and config modules.
@@ -36,14 +36,14 @@ class CustomHarnessAgent(BaseAgent):
 
     Provides 7 tools (bash, read_file, write_file, edit_file, list_dir, grep,
     glob) modeled after Claude Code and Codex CLI. Not biased toward any
-    specific benchmark — works as a general-purpose agentic coding assistant.
+    specific benchmark - works as a general-purpose agentic coding assistant.
     """
 
     def name(self) -> str:
         return "custom-harness"
 
     async def run(self, prompt: str, cwd: Path) -> AgentResult:
-        """Run the agent. Never raises — all errors become partial results.
+        """Run the agent. Never raises - all errors become partial results.
 
         Runs the synchronous Gemini API loop in a thread via asyncio.to_thread()
         so multiple tasks can execute concurrently with asyncio.gather().

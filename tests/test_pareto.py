@@ -39,7 +39,7 @@ class TestParetoRank:
         assert fronts[1] == [0]  # dominated is front 1
 
     def test_pareto_front_tradeoff(self):
-        """Two programs that trade off — both on front 0."""
+        """Two programs that trade off - both on front 0."""
         programs = [
             _make("high_a", a=0.9, b=0.1),
             _make("high_b", a=0.1, b=0.9),

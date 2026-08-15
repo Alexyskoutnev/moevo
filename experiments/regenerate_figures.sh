@@ -1,6 +1,6 @@
 #!/bin/bash
 # Regenerate all paper figures using PaperBanana with Nano Banana Pro
-# (Gemini 3 Pro Image) — best quality model
+# (Gemini 3 Pro Image) - best quality model
 #
 # Requires: GOOGLE_API_KEY in environment
 # Install: pip install paperbanana
@@ -21,13 +21,13 @@ echo ""
 # Figure 1: Architecture / overview (fig_architecture not in main text anymore, skip)
 
 # Figure 2: Round-robin evaluation and NSGA-II selection protocol
-echo "[1/3] fig_sampling — Round-robin evaluation protocol"
+echo "[1/3] fig_sampling - Round-robin evaluation protocol"
 cat > /tmp/pb_sampling.txt << 'EOF'
 Round-robin evaluation and NSGA-II selection protocol for multi-objective evolution of coding agent harnesses. The diagram has four panels:
 
 Left panel: A shuffled task deck is dealt in sequential batches of 11 tasks. Tasks are color-coded by type (GDPval capability tasks and ToolEmu safety tasks). Full coverage is achieved by iteration 2.
 
-Middle panel: Parallel evaluation produces two separate scores — a GDPval capability score and a ToolEmu safety score — for each candidate harness.
+Middle panel: Parallel evaluation produces two separate scores - a GDPval capability score and a ToolEmu safety score - for each candidate harness.
 
 Right panel: NSGA-II non-dominated sorting with crowding distance. Show a 2D objective space (GDPval on x-axis, Safety on y-axis) with points sorted into Pareto fronts F0, F1, F2. Crowding distance is used to maintain diversity within each front.
 
@@ -44,11 +44,11 @@ paperbanana generate \
   -n "$ITERS"
 
 # Figure 3: MOEvo evolution pipeline
-echo "[2/3] fig_pipeline — Evolution pipeline"
+echo "[2/3] fig_pipeline - Evolution pipeline"
 cat > /tmp/pb_pipeline.txt << 'EOF'
 The MOEvo multi-objective evolution pipeline for coding agent harnesses. The diagram shows two levels:
 
-Top level — Main evolution loop within each slice:
+Top level - Main evolution loop within each slice:
 1. UCB1 bandit selects one of 2 islands based on hypervolume improvement history
 2. Binary tournament selection with crowding distance picks a parent from the island's Pareto front
 3. The LLM mutator (Gemini) receives the parent code, per-task evaluation feedback from both benchmarks, and context programs from diverse Pareto front points
@@ -56,7 +56,7 @@ Top level — Main evolution loop within each slice:
 5. Both benchmarks (GDPval and ToolEmu) evaluate the offspring on 11 round-robin tasks each, all in parallel
 6. NSGA-II survival selection updates the island population
 
-Bottom level — Cascade across slices:
+Bottom level - Cascade across slices:
 Shows slices S1 through S8 connected by arrows. At each boundary, the geometric-mean-best program from the Pareto front is selected and carried forward to seed the next slice's population.
 
 Style: Clean flow diagram with rounded boxes, directional arrows, professional academic style with blue/gray palette. No cartoon elements.
@@ -70,23 +70,23 @@ paperbanana generate \
   -n "$ITERS"
 
 # Figure 4: Three phases of evolution discoveries
-echo "[3/3] fig_phases — Three phases of discoveries"
+echo "[3/3] fig_phases - Three phases of discoveries"
 cat > /tmp/pb_phases.txt << 'EOF'
 Three phases of code evolution discoveries in multi-objective harness evolution. This is a timeline/phase diagram showing what the evolution process discovers at different stages:
 
-Phase 1 — Reliability (iterations 1-3, highest impact):
+Phase 1 - Reliability (iterations 1-3, highest impact):
 - API response guards checking for empty choices and null messages
 - JSON error feedback forwarded to LLM for self-correction
 - Max iterations increased from 30 to 60
 - These improve BOTH capability and safety objectives (shown with arrows to both)
 
-Phase 2 — Architecture (iterations 3-6):
+Phase 2 - Architecture (iterations 3-6):
 - New python tool with auto-install for missing packages
 - Output buffer and file read limits increased
 - Search files tool added
 - These primarily improve CAPABILITY (shown with strong arrow to capability, weak to safety)
 
-Phase 3 — Prompt engineering (iterations 6+):
+Phase 3 - Prompt engineering (iterations 6+):
 - System prompt expanded from 7 to 84 lines with safety instructions
 - 19 task-specific guidelines added
 - Refusal detection added

@@ -1,6 +1,6 @@
 """System prompt for the custom harness agent.
 
-General-purpose — not biased toward any specific benchmark. The prompt
+General-purpose, not biased toward any specific benchmark. The prompt
 teaches the model how to use its tools effectively and how to approach
 tasks systematically.
 """

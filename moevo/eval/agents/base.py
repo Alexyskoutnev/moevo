@@ -77,7 +77,7 @@ class BaseAgent(ABC):
         return (
             "You are a professional assistant completing real-world work tasks. "
             "Follow the instructions precisely. Produce the exact deliverables requested.\n\n"
-            "CRITICAL FILE RULES — you MUST follow these:\n"
+            "CRITICAL FILE RULES - you MUST follow these:\n"
             "1. Save ALL files (scripts, deliverables, temp files) to the CURRENT WORKING DIRECTORY (./) only.\n"
             "2. NEVER write to /tmp/, ~/, /Users/, or any absolute path outside ./\n"
             "3. Use ONLY relative paths (e.g., ./output.docx, ./script.py, ./data.csv).\n"
@@ -96,7 +96,7 @@ class BaseAgent(ABC):
 
     @abstractmethod
     async def _run(self, prompt: str, cwd: Path) -> AgentResult:
-        """Subclass implementation — execute the agent on a prompt."""
+        """Subclass implementation - execute the agent on a prompt."""
         ...
 
     @abstractmethod

@@ -1,4 +1,4 @@
-"""Evaluator bridge — loads user's evaluate() and runs it in a thread."""
+"""Evaluator bridge - loads user's evaluate() and runs it in a thread."""
 
 from __future__ import annotations
 

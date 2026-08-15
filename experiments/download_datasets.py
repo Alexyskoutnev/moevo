@@ -34,8 +34,8 @@ DATASETS: list[tuple[str, str, str | None, str | None]] = [
 ]
 
 # Datasets that need manual download (not on HuggingFace):
-#   toolemu — https://github.com/ryoungj/ToolEmu (copy assets/all_cases.json to data/raw/toolemu/)
-#   asb     — https://github.com/agiresearch/ASB (copy data/ contents to data/raw/asb/)
+#   toolemu - https://github.com/ryoungj/ToolEmu (copy assets/all_cases.json to data/raw/toolemu/)
+#   asb     - https://github.com/agiresearch/ASB (copy data/ contents to data/raw/asb/)
 
 DATA_ROOT = Path("data/raw")
 
@@ -70,7 +70,7 @@ def download_one(
 
         # Save each split as a separate parquet file.
         if hasattr(ds, "keys"):
-            # DatasetDict — multiple splits.
+            # DatasetDict - multiple splits.
             for split_name in ds:
                 out_path = out_dir / f"{split_name}.parquet"
                 ds[split_name].to_parquet(str(out_path))
@@ -98,7 +98,7 @@ def download_gdpval_files() -> bool:
     """
     parquet_path = DATA_ROOT / "gdpval" / "train.parquet"
     if not parquet_path.exists():
-        print("  GDPval parquet not found — skipping file download.")
+        print("  GDPval parquet not found - skipping file download.")
         return False
 
     df = pd.read_parquet(parquet_path)

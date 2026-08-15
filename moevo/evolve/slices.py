@@ -103,7 +103,7 @@ def run_full_slice_eval(
 
     elapsed = time.monotonic() - slice_start
     log.info(
-        "[%s] DONE — %.1f%% (%d/%d completed, %d errors, %.0fs)",
+        "[%s] DONE - %.1f%% (%d/%d completed, %d errors, %.0fs)",
         slice_name,
         result.avg_score * 100,
         result.num_completed,

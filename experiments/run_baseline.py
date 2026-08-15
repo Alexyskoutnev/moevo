@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Run baseline evaluation: all agents across all zipper slices.
 
-Runs each agent (claude, gemini, codex) on every slice (S1–S8 dev, E1–E2 eval),
+Runs each agent (claude, gemini, codex) on every slice (S1-S8 dev, E1-E2 eval),
 checkpointing results after each slice. Produces a trajectory JSON tracking
 scores per agent per slice.
 
@@ -80,7 +80,7 @@ def load_gdpval_samples() -> list[Sample]:
 def generate_zipper_split(samples: list[Sample]) -> dict[str, list[Sample]]:
     """Create the deterministic zipper split and persist it to disk.
 
-    Returns a flat dict mapping slice name (S1–S8, E1–E2) to its samples.
+    Returns a flat dict mapping slice name (S1-S8, E1-E2) to its samples.
     """
     split = zipper_split(samples)
 
@@ -211,7 +211,7 @@ async def run_agent_on_slice(
     containing traces.json, eval.json, and a workspace/ folder.
     """
     # Per-agent rate limits (RPM), concurrency caps, and default models.
-    # Gemini 3.1 Pro has only 250 RPD — use gemini-3-flash (10K RPD).
+    # Gemini 3.1 Pro has only 250 RPD - use gemini-3-flash (10K RPD).
     # Gemini CLI spawns heavy node.js processes; cap concurrency to avoid hangs.
     agent_rpm = {"gemini": 20}
     agent_max_concurrency = {"gemini": 5}
@@ -325,12 +325,12 @@ def log_trajectory_table(trajectory: dict[str, Any]) -> None:
                 row += f"{val:>{col_width}.1%}"
                 vals.append(val)
             else:
-                row += f"{'—':>{col_width}}"
+                row += f"{'-':>{col_width}}"
 
         if vals:
             row += f"{sum(vals) / len(vals):>{col_width + 1}.1%}"
         else:
-            row += f"{'—':>{col_width + 1}}"
+            row += f"{'-':>{col_width + 1}}"
         lines.append(row)
 
     lines.append("=" * len(header))
@@ -355,8 +355,8 @@ def parse_args() -> argparse.Namespace:
         choices=list(AGENTS.keys()),
         help="Agents to evaluate (default: claude, gemini, codex)",
     )
-    parser.add_argument("--dev-only", action="store_true", help="Only run dev slices S1–S8")
-    parser.add_argument("--eval-only", action="store_true", help="Only run eval slices E1–E2")
+    parser.add_argument("--dev-only", action="store_true", help="Only run dev slices S1-S8")
+    parser.add_argument("--eval-only", action="store_true", help="Only run eval slices E1-E2")
     parser.add_argument(
         "--slices", nargs="+", default=None, help="Run specific slices (e.g. --slices S1 S2 E1)"
     )
@@ -391,7 +391,7 @@ def resolve_target_slices(args: argparse.Namespace) -> list[str]:
 
 
 def resolve_run_dir(args: argparse.Namespace) -> Path:
-    """Return the output directory — either a resumed one or a fresh timestamp."""
+    """Return the output directory - either a resumed one or a fresh timestamp."""
     if args.resume:
         run_dir = Path(args.resume)
         logger.info("Resuming from %s", run_dir)
@@ -418,7 +418,7 @@ def setup_logging(run_dir: Path, verbose: bool) -> None:
     run_dir.mkdir(parents=True, exist_ok=True)
     log_path = run_dir / "run.log"
 
-    # Root logger — all modules log through this
+    # Root logger - all modules log through this
     root = logging.getLogger()
     root.setLevel(level)
 
@@ -428,7 +428,7 @@ def setup_logging(run_dir: Path, verbose: bool) -> None:
     console.setFormatter(logging.Formatter(fmt, datefmt=datefmt))
     root.addHandler(console)
 
-    # File handler — always captures DEBUG regardless of --verbose
+    # File handler - always captures DEBUG regardless of --verbose
     file_handler = logging.FileHandler(log_path, mode="a", encoding="utf-8")
     file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(logging.Formatter(fmt, datefmt=datefmt))
@@ -510,7 +510,7 @@ async def main() -> None:
 
         for a in agents_to_run:
             logger.info(
-                "━━━ %s | %s (%s) — %d tasks ━━━",
+                "━━━ %s | %s (%s) - %d tasks ━━━",
                 a,
                 slice_name,
                 slice_type,

@@ -1,8 +1,8 @@
-"""Custom evolvable agent — general-purpose Python-native LLM agent with tool use.
+"""Custom evolvable agent - general-purpose Python-native LLM agent with tool use.
 
 A production-ready agentic harness that calls an LLM API directly with a
 comprehensive tool set modeled after Claude Code and Codex CLI. Not biased
-toward any specific benchmark — this is a general-purpose coding/professional
+toward any specific benchmark - this is a general-purpose coding/professional
 assistant.
 
 Sections:
@@ -605,7 +605,7 @@ class CustomAgent(BaseAgent):
 
     Provides a comprehensive tool set (bash, read_file, write_file, edit_file,
     list_dir, grep, glob) modeled after Claude Code and Codex CLI. Designed
-    to be a production-ready, general-purpose agentic harness — not biased
+    to be a production-ready, general-purpose agentic harness - not biased
     toward any specific benchmark.
     """
 
@@ -613,7 +613,7 @@ class CustomAgent(BaseAgent):
         return "custom"
 
     async def _run(self, prompt: str, cwd: Path) -> AgentResult:
-        """Run the agent. Never raises — all errors become partial results.
+        """Run the agent. Never raises - all errors become partial results.
 
         Runs the synchronous Gemini API loop in a thread via asyncio.to_thread()
         so multiple tasks can execute concurrently with asyncio.gather().
@@ -635,7 +635,7 @@ class CustomAgent(BaseAgent):
                 response_parts,
             )
         except Exception as e:
-            # Never propagate exceptions — return partial results with error info
+            # Never propagate exceptions - return partial results with error info
             logger.error("[custom] Unhandled error: %s: %s", type(e).__name__, e)
             response_parts.append(f"(Agent terminated due to error: {type(e).__name__}: {e})")
             return AgentResult(
@@ -686,7 +686,7 @@ class CustomAgent(BaseAgent):
             function_calls = _extract_function_calls(response)
 
             if not function_calls:
-                # Model is done — extract final text
+                # Model is done - extract final text
                 text = _get_response_text(response)
                 response_parts.append(text)
                 messages_log.append({"role": "assistant", "type": "text", "content": text[:2000]})
@@ -796,7 +796,7 @@ def _call_with_retry(
                 return None
             wait = 2 ** (attempt + 1)
             logger.warning(
-                "[custom] API error (attempt %d): %s: %s — retrying in %ds",
+                "[custom] API error (attempt %d): %s: %s - retrying in %ds",
                 attempt + 1,
                 error_name,
                 e,

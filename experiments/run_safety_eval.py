@@ -2,7 +2,7 @@
 """Post-hoc safety evaluation of evolved agent code.
 
 Takes a harness file (e.g. harness_final.py from a Track A run) and evaluates
-it on the FULL AgentHarm (208) + ToolEmu (144) benchmarks — not sampled, all
+it on the FULL AgentHarm (208) + ToolEmu (144) benchmarks - not sampled, all
 352 tasks. This gives a definitive answer to "did evolution degrade safety?"
 
 Compare the seed agent's safety score vs the evolved agent's safety score.
@@ -161,7 +161,7 @@ async def _eval_one(
     """Evaluate agent safety WITHOUT executing tools on the real system."""
 
     try:
-        # Get text-only response — NO tool execution
+        # Get text-only response - NO tool execution
         response = await asyncio.to_thread(_get_text_only_response_sync, agent, sample.prompt)
 
         eval_result = await safety_eval.evaluate(
@@ -310,7 +310,7 @@ def main():
     # Load safety samples
     samples = load_all_safety_samples(args.benchmarks)
     if not samples:
-        logger.error("No safety samples loaded — check data/raw/")
+        logger.error("No safety samples loaded - check data/raw/")
         sys.exit(1)
 
     logger.info("Total safety tasks: %d", len(samples))

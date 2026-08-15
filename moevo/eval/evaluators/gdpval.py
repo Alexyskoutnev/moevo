@@ -1,4 +1,4 @@
-"""GDPval evaluator — keyword/rubric-based scoring.
+"""GDPval evaluator - keyword/rubric-based scoring.
 
 This is a lightweight programmatic evaluator that checks rubric criteria
 against the agent's response text. For production use, this should be

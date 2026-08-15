@@ -1,4 +1,4 @@
-"""ParetoDatabase — multi-island population with NSGA-II survival."""
+"""ParetoDatabase - multi-island population with NSGA-II survival."""
 
 from __future__ import annotations
 

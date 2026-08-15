@@ -1,0 +1,96 @@
+[project]
+name = "moevo"
+version = "0.1.0"
+description = "MOEvo: multi-objective Pareto evolution of coding-agent harnesses on capability and safety."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+authors = [
+    { name = "Alexy Skoutnev" },
+]
+keywords = [
+    "multi-objective-optimization",
+    "nsga-ii",
+    "evolutionary-computation",
+    "llm-agents",
+    "agent-safety",
+]
+
+dependencies = [
+    # Pareto sorting and crowding distance. The one piece of the search we do
+    # not implement ourselves.
+    "pymoo>=0.6",
+    "numpy>=1.24",
+    # LLM providers: the agent and judges run on OpenAI, the mutator on Gemini.
+    "openai>=1.0",
+    "google-genai>=1.0",
+    "python-dotenv>=1.0",
+    # Benchmark loading (GDPval and ToolEmu ship as HuggingFace datasets).
+    "datasets>=4.0",
+    "huggingface_hub>=1.0",
+    "pandas>=2.0",
+    "pyarrow>=15.0",
+]
+
+[project.optional-dependencies]
+# Only needed to reproduce the Claude Code baseline in Table 1.
+baselines = ["claude-agent-sdk>=0.1.48"]
+
+[project.scripts]
+moevo = "moevo.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "ruff>=0.11",
+    "pyright>=1.1.411",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["moevo"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+markers = ["unit: fast, deterministic unit test (no network, no API keys)"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+# The seed agents are experimental inputs, not library code: run_evolve.py reads
+# them as TEXT and hands them to the mutator as generation 0. Formatting them
+# would silently change the starting point of every reported run, so they are
+# excluded from both the linter and the formatter and kept byte-identical to the
+# programs used in the paper.
+extend-exclude = ["moevo/evolve/seeds/"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP", "B", "SIM", "TC"]
+ignore = [
+    "E501",  # line length is enforced by the formatter, not the linter
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Runner scripts intentionally call load_dotenv() and extend sys.path before
+# importing project modules, so imports cannot all sit at the top of the file.
+"experiments/*.py" = ["E402"]
+"moevo/evolve/run_evolve.py" = ["E402"]
+"moevo/evolve/moevo_evaluator.py" = ["E402"]
+# F, G and front_F are the objective matrix and the accumulated-improvement
+# signal. The capitals match the notation in NSGA-II, in pymoo's API, and in the
+# paper; lowercasing them would break that correspondence.
+"moevo/search/pareto.py" = ["N806"]
+"moevo/search/adaptation.py" = ["N806"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["moevo"]
+
+[tool.pyright]
+pythonVersion = "3.11"
+typeCheckingMode = "basic"
+reportMissingImports = false

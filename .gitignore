@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+
+# Secrets — never commit real keys; see .env.example
+.env
+
+# Benchmark data, downloaded via experiments/download_datasets.py.
+# GDPval and ToolEmu carry their own licences and are not redistributed here.
+/data/
+
+# Evolution scratch space and run outputs
+/workspace/
+/results/
+/runs/
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp

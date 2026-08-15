@@ -1,0 +1,170 @@
+<div align="center">
+
+# MOEvo
+
+### Multi-Objective Pareto Evolution of Coding-Agent Harnesses
+
+**Evolving the code around a frozen LLM on two objectives at once — capability and safety — without picking a trade-off weight in advance.**
+
+[![Paper](https://img.shields.io/badge/paper-citation-b31b1b.svg)](#citation)
+[![Python](https://img.shields.io/badge/python-3.11-3776ab.svg)](pyproject.toml)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
+<br>
+
+<img src="docs/figures/fig_pipeline_v3.png" width="92%" alt="The MOEvo evolution pipeline">
+
+<sub><b>One iteration, and the cascade underneath it.</b> UCB1 picks an island, tournament
+selection picks a parent, an LLM mutator writes one offspring as SEARCH/REPLACE diffs, both
+benchmarks score it, and NSGA-II decides who survives. The cascade carries the
+geometric-mean-best program across eight non-overlapping task slices.</sub>
+
+</div>
+
+<br>
+
+## What this is
+
+An agent *harness* — the prompts, tool definitions, control flow, and error handling wrapped
+around a frozen LLM — is ordinary Python. MOEvo evolves that Python.
+
+The usual approach scores each candidate with one number. That forces you to fix a trade-off
+weight before you know the trade-off, and it throws away any mutation that helps one objective
+while nudging another down. MOEvo replaces the scalar with **NSGA-II Pareto selection**: a
+candidate survives if nothing else dominates it on *both* capability and safety. Diverse
+improvements are kept instead of being averaged away, and they compound over generations.
+
+Two objectives, both maximised:
+
+- **Capability** — [GDPval](https://arxiv.org/abs/2510.04374), 220 real professional tasks across 44 occupations.
+- **Safety** — [ToolEmu](https://arxiv.org/abs/2309.15817), 144 tool-use scenarios with a hidden hazard in each.
+
+## Results
+
+Starting from a minimal seed agent with four tools and no error handling.
+
+**Development slices** (S1–S8, 22 GDPval tasks each):
+
+| Method | Selection | GDPval |
+|---|---|--:|
+| **MOEvo pro** | NSGA-II Pareto | **82.0** |
+| MOEvo flash | NSGA-II Pareto | 77.9 |
+| Codex CLI (unevolved) | — | 75.3 |
+| Claude Code (unevolved) | — | 70.3 |
+| SkyDiscover flash | linear, *w*=0.5 | 62.6 |
+| SkyDiscover pro | linear, *w*=0.5 | 61.7 |
+
+**Held-out slices** (E1/E2, never seen during evolution) and the full 144-task ToolEmu:
+
+| Method | GDPval E1 | GDPval E2 | GDPval avg | ToolEmu |
+|---|--:|--:|--:|--:|
+| Codex CLI (unevolved) | 64.5 | 78.1 | **71.3** | 50.5 |
+| Claude Code (unevolved) | 59.4 | 79.5 | 69.4 | 50.4 |
+| MOEvo pro | 52.7 | 69.5 | 61.1 | **52.2** |
+| MOEvo flash | 50.5 | 71.1 | 60.8 | 50.2 |
+| SkyDiscover pro | 55.4 | 24.6 | 40.0 | 51.2 |
+| SkyDiscover flash | 14.0 | 20.0 | 17.0 | 51.0 |
+
+Read both tables. The result we claim is **Pareto vs. scalar selection**, and it holds in both:
+MOEvo pro beats SkyDiscover pro by 20.3 points on development slices and by 21.1 on held-out
+data, using half the iteration budget, while SkyDiscover flash collapses to 17.0%.
+
+The result we do **not** claim is that the evolved agent beats the commercial harnesses in
+general. On held-out slices it does not — 61.1% against Codex CLI's 71.3% and Claude Code's
+69.4%. The development-slice numbers come from each slice's carry-forward agent, which is a
+different program per slice; the held-out numbers come from one final agent on unseen tasks.
+Safety is flat across every method (50–52%), so the honest reading there is *no observed
+degradation*, not a demonstrated trade-off.
+
+## Install
+
+```sh
+git clone https://github.com/Alexyskoutnev/moevo && cd moevo
+uv venv --python 3.11 && uv pip install -e ".[dev]"
+cp .env.example .env    # then add your API keys
+```
+
+Requires an OpenAI key (agent + judges) and a Gemini key (mutator). The Claude Code baseline
+additionally needs `ANTHROPIC_API_KEY` and `pip install -e ".[baselines]"`.
+
+## Quickstart
+
+Evolve a program against your own evaluator — this is the engine on its own, no benchmarks:
+
+```python
+import asyncio
+from moevo import run_discovery
+
+result = asyncio.run(
+    run_discovery(
+        evaluator="my_evaluator.py",  # exposes evaluate(program_path) -> dict[str, float]
+        initial_program="seed.py",
+        objectives=["accuracy", "safety"],
+        iterations=50,
+    )
+)
+print(result.pareto_front)
+```
+
+Or reproduce a paper run:
+
+```sh
+python -m moevo.evolve.run_evolve --seed openai --slice S1
+```
+
+## Layout
+
+```
+moevo/
+  core/        config, typed results, checkpointing
+  search/      NSGA-II survival, crowding distance, island model, UCB1, adaptive intensity
+  generation/  LLM mutation, SEARCH/REPLACE diff application, syntax retry
+  harness/     the seed agent under evolution — agent loop, tools, prompts
+  data/        GDPval and ToolEmu loaders, the deterministic 10-slice round-robin split
+  eval/        agent runners (Claude Code, Codex, Gemini CLI, custom) and the LLM judges
+  evolve/      cascade drivers, slice logic, and the seed programs
+experiments/   the runners behind each table and figure in the paper
+tests/         unit tests for the search operators and diff application
+```
+
+`moevo/evolve/seeds/*.py` are **experimental inputs, not library code** — `run_evolve.py`
+reads them as text and hands them to the mutator as generation 0. They are byte-identical to
+the programs used in the paper and are excluded from the linter and formatter so they stay
+that way.
+
+## Reproducing the paper
+
+```sh
+python experiments/download_datasets.py     # GDPval + ToolEmu (not redistributed here)
+python experiments/run_baseline.py          # Table 1: unevolved commercial harnesses
+python -m moevo.evolve.run_evolve --seed openai --slice S1   # evolution, per slice
+python experiments/run_eval_slices.py       # Table 3: held-out E1/E2
+python experiments/run_cross_judge.py       # Appendix D: independent Gemini judge
+```
+
+Each evolution configuration is roughly 40 iterations, about 3.5 hours and ~$125 in API spend.
+Every configuration in the paper is a **single run** — there are no error bars, and the
+differences between nearby numbers should not be over-read.
+
+## Limitations
+
+ToolEmu is a text-only proxy: the agent responds to a described scenario, it does not execute
+real tool calls. These scores are not evidence of real-world safety. Evolved harnesses write
+and run code — review them and sandbox them before running them anywhere that matters.
+
+## Citation
+
+```bibtex
+@misc{skoutnev2026moevo,
+  title  = {MOEvo: Multi-Objective Pareto Evolution of Recursive Self-Improving
+            Coding Agent Harnesses on Capability and Safety Benchmarks},
+  author = {Skoutnev, Alexy and Longhitano, Gaston and Acharya, Kirill and
+            Segev, Ben and Kerret, Ori and Udell, Madeleine and Drori, Iddo},
+  year   = {2026}
+}
+```
+
+## License
+
+MIT — see [LICENSE](LICENSE). GDPval and ToolEmu carry their own licences and are downloaded
+at setup rather than redistributed here.

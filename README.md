@@ -9,6 +9,7 @@
 [![Paper](https://img.shields.io/badge/paper-citation-b31b1b.svg)](#citation)
 [![Python](https://img.shields.io/badge/python-3.11-3776ab.svg)](pyproject.toml)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Website](https://img.shields.io/badge/website-moevo-1a5fb4.svg)](https://moevo.vercel.app)
 
 <br>
 
@@ -42,6 +43,8 @@ Two objectives, both maximised:
 ## Results
 
 Starting from a minimal seed agent with four tools and no error handling.
+Interactive results, per-slice evolution traces, and the discovered harness diffs
+are at **[moevo.vercel.app](https://moevo.vercel.app)**.
 
 **Development slices** (S1–S8, 22 GDPval tasks each):
 
@@ -119,26 +122,6 @@ Or reproduce a paper run:
 ```sh
 python -m moevo.evolve.run_evolve --seed openai --slice S1
 ```
-
-## Layout
-
-```
-moevo/
-  core/        config, typed results, checkpointing
-  search/      NSGA-II survival, crowding distance, island model, UCB1, adaptive intensity
-  generation/  LLM mutation, SEARCH/REPLACE diff application, syntax retry
-  harness/     the seed agent under evolution — agent loop, tools, prompts
-  data/        GDPval and ToolEmu loaders, the deterministic 10-slice round-robin split
-  eval/        agent runners (Claude Code, Codex, Gemini CLI, custom) and the LLM judges
-  evolve/      cascade drivers, slice logic, and the seed programs
-experiments/   the runners behind each table and figure in the paper
-tests/         unit tests for the search operators and diff application
-```
-
-`moevo/evolve/seeds/*.py` are **experimental inputs, not library code** — `run_evolve.py`
-reads them as text and hands them to the mutator as generation 0. They are byte-identical to
-the programs used in the paper and are excluded from the linter and formatter so they stay
-that way.
 
 ## Reproducing the paper
 

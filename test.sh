@@ -21,8 +21,13 @@ uv build --wheel --out-dir dist
 
 echo "== install the wheel into a scratch environment =="
 mkdir -p _testing
-uv venv --python 3.11 _testing/venv >/dev/null
-VIRTUAL_ENV="$PWD/_testing/venv" uv pip install --quiet dist/moevo-*.whl pytest pytest-asyncio
+# No --python pin here: locally uv takes the version from .python-version, and in
+# CI it takes UV_PYTHON from the job matrix. Pinning would silently test one
+# version regardless of what the matrix asked for.
+uv venv _testing/venv >/dev/null
+# Target the scratch interpreter explicitly rather than via VIRTUAL_ENV, which
+# loses to UV_PYTHON when the two disagree.
+uv pip install --quiet --python _testing/venv/bin/python dist/moevo-*.whl pytest pytest-asyncio
 
 echo "== run tests against the installed package =="
 cp -R tests _testing/tests

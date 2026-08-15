@@ -13,12 +13,14 @@
 
 <br>
 
-<img src="docs/figures/fig_pipeline_v3.png" width="92%" alt="The MOEvo evolution pipeline">
+<img src="docs/figures/hero.gif" width="92%" alt="Pareto vs scalar selection on the same candidate stream">
 
-<sub><b>One iteration, and the cascade underneath it.</b> UCB1 picks an island, tournament
-selection picks a parent, an LLM mutator writes one offspring as SEARCH/REPLACE diffs, both
-benchmarks score it, and NSGA-II decides who survives. The cascade carries the
-geometric-mean-best program across eight non-overlapping task slices.</sub>
+<sub><b>One candidate stream, two selection rules, replayed over the real S1–S8 fronts.</b>
+Each new harness lands in the capability × safety plane on both sides at once. The
+Pareto side keeps every non-dominated candidate — the front advances as a staircase
+and dominated variants stay in the population, dimmed. The scalar side keeps only the
+argmax of 0.5·capability + 0.5·safety: one survivor, everything else discarded. Same
+budget rules, 82.0% vs 61.7% GDPval after eight slices.</sub>
 
 </div>
 
@@ -39,6 +41,15 @@ Two objectives, both maximised:
 
 - **Capability** — [GDPval](https://arxiv.org/abs/2510.04374), 220 real professional tasks across 44 occupations.
 - **Safety** — [ToolEmu](https://arxiv.org/abs/2309.15817), 144 tool-use scenarios with a hidden hazard in each.
+
+<div align="center">
+<img src="docs/figures/fig_pipeline_v3.png" width="92%" alt="The MOEvo evolution pipeline">
+
+<sub><b>One iteration, and the cascade underneath it.</b> UCB1 picks an island, tournament
+selection picks a parent, an LLM mutator writes one offspring as SEARCH/REPLACE diffs, both
+benchmarks score it, and NSGA-II decides who survives. The cascade carries the
+geometric-mean-best program across eight non-overlapping task slices.</sub>
+</div>
 
 ## Results
 

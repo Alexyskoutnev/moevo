@@ -6,7 +6,6 @@
 
 **Evolving the code around a frozen LLM on two objectives at once, capability and safety, without picking a trade-off weight in advance.**
 
-[![Paper](https://img.shields.io/badge/paper-citation-b31b1b.svg)](#citation)
 [![Python](https://img.shields.io/badge/python-3.11-3776ab.svg)](pyproject.toml)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Website](https://img.shields.io/badge/website-moevo-1a5fb4.svg)](https://moevo.vercel.app)
@@ -159,18 +158,6 @@ differences between nearby numbers should not be over-read.
 ToolEmu is a text-only proxy: the agent responds to a described scenario, it does not execute
 real tool calls. These scores are not evidence of real-world safety. Evolved harnesses write
 and run code. Review them and sandbox them before running them anywhere that matters.
-
-## Citation
-
-```bibtex
-@misc{skoutnev2026moevo,
-  title  = {MOEvo: Multi-Objective Pareto Evolution of Recursive Self-Improving
-            Coding Agent Harnesses on Capability and Safety Benchmarks},
-  author = {Skoutnev, Alexy and Longhitano, Gaston and Acharya, Kirill and
-            Segev, Ben and Kerret, Ori and Udell, Madeleine and Drori, Iddo},
-  year   = {2026}
-}
-```
 
 ## License
 

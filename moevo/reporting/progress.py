@@ -49,6 +49,7 @@ def controller_liveness(root: Path) -> dict:
                 "experiments.run_first_slice",
                 "experiments.run_pilot_epoch",
                 "experiments.run_reference_baselines",
+                "experiments.run_reference_parallel",
             }:
                 continue
             if "--_worker" in parts:

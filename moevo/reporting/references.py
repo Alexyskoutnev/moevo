@@ -106,6 +106,10 @@ def reference_comparison(
             "scored": len(scores),
             "total": len(expected),
             "attempts": state.get("task_attempts", 0),
+            "concurrency": state.get("execution_amendment", {}).get(
+                "concurrency", run.get("workers", 1)
+            ),
+            "active_tasks": state.get("active_tasks", []),
             "benchmarks": benchmarks,
         }
         if observe_process and arms[arm]["status"] == "running":

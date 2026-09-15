@@ -14,6 +14,7 @@ from pathlib import Path
 from moevo.codex.client import run_codex
 from moevo.codex.container_runtime import solve_in_container
 from moevo.codex.finance_pilot import write_json
+from moevo.codex.judging import judge_metadata
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -177,18 +178,21 @@ def analysis(policy: dict, output: Path, image: str):
     prompt = prompt_and_inputs("dsbench", row, output / "workspace")
     question = (output / "workspace/question.txt").read_text()
     gold = str(row["answers"][row["question_index"]])
-    positive = ds_grade(question, gold, gold, output / "positive_control")
-    negative = ds_grade(question, gold, "No answer submitted", output / "negative_control")
+    positive = ds_grade(question, gold, gold, output / "positive_control", judge=policy)
+    negative = ds_grade(
+        question, gold, "No answer submitted", output / "negative_control", judge=policy
+    )
     if positive["score"] != 1 or negative["score"] != 0:
         raise ValueError("DSBench account judge controls failed")
     response = solve(policy, prompt, output, image)
-    scored = ds_grade(question, gold, response.text, output / "grade")
+    scored = ds_grade(question, gold, response.text, output / "grade", judge=policy)
     return result(
         response,
         scored["score"],
         scored,
         f"{row['id']}/{row['question_name']}",
-        "Official data and judge prompt; account-Astra judge variant",
+        "Official data and judge prompt; account judge variant",
+        **judge_metadata(policy),
     )
 
 
@@ -199,7 +203,9 @@ def health(policy: dict, output: Path, image: str):
         rows = [json.loads(line) for line in stream if line.strip()]
     for row in rows:
         row["conversation"] = row["conversation"]["messages"]
-    controls(output, {"policy": policy, "protocol": "account-Astra per-criterion public rubric"})
+    controls(
+        output, {"policy": policy, "protocol": "account per-criterion public rubric"}, judge=policy
+    )
     panel, _ = development_panel(rows, policy["seed"])
     row = rows[panel[0]]
     prompt = policy["instructions"] + "\nRespond to the final user message:\n\n"
@@ -213,13 +219,14 @@ def health(policy: dict, output: Path, image: str):
             timeout=policy["timeout_seconds"],
             log_dir=output / "agent",
         )
-    scored = grade_response(row, response.text, output / "grade")
+    scored = grade_response(row, response.text, output / "grade", judge=policy)
     return result(
         response,
         scored["raw_rubric_score"],
         scored,
         row["id"],
-        "Public HealthBench scorer; account-Astra solver/judge; text only; external protocol variant",
+        "Public HealthBench scorer; account solver/judge; text only; external protocol variant",
+        **judge_metadata(policy),
         strict_pass=scored["all_criteria_passed"],
     )
 

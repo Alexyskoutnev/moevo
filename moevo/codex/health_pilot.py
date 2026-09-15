@@ -20,6 +20,7 @@ from typing import Any
 from moevo.codex.client import run_codex
 from moevo.codex.finance_pilot import write_json
 from moevo.codex.headroom import assess_headroom
+from moevo.codex.judging import judge_metadata, run_judge
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA = ROOT / "data/raw/healthbench_professional"
@@ -62,6 +63,8 @@ def grade_criterion(
     points: float,
     output: Path,
     timeout: int = 180,
+    *,
+    judge: dict | None = None,
 ) -> dict:
     official = official_scorer()
     text = "\n\n".join(
@@ -75,7 +78,9 @@ def grade_criterion(
         .replace("<<rubric_item>>", str(item))
     )
     with tempfile.TemporaryDirectory(prefix="moevo-health-judge-") as cwd:
-        result = run_codex(prompt, cwd=Path(cwd), timeout=timeout, log_dir=output / "codex")
+        result = run_judge(
+            prompt, judge=judge, cwd=Path(cwd), timeout=timeout, log_dir=output / "codex"
+        )
     verdict = official["parse_json_to_dict"](result.text)
     if type(verdict.get("criteria_met")) is not bool or not isinstance(
         verdict.get("explanation"), str
@@ -87,13 +92,14 @@ def grade_criterion(
             "criterion": criterion,
             "usage": result.usage,
             "duration_s": result.duration_s,
+            **judge_metadata(judge),
         }
     )
     write_json(output / "grade.json", verdict)
     return verdict
 
 
-def grade_response(row: dict, response: str, output: Path) -> dict:
+def grade_response(row: dict, response: str, output: Path, *, judge: dict | None = None) -> dict:
     official = official_scorer()
     items = [
         official["RubricItem"](r["criterion_text"], r["points"], []) for r in row["rubric_items"]
@@ -108,6 +114,7 @@ def grade_response(row: dict, response: str, output: Path) -> dict:
                 r["criterion_text"],
                 r["points"],
                 output / f"criterion-{i:02d}",
+                judge=judge,
             )
             for i, r in enumerate(row["rubric_items"])
         ]
@@ -128,10 +135,12 @@ def grade_response(row: dict, response: str, output: Path) -> dict:
         "all_criteria_passed": complete,
         "response_characters": len(response),
         "criteria": grades,
+        **judge_metadata(judge),
     }
 
 
-def controls(output: Path, signature: dict) -> None:
+def controls(output: Path, signature: dict, *, judge: dict | None = None) -> None:
+    signature = {**signature, **judge_metadata(judge)}
     cached = output / "controls.json"
     if cached.exists():
         if json.loads(cached.read_text())["signature"] != signature:
@@ -153,7 +162,7 @@ def controls(output: Path, signature: dict) -> None:
     results = []
     for name, response, criterion, points, expected in cases:
         grade = grade_criterion(
-            conversation, response, criterion, points, output / "controls" / name
+            conversation, response, criterion, points, output / "controls" / name, judge=judge
         )
         if grade["criteria_met"] is not expected:
             raise ValueError(f"HealthBench judge failed the {name} control")

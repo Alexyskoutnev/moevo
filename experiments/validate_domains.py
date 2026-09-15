@@ -18,7 +18,7 @@ import subprocess
 import tempfile
 from pathlib import Path
 
-from moevo.codex.client import account_environment, require_chatgpt_login, run_codex
+from moevo.codex.client import account_environment, require_chatgpt_login
 from moevo.codex.container_runtime import solve_in_container
 from moevo.codex.finance_pilot import write_json
 from moevo.codex.headroom import assess_headroom
@@ -115,10 +115,18 @@ def ds_judge_prompt(question: str, answer: str, prediction: str) -> str:
     )
 
 
-def ds_grade(question: str, gold: str, prediction: str, output: Path) -> dict:
+def ds_grade(
+    question: str, gold: str, prediction: str, output: Path, *, judge: dict | None = None
+) -> dict:
+    from moevo.codex.judging import judge_metadata, run_judge
+
     with tempfile.TemporaryDirectory(prefix="moevo-ds-judge-") as cwd:
-        result = run_codex(
-            ds_judge_prompt(question, gold, prediction), cwd=Path(cwd), timeout=180, log_dir=output
+        result = run_judge(
+            ds_judge_prompt(question, gold, prediction),
+            judge=judge,
+            cwd=Path(cwd),
+            timeout=180,
+            log_dir=output,
         )
     verdict = result.text.strip().lower()
     if verdict not in {"true", "false", "flase"}:
@@ -127,7 +135,8 @@ def ds_grade(question: str, gold: str, prediction: str, output: Path) -> dict:
         "score": float(verdict == "true"),
         "judge_response": result.text,
         "judge_usage": result.usage,
-        "protocol": "Official judge prompt; account Astra replaces original GPT-4o judge",
+        **judge_metadata(judge),
+        "protocol": "Official judge prompt; account model replaces original GPT-4o judge",
     }
 
 

@@ -9,9 +9,9 @@ import subprocess
 import tempfile
 from pathlib import Path
 
-from moevo.codex.client import run_codex
 from moevo.codex.domain_tasks import ROOT, result, solve
 from moevo.codex.finance_pilot import write_json
+from moevo.codex.judging import judge_metadata, run_judge
 
 IMAGE = "docker.io/library/moevo-doc-runtime:20260915"
 VERDICT = {
@@ -59,7 +59,9 @@ def extract(directory: Path, output: Path):
     return files
 
 
-def legal_verdict(task: str, text: str, title: str, criterion: str, output: Path):
+def legal_verdict(
+    task: str, text: str, title: str, criterion: str, output: Path, *, judge: dict | None = None
+):
     template = (
         ROOT / "data/external/harvey_lab/lab_core/evaluation/prompts/rubric_criterion.txt"
     ).read_text()
@@ -67,10 +69,14 @@ def legal_verdict(task: str, text: str, title: str, criterion: str, output: Path
         task_description=task, agent_output=text, criterion_title=title, match_criteria=criterion
     )
     with tempfile.TemporaryDirectory(prefix="moevo-legal-judge-") as cwd:
-        response = run_codex(prompt, cwd=Path(cwd), schema=VERDICT, timeout=240, log_dir=output)
+        response = run_judge(
+            prompt, judge=judge, cwd=Path(cwd), schema=VERDICT, timeout=240, log_dir=output
+        )
     verdict = json.loads(response.text)
-    if verdict["verdict"] not in {"pass", "fail"}:
+    if verdict["verdict"] not in {"pass", "fail"} or not isinstance(verdict.get("reasoning"), str):
         raise ValueError("Invalid legal judge verdict")
+    verdict.update(judge_metadata(judge))
+    verdict["judge_usage"] = response.usage
     write_json(output / "verdict.json", verdict)
     return verdict
 
@@ -90,6 +96,7 @@ def legal(policy: dict, output: Path, image: str):
             "Value",
             "PASS if the response states that the contract value is USD 100; otherwise FAIL.",
             output / "controls" / label,
+            judge=policy,
         )
         if verdict["verdict"] != expected:
             raise ValueError("Legal rubric judge failed transport control")
@@ -121,6 +128,7 @@ def legal(policy: dict, output: Path, image: str):
             criterion["title"],
             criterion["match_criteria"],
             output / "grade" / f"criterion-{i:03d}",
+            judge=policy,
         )
         return {"id": criterion["id"], **verdict}
 
@@ -140,7 +148,8 @@ def legal(policy: dict, output: Path, image: str):
         score,
         grade,
         task_id,
-        "Official LAB criterion prompt and all-pass rule; single account-Astra judge variant; DOCX extracted with pandoc",
+        "Official LAB criterion prompt and all-pass rule; account judge variant; DOCX extracted with pandoc",
+        **judge_metadata(policy),
         criterion_pass_rate=passed / len(grades),
         controls_scope="Rubric transport; not an independent legal accuracy audit",
         artifact_count=len(files),
@@ -148,7 +157,7 @@ def legal(policy: dict, output: Path, image: str):
     )
 
 
-def gdp_grade(prompt: str, files: list, criteria: list, output: Path):
+def gdp_grade(prompt: str, files: list, criteria: list, output: Path, *, judge: dict | None = None):
     from moevo.eval.evaluators.gdpval_judge import JUDGE_SYSTEM_PROMPT
 
     schema = {
@@ -184,9 +193,21 @@ def gdp_grade(prompt: str, files: list, criteria: list, output: Path):
         ensure_ascii=False,
     )
     with tempfile.TemporaryDirectory(prefix="moevo-gdp-judge-") as cwd:
-        response = run_codex(request, cwd=Path(cwd), schema=schema, timeout=600, log_dir=output)
+        response = run_judge(
+            request, judge=judge, cwd=Path(cwd), schema=schema, timeout=600, log_dir=output
+        )
     grades = json.loads(response.text)["criteria"]
-    if sorted(g["id"] for g in grades) != list(range(len(criteria))):
+    if (
+        not isinstance(grades, list)
+        or any(
+            not isinstance(g, dict)
+            or type(g.get("id")) is not int
+            or type(g.get("met")) is not bool
+            or not isinstance(g.get("reasoning"), str)
+            for g in grades
+        )
+        or sorted(g["id"] for g in grades) != list(range(len(criteria)))
+    ):
         raise ValueError("GDPval judge omitted or duplicated criteria")
     awarded = sum(criteria[g["id"]]["score"] for g in grades if g["met"])
     possible = sum(max(0, c["score"]) for c in criteria)
@@ -197,6 +218,8 @@ def gdp_grade(prompt: str, files: list, criteria: list, output: Path):
         "positive_points": possible,
         "score": max(0, min(1, awarded / possible)),
         "criteria": grades,
+        **judge_metadata(judge),
+        "judge_usage": response.usage,
     }
     write_json(output / "grade.json", grade)
     return grade
@@ -216,6 +239,7 @@ def gdp(policy: dict, output: Path, image: str):
             [{"filename": "answer.txt", "text": text}],
             control_criteria,
             output / "controls" / label,
+            judge=policy,
         )
         if grade["score"] != expected:
             raise ValueError("GDPval account judge failed controls")
@@ -237,13 +261,16 @@ def gdp(policy: dict, output: Path, image: str):
         IMAGE,
     )
     files = extract(workspace / "output", output / "extracted.json")
-    grade = gdp_grade(row["prompt"], files, json.loads(row["rubric_json"]), output / "grade")
+    grade = gdp_grade(
+        row["prompt"], files, json.loads(row["rubric_json"]), output / "grade", judge=policy
+    )
     return result(
         response,
         grade["score"],
         grade,
         row["task_id"],
-        "Public GDPval weighted rubric and actual artifact extraction; account-Astra judge variant; not expert pairwise win rate",
+        "Public GDPval weighted rubric and actual artifact extraction; account judge variant; not expert pairwise win rate",
+        **judge_metadata(policy),
         artifact_count=len(files),
         runtime_image=IMAGE,
         visual_layout_evaluated=False,

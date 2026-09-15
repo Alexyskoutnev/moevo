@@ -7,8 +7,14 @@ import uuid
 from pathlib import Path
 
 from .core import DiscoveryResult, MoevoConfig, Program
-from .core.checkpoint import find_latest_checkpoint, load_checkpoint, save_checkpoint
+from .core.checkpoint import (
+    checkpoint_evaluation_signature,
+    find_latest_checkpoint,
+    load_checkpoint,
+    save_checkpoint,
+)
 from .generation import build_prompt, generate, load_evaluate_fn, parse_response, run_evaluation
+from .generation.schedule import EvaluationBudgetError, StagedEvaluator
 from .search import ParetoDatabase
 from .search.adaptation import AdaptationState
 
@@ -22,17 +28,41 @@ class MoevoController:
         self.config = config
         self._evaluate_fn = None
         self._db: ParetoDatabase | None = None
+        self._schedule: StagedEvaluator | None = None
 
     async def run(self) -> DiscoveryResult:
         """Run the full evolution loop."""
         cfg = self.config
         if cfg.iterations < 0 or cfg.checkpoint_interval < 1:
             raise ValueError("Iterations must be nonnegative and checkpoint interval positive")
+        self._db = None
+        self._schedule = None
+        self._evaluate_fn = None
         output_dir = cfg.output_path
         output_dir.mkdir(parents=True, exist_ok=True)
 
         # Load evaluator
-        self._evaluate_fn = load_evaluate_fn(cfg.evaluator_path)
+        if cfg.evaluation_manifest:
+            task_fn = load_evaluate_fn(cfg.evaluator_path, "evaluate_task")
+            self._schedule = StagedEvaluator(
+                task_fn,
+                manifest_path=cfg.evaluation_manifest,
+                evaluator_path=cfg.evaluator_path,
+                objectives=cfg.objectives,
+                model=cfg.model,
+                judge_model=cfg.judge_model,
+                judge_reasoning_effort=cfg.judge_reasoning_effort,
+                concurrency=cfg.evaluation_concurrency,
+                output_dir=output_dir,
+                screen_domains=cfg.screen_domains,
+                screen_tasks=cfg.screen_tasks_per_domain,
+                audit_every=cfg.screen_audit_every,
+                max_task_evaluations=cfg.max_task_evaluations,
+                random_seed=cfg.random_seed,
+                fresh_start=cfg.fresh_start,
+            )
+        else:
+            self._evaluate_fn = load_evaluate_fn(cfg.evaluator_path)
 
         # Initialize fresh (don't resume from stale checkpoints in cascade mode -
         # each slice should start clean with its own seed evaluation)
@@ -40,6 +70,9 @@ class MoevoController:
         if not cfg.fresh_start:
             latest = find_latest_checkpoint(output_dir)
             if latest:
+                signature = self._schedule.signature if self._schedule else None
+                if checkpoint_evaluation_signature(latest) != signature:
+                    raise ValueError("Checkpoint uses a different evaluation protocol")
                 self._db, start_iteration = load_checkpoint(latest)
                 if self._db.objectives != cfg.objectives or self._db.selection != cfg.selection:
                     raise ValueError(
@@ -47,7 +80,7 @@ class MoevoController:
                     )
                 start_iteration += 1
                 logger.info("Resuming from iteration %d", start_iteration)
-        if start_iteration == 0:
+        if self._db is None:
             self._db = ParetoDatabase(
                 objectives=cfg.objectives,
                 population_size=cfg.population_size,
@@ -68,12 +101,22 @@ class MoevoController:
             )
             # Seed with initial program
             await self._seed_initial_program()
+            self._checkpoint(-1)
 
         assert self._db is not None
         # Main loop
+        iterations_completed = start_iteration
+        stop_reason = "iterations_completed"
         for iteration in range(start_iteration, cfg.iterations):
             logger.info("=== Iteration %d/%d ===", iteration + 1, cfg.iterations)
-            await self._run_iteration(iteration)
+            try:
+                await self._run_iteration(iteration)
+            except EvaluationBudgetError as exc:
+                logger.info("Stopping at the task budget: %s", exc)
+                stop_reason = "task_evaluation_budget"
+                break
+
+            iterations_completed = iteration + 1
 
             self._db.end_iteration(iteration + 1)
 
@@ -86,14 +129,14 @@ class MoevoController:
                 logger.info("  %s: %s", p.id[:8], scores)
 
             # Checkpoint
-            if (iteration + 1) % cfg.checkpoint_interval == 0:
-                save_checkpoint(self._db, iteration, output_dir)
+            if self._schedule or (iteration + 1) % cfg.checkpoint_interval == 0:
+                self._checkpoint(iteration)
 
         # Final checkpoint
-        save_checkpoint(self._db, cfg.iterations - 1, output_dir)
+        self._checkpoint(iterations_completed - 1)
 
         # Save best program
-        best = self._db.get_best_program()
+        best = self._db.get_balanced_program() if self._schedule else self._db.get_best_program()
         if best:
             best_path = output_dir / "best_program.py"
             best_path.write_text(best.solution)
@@ -110,8 +153,19 @@ class MoevoController:
             pareto_front=front,
             best_program=best,
             all_programs=self._db.all_programs,
-            iterations_completed=cfg.iterations,
+            iterations_completed=iterations_completed,
             hypervolume=self._db.get_hypervolume(),
+            stop_reason=stop_reason,
+            task_evaluations=self._schedule.task_evaluations if self._schedule else None,
+        )
+
+    def _checkpoint(self, iteration: int) -> None:
+        assert self._db is not None
+        save_checkpoint(
+            self._db,
+            iteration,
+            self.config.output_path,
+            evaluation_signature=self._schedule.signature if self._schedule else None,
         )
 
     async def _seed_initial_program(self) -> None:
@@ -122,7 +176,11 @@ class MoevoController:
         program_id = _make_id()
 
         logger.info("Evaluating seed program...")
-        result = await run_evaluation(self._evaluate_fn, code, program_id)
+        result = (
+            await self._schedule.confirm(code)
+            if self._schedule
+            else await run_evaluation(self._evaluate_fn, code, program_id)
+        )
 
         if result.error:
             raise RuntimeError(f"Seed evaluation failed: {result.error}")
@@ -145,6 +203,7 @@ class MoevoController:
                 island_id=island_id,
                 iteration=0,
                 feedback=seed.feedback,
+                metadata={"evaluation_signature": result.artifacts.get("evaluation_signature")},
             )
             self._db.add(p, 0)
 
@@ -169,6 +228,23 @@ class MoevoController:
                     cfg.diff_mode,
                     explore,
                 )
+                if self._schedule:
+                    domains = dict.fromkeys(
+                        self._schedule.tasks[t]["objective"]
+                        for t in self._schedule.screen_ids(self._schedule.state["screens"])
+                    )
+                    system += (
+                        "\nEvolve one shared harness for every listed domain. Keep the model, "
+                        "account authentication, per-task resource limits, benchmark inputs, "
+                        "and graders fixed. Improve reusable behavior rather than hardcoding "
+                        "task answers or benchmark IDs."
+                    )
+                    if self._schedule.mutation_scope:
+                        system += "\n" + self._schedule.mutation_scope
+                    user += (
+                        f"\nNext paired search screen: {', '.join(domains)}. "
+                        "Broader evaluation covers every domain before population admission."
+                    )
 
                 # LLM mutation
                 response = await generate(
@@ -192,7 +268,9 @@ class MoevoController:
                     )
                     continue
 
-                if any(p.solution == child_code for p in self._db.all_programs):
+                if any(p.solution == child_code for p in self._db.all_programs) or (
+                    self._schedule and self._schedule.seen(child_code)
+                ):
                     logger.info("Skipping duplicate candidate before evaluation")
                     continue
 
@@ -220,7 +298,15 @@ class MoevoController:
 
                 # Evaluate
                 child_id = _make_id()
-                result = await run_evaluation(self._evaluate_fn, child_code, child_id)
+                if self._schedule:
+                    result = await self._schedule.candidate(
+                        child_code, parent.solution, parent.metrics
+                    )
+                    if result is None:
+                        logger.info("Candidate did not pass the paired screen")
+                        return
+                else:
+                    result = await run_evaluation(self._evaluate_fn, child_code, child_id)
 
                 if result.error:
                     logger.warning(
@@ -237,6 +323,7 @@ class MoevoController:
                     island_id=parent.island_id,
                     iteration=iteration,
                     feedback=result.artifacts.get("feedback", ""),
+                    metadata={"evaluation_signature": result.artifacts.get("evaluation_signature")},
                 )
                 self._db.add(child, iteration)
 
@@ -244,6 +331,8 @@ class MoevoController:
                 logger.info("Iteration %d: child %s (%s)", iteration, child_id[:8], scores)
                 return
 
+            except EvaluationBudgetError:
+                raise
             except Exception as e:
                 logger.error(
                     "Iteration %d attempt %d failed: %s", iteration, attempt, e, exc_info=True

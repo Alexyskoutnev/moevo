@@ -51,6 +51,16 @@ class MoevoConfig:
     diff_mode: bool = True
     num_context_programs: int = 2
 
+    # Optional paired task screening; legacy evaluate(path) runs are unchanged.
+    evaluation_manifest: str | None = None
+    screen_domains: int = 3
+    screen_tasks_per_domain: int = 2
+    screen_audit_every: int = 10
+    max_task_evaluations: int = 1000
+    judge_model: str = "gpt-5.6-terra"
+    judge_reasoning_effort: str = "medium"
+    evaluation_concurrency: int = 1
+
     @property
     def output_path(self) -> Path:
         return Path(self.output_dir)
@@ -95,6 +105,27 @@ def build_arg_parser() -> argparse.ArgumentParser:
     p.add_argument("--diff-mode", action="store_true", default=True)
     p.add_argument("--no-diff-mode", dest="diff_mode", action="store_false")
     p.add_argument("--num-context-programs", type=int, default=2)
+    p.add_argument("--resume", action="store_true", help="Resume the latest checkpoint")
+    p.add_argument(
+        "--evaluation-manifest",
+        help="Frozen search task manifest; requires evaluate_task(program_path, task)",
+    )
+    p.add_argument("--screen-domains", type=int, default=3)
+    p.add_argument("--screen-tasks-per-domain", type=int, default=2)
+    p.add_argument("--screen-audit-every", type=int, default=10)
+    p.add_argument("--evaluation-concurrency", type=int, choices=[1, 2], default=1)
+    p.add_argument("--judge-model", default="gpt-5.6-terra", help="Staged-mode rubric judge")
+    p.add_argument(
+        "--judge-reasoning-effort",
+        default="medium",
+        choices=["low", "medium", "high", "xhigh", "max"],
+    )
+    p.add_argument(
+        "--max-task-evaluations",
+        type=int,
+        default=1000,
+        help="Staged-mode solver+grader task executions, including seed, parents, and errors",
+    )
     return p
 
 
@@ -125,4 +156,13 @@ def config_from_args(args: argparse.Namespace) -> MoevoConfig:
         checkpoint_interval=args.checkpoint_interval,
         diff_mode=args.diff_mode,
         num_context_programs=args.num_context_programs,
+        fresh_start=not args.resume,
+        evaluation_manifest=args.evaluation_manifest,
+        screen_domains=args.screen_domains,
+        screen_tasks_per_domain=args.screen_tasks_per_domain,
+        screen_audit_every=args.screen_audit_every,
+        max_task_evaluations=args.max_task_evaluations,
+        judge_model=args.judge_model,
+        judge_reasoning_effort=args.judge_reasoning_effort,
+        evaluation_concurrency=args.evaluation_concurrency,
     )

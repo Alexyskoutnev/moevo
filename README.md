@@ -91,6 +91,14 @@ degradation*, not a demonstrated trade-off.
 
 ## Before you run this
 
+The Astra multi-domain extension uses the signed-in Codex ChatGPT account. See the
+[real mini-run status](docs/mini-run-status.md) and the
+[staged evolution schedule](docs/evaluation-schedule.md) for current readiness,
+task-budget settings and the remaining integration work. The
+[fresh evolution validation](docs/evolution-validation.md) defines what the live
+mini-run must demonstrate before larger experiments begin. The paper-reproduction
+setup below documents the original experiments and their provider configuration.
+
 MOEvo evolves an agent by rewriting its source and executing it. **LLM-authored
 code is run in-process, and the agent's shell tool inherits your environment
 including your API keys.** The per-task workspace is a working directory, not a

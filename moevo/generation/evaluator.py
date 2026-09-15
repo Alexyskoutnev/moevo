@@ -14,8 +14,8 @@ from ..core.types import EvalResult
 logger = logging.getLogger("moevo.evaluator")
 
 
-def load_evaluate_fn(evaluator_path: str):
-    """Load the evaluate() function from a user-provided module."""
+def load_evaluate_fn(evaluator_path: str, function_name: str = "evaluate"):
+    """Load an evaluator entry point (task-level scheduling is explicit opt-in)."""
     path = Path(evaluator_path).resolve()
     if not path.exists():
         raise FileNotFoundError(f"Evaluator not found: {path}")
@@ -28,9 +28,9 @@ def load_evaluate_fn(evaluator_path: str):
     sys.modules["moevo_user_eval"] = module
     spec.loader.exec_module(module)
 
-    fn = getattr(module, "evaluate", None)
-    if fn is None:
-        raise AttributeError(f"Evaluator module {path} has no evaluate() function")
+    fn = getattr(module, function_name, None)
+    if not callable(fn):
+        raise AttributeError(f"Evaluator module {path} has no {function_name}() function")
     return fn
 
 

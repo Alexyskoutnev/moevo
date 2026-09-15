@@ -114,7 +114,8 @@ every merged harness must be evaluated again.
 With comparable success rates in [0, 1], minimize the largest remaining failure
 rate: max_d(1 - s[d]). Equivalently, maximize min_d s[d]. Break exact ties by the
 second-worst domain and continue lexicographically. This is the current optional
-`balanced_champion` helper, not yet the default controller selection.
+`balanced_champion` helper. The opt-in staged controller now uses it to choose
+the search output; independent selection-panel promotion is still separate.
 
 Example: scores (1, 1, 1, 1, 1, 1, 0.1) have a higher average than (0.8, ..., 0.8),
 but the latter is preferable under this declared all-domain objective. A Pareto
@@ -159,6 +160,10 @@ many questions from one source are not independent datasets.
 - Opt-in `selection="nsga3"`: reference-direction survival with reproducible RNG.
 - `balanced_champion`: selects one real candidate, prioritizing its weakest domain.
 - Tests cover survival, replay after checkpoint, and rejection of unscaled scores.
+- [Staged evaluation](evaluation-schedule.md) now supports paired domain screens,
+  fixed full-vector confirmation, periodic audits and persistent task budgets.
+  A real diagnostic epoch connects the existing fixtures; expanded multi-task
+  panels and independent selection/test phases remain to be implemented.
 - MOEA/D, paired statistical promotion, and the multi-domain experiment above are
   not implemented or run yet. No evidence currently establishes which wins.
 

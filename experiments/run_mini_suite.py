@@ -15,6 +15,7 @@ from experiments.run_submission import CATALOG, load_submission
 from moevo.codex.client import require_chatgpt_login
 from moevo.codex.domain_tasks import HANDLERS
 from moevo.codex.finance_pilot import write_json
+from moevo.codex.judging import judge_metadata
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -34,10 +35,12 @@ def main():
     parser.add_argument(
         "--submission",
         type=Path,
-        default=ROOT / "submissions/superharness-astra-v1/submission.json",
+        default=ROOT / "submissions/superharness-astra-terra-pilot/submission.json",
     )
     parser.add_argument("--benchmarks", nargs="+", choices=list(CATALOG), default=list(CATALOG))
-    parser.add_argument("--output", type=Path, default=ROOT / "results/mini-suite/astra-v1")
+    parser.add_argument(
+        "--output", type=Path, default=ROOT / "results/mini-suite/astra-terra-pilot"
+    )
     parser.add_argument("--concurrency", type=int, choices=[1, 2], default=2)
     args = parser.parse_args()
     policy = load_submission(args.submission)
@@ -86,6 +89,7 @@ def main():
             "purpose": "One real development task per benchmark; integration validation only",
             "model": policy["model"],
             "effort": policy["reasoning_effort"],
+            **judge_metadata(policy),
             "authentication": "Codex ChatGPT account",
             "cli_version": version,
             "policy_sha256": signature,

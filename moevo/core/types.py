@@ -73,3 +73,5 @@ class DiscoveryResult:
     all_programs: list[Program]
     iterations_completed: int
     hypervolume: float = 0.0
+    stop_reason: str = "iterations_completed"
+    task_evaluations: int | None = None

@@ -29,6 +29,8 @@ def main(argv: list[str] | None = None) -> int:
     # Summary
     print(f"\n{'=' * 60}")
     print(f"moevo complete: {result.iterations_completed} iterations")
+    if result.task_evaluations is not None:
+        print(f"Task evaluations: {result.task_evaluations}; stop: {result.stop_reason}")
     print(f"Pareto front: {len(result.pareto_front)} programs")
     print(f"Hypervolume: {result.hypervolume:.4f}")
     if result.best_program:

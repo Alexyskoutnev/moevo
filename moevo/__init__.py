@@ -16,7 +16,7 @@ async def run_discovery(
     evaluator: str,
     initial_program: str,
     objectives: list[str] | None = None,
-    model: str = "gemini/gemini-3-flash-preview",
+    model: str = "codex/gpt-6-astra",
     iterations: int = 50,
     **kwargs,
 ) -> DiscoveryResult:
@@ -26,7 +26,7 @@ async def run_discovery(
         evaluator: Path to evaluator module with evaluate(program_path) -> dict.
         initial_program: Path to initial seed program.
         objectives: Metric names to optimize (all maximized).
-        model: LLM model identifier (prefix with gemini/, anthropic/, or openai/).
+        model: LLM identifier; defaults to Astra through the signed-in Codex account.
         iterations: Number of evolution iterations.
         **kwargs: Additional MoevoConfig fields.
 

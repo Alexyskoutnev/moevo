@@ -14,7 +14,13 @@ if TYPE_CHECKING:
 logger = logging.getLogger("moevo.checkpoint")
 
 
-def save_checkpoint(db: ParetoDatabase, iteration: int, output_dir: Path) -> Path:
+def save_checkpoint(
+    db: ParetoDatabase,
+    iteration: int,
+    output_dir: Path,
+    *,
+    evaluation_signature: str | None = None,
+) -> Path:
     """Save database state to a JSON checkpoint."""
     output_dir.mkdir(parents=True, exist_ok=True)
     path = output_dir / f"checkpoint_{iteration:04d}.json"
@@ -22,6 +28,7 @@ def save_checkpoint(db: ParetoDatabase, iteration: int, output_dir: Path) -> Pat
     data = {
         "iteration": iteration,
         "database": db.to_dict(),
+        "evaluation_signature": evaluation_signature,
     }
 
     temporary = path.with_suffix(".json.tmp")
@@ -45,6 +52,11 @@ def load_checkpoint(path: Path) -> tuple[ParetoDatabase, int]:
     iteration = data["iteration"]
     logger.info("Checkpoint loaded: %s (iteration %d)", path, iteration)
     return db, iteration
+
+
+def checkpoint_evaluation_signature(path: Path) -> str | None:
+    """Legacy checkpoints have no staged evaluation protocol."""
+    return json.loads(path.read_text()).get("evaluation_signature")
 
 
 def find_latest_checkpoint(output_dir: Path) -> Path | None:

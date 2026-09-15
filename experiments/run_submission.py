@@ -44,7 +44,10 @@ SUPPORTED = {"finqa", "amo"}
 
 
 def load_submission(path: Path) -> dict:
+    from moevo.codex.judging import judge_options
+
     submission = json.loads(path.read_text())
+    judge_options(submission)
     fixed = {
         "schema_version": 1,
         "model": "gpt-6-astra",

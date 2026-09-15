@@ -1,0 +1,41 @@
+{
+  "purpose": "Real judge transport/polarity controls, not benchmark accuracy calibration",
+  "solver_model": "gpt-6-astra",
+  "solver_calls": 0,
+  "judge_model": "gpt-5.6-terra",
+  "judge_effort": "medium",
+  "authentication": "codex_chatgpt_account",
+  "cli_version": "codex-cli 0.154.0",
+  "policy_sha256": "77a7e5e2c546da044114bdad7ca3e1f9988bcea01c8f023cbd043932926e161b",
+  "results": [
+    {
+      "judge": "gdpval",
+      "status": "passed",
+      "controls": 2,
+      "judge_model": "gpt-5.6-terra",
+      "judge_effort": "medium"
+    },
+    {
+      "judge": "dsbench",
+      "status": "passed",
+      "controls": 2,
+      "judge_model": "gpt-5.6-terra",
+      "judge_effort": "medium"
+    },
+    {
+      "judge": "harvey_lab",
+      "status": "passed",
+      "controls": 2,
+      "judge_model": "gpt-5.6-terra",
+      "judge_effort": "medium"
+    },
+    {
+      "judge": "healthbench",
+      "status": "passed",
+      "controls": 4,
+      "judge_model": "gpt-5.6-terra",
+      "judge_effort": "medium"
+    }
+  ],
+  "passed": true
+}

@@ -105,6 +105,8 @@ The new adapters evaluate exact task IDs across 13 benchmarks. The first sliced
 study has eight development panels, a separate fixed development monitor, and
 a blocked final reservation. See [the slice plan](docs/new-multidomain-slices.md)
 and [the harness review](docs/harness-review.md) for readiness and scope.
+The [live monitor guide](docs/live-monitor.md) defines task progress, the task-only
+Codex comparison, matched seed reruns, and the corrected direct-answer protocol.
 
 ```sh
 uv sync --extra monitor

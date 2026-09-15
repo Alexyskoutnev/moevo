@@ -5,12 +5,21 @@
 <title>SuperHarness · Improvement tracker</title>
 <style>
 :root{font-family:Inter,ui-sans-serif,system-ui,sans-serif;color:#233b3b;background:#f5f7f5;font-synthesis:none}*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0}header{background:#fff;border-bottom:1px solid #e0e8e1;padding:24px 5%;display:flex;justify-content:space-between;align-items:center;gap:20px}h1{font-size:23px;letter-spacing:-.8px;margin:0 0 5px}p{margin:0;line-height:1.65}.muted{color:#6e7e79;font-size:13px}.status{background:#eaf4ee;border-radius:30px;padding:8px 14px;font-size:12px;font-weight:600}main{max-width:1200px;margin:auto;padding:28px 28px 55px}.intro{margin-bottom:28px}.intro h2{font-size:27px;letter-spacing:-.8px;margin-bottom:6px}.intro p{color:#617670;font-size:15px}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin:24px 0 26px}.step{padding-top:12px;border-top:3px solid #dbe4de;color:#7d8c86;font-size:13px}.step.active{border-color:#207b64;color:#207b64;font-weight:650}.step.done{border-color:#7aa48b}.step b{display:inline-block;margin-right:6px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:28px}.stat{background:#fff;border:1px solid #e0e8e1;border-radius:10px;padding:17px}.stat span{display:block;color:#6e7e79;font-size:12px}.stat strong{display:block;font-size:30px;font-weight:550;line-height:1.65;letter-spacing:-1px}.stat small{font-size:12px;color:#788a82}section{background:#fff;border:1px solid #e0e8e1;border-radius:12px;padding:22px;margin-bottom:20px}h2{font-size:17px;font-weight:600;margin:0 0 7px;letter-spacing:-.3px}.section-head{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:14px}button{background:#fff;color:#617670;border:1px solid #d3e0d7;border-radius:7px;padding:8px 13px;cursor:pointer;font:inherit;font-size:12px}button[aria-pressed=true]{background:#207b64;color:#fff;border-color:#207b64}.controls{display:flex;gap:5px}.chart{display:block;width:100%;height:auto}.empty{padding:45px 15px;text-align:center;color:#7a8b84;font-size:14px;line-height:1.7;background:#fafcf9;border-radius:8px;margin-top:16px}.columns{display:grid;grid-template-columns:1fr 1fr;gap:20px}.columns section{min-width:0}table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:10px 5px;border-bottom:1px solid #edf2ed;text-align:left}th{font-weight:500;color:#75857d}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}.up{color:#207b64}.down{color:#b55e43}.events{display:grid;gap:8px}.event{padding:11px 0;border-bottom:1px solid #edf2ed;font-size:13px}.event-head{display:flex;gap:14px;align-items:center;margin-bottom:5px}.event p{color:#75857d;font-size:12px}details{font-size:13px;color:#617670;padding:14px 0}summary{cursor:pointer;font-weight:500}.badge{font-size:11px;padding:4px 8px;background:#edf4ef;border-radius:5px}.settings{font-size:12px;line-height:1.9;padding:14px 0}.error{color:#b55e43}.bar{height:7px;border-radius:10px;background:#e5ece5;overflow:hidden;max-width:450px;margin-top:16px}.bar div{height:100%;background:#207b64;transition:width .4s}.refresh{font-variant-numeric:tabular-nums}footer{font-size:12px;color:#75857d;line-height:1.8}@media(max-width:750px){header{align-items:flex-start}main{padding:20px 15px}.stats{grid-template-columns:repeat(2,1fr)}.columns{grid-template-columns:1fr}.section-head{align-items:flex-start;flex-direction:column}section{padding:16px}.steps{gap:12px}.step{font-size:12px}.intro h2{font-size:23px}.status{max-width:140px;text-align:center}}
-pre{background:#f7f9f7;border:1px solid #e0e8e1;border-radius:8px;padding:16px;font:12px/1.65 ui-monospace,SFMono-Regular,monospace;white-space:pre-wrap;overflow-wrap:anywhere;max-height:540px;overflow:auto}.code-add{background:#e7f3e9;color:#216337;display:block}.code-remove{background:#fcebea;color:#993e34;display:block}.code-neutral{display:block}select{font:inherit;color:inherit;background:white;border:1px solid #ccd8d0;border-radius:6px;padding:8px;max-width:100%}</style>
+pre{background:#f7f9f7;border:1px solid #e0e8e1;border-radius:8px;padding:16px;font:12px/1.65 ui-monospace,SFMono-Regular,monospace;white-space:pre-wrap;overflow-wrap:anywhere;max-height:540px;overflow:auto}.code-add{background:#e7f3e9;color:#216337;display:block}.code-remove{background:#fcebea;color:#993e34;display:block}.code-neutral{display:block}select{font:inherit;color:inherit;background:white;border:1px solid #ccd8d0;border-radius:6px;padding:8px;max-width:100%}
+.run-link{font-size:13px;color:#207b64}.progress-heading{display:flex;justify-content:space-between;align-items:baseline;gap:16px}.progress-heading strong{font-size:26px;white-space:nowrap}.progress-card .bar{max-width:none;height:12px;margin:12px 0}.progress-meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:#617670}.progress-meta b{color:#233b3b}.task-id{display:block;color:#75857d;font:11px/1.5 ui-monospace,SFMono-Regular,monospace;max-width:340px;overflow-wrap:anywhere;margin-top:3px}.task-state{display:inline-block;border-radius:5px;padding:4px 8px;font-size:12px;background:#f1f3f1;color:#687a71}.task-state.running{background:#e6f0ff;color:#31578c}.task-state.scored{background:#eaf4ee;color:#207b64}.task-state.error,.task-state.unfinished{background:#fff0e8;color:#a25935}.task-detail{display:block;font-size:11px;color:#75857d;margin-top:4px}.task-running{background:#f7faff}.task-id-cell{min-width:200px}.queue-table{overflow-x:auto}.progress-activity{padding-top:14px;font-size:12px;color:#6e7e79}.progress-note{margin-top:12px;font-size:12px;color:#75857d}.task-controls{display:flex;gap:6px;flex-wrap:wrap}.queue-table td{vertical-align:top}.compact-progress{margin:16px 0 4px;display:flex;gap:16px;align-items:center;font-size:12px;color:#617670}.compact-progress .bar{margin:0;max-width:180px;flex:1;height:6px}.progress-percent{font-size:14px;font-weight:400;color:#75857d}@media(max-width:750px){.progress-heading{align-items:flex-start;flex-direction:column;gap:4px}.progress-heading strong{font-size:23px}.progress-meta{gap:8px}.task-id{max-width:240px}}
+</style>
 </head>
 <body>
 <header><div><h1>SuperHarness <span style="font-weight:400;color:#8a9c91">/ Improvement tracker</span></h1><p class="muted">Astra builds and runs the agent. Terra checks written answers.</p></div><span class="status" id="status">Starting</span></header>
 <main>
-<div class="intro"><p class="muted" id="setup">Mini-test · one task panel</p><h2 id="headline">First, test the starting agent</h2><p id="next">Then we’ll try four improvements and compare the results.</p><div class="bar" role="progressbar" aria-label="Starting tasks checked" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar"><div id="progress-fill" style="width:0"></div></div></div>
+<div class="intro"><p class="muted" id="setup">Single-slice test</p><a id="related-run" class="run-link" hidden></a><a id="baseline-link" class="run-link" href="#baselines" style="margin-left:18px">Base Codex comparison ↓</a><h2 id="headline">First, test the starting agent</h2><p id="next">Then we’ll try four improvements and compare the results.</p></div>
+<section class="progress-card" aria-label="Current slice progress">
+<div class="progress-heading"><div><p class="muted" id="slice-label">Slice 1 of 1 · current run</p><h2 id="stage-title">Starting agent</h2></div><strong><span id="stage-count">—</span> <span class="progress-percent" id="stage-percent"></span></strong></div>
+<div class="bar" role="progressbar" aria-label="Tasks scored in this stage" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar"><div id="progress-fill" style="width:0"></div></div>
+<div class="progress-meta"><span id="stage-summary"></span><span id="coverage-summary"></span></div>
+<div class="compact-progress"><span id="changes-progress-label"></span><div class="bar" role="progressbar" aria-label="Quick checks completed" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="changes-progress"><div id="changes-fill"></div></div></div>
+<p class="progress-activity" id="worker-activity"></p><p class="progress-note" id="stage-note"></p>
+</section>
 <div class="steps"><div id="step1" class="step active"><b>1</b> Test the starting agent</div><div id="step2" class="step"><b>2</b> Try improvements</div><div id="step3" class="step"><b>3</b> Compare the results</div></div>
 <div class="stats">
 <div class="stat"><span>Starting tasks checked</span><strong id="starting-count">—</strong><small id="starting-note">measuring the starting point</small></div>
@@ -18,13 +27,14 @@ pre{background:#f7f9f7;border:1px solid #e0e8e1;border-radius:8px;padding:16px;f
 <div class="stat"><span id="score-label">Starting score</span><strong id="best-score">—</strong><small id="aggregate-note">each task area counts equally</small></div>
 <div class="stat"><span>Change from the start</span><strong id="change">—</strong><small id="change-note">waiting for the first comparison</small></div>
 </div>
+<section><div class="section-head"><div><h2>Task queue</h2><p class="muted" id="queue-note">Every task in this slice, with its current status.</p></div><div class="task-controls"><button id="tasks-all" aria-pressed="true">All tasks</button><button id="tasks-active" aria-pressed="false">In progress</button><button id="tasks-pending" aria-pressed="false">Waiting</button><button id="tasks-scored" aria-pressed="false">Scored</button></div></div><div class="queue-table"><table><thead><tr><th>#</th><th>Benchmark / task ID</th><th>Current stage</th><th class="num">Start</th><th class="num" id="task-score-heading">This version</th></tr></thead><tbody id="task-rows"></tbody></table></div><p id="queue-empty" class="muted" hidden>No tasks match this filter.</p></section>
 <section><div class="section-head"><div><h2>Aggregate improvement</h2><p class="muted" id="chart-note">Each point is a fully tested version. Dips show when a change made it worse.</p></div><div class="controls"><button id="overall" aria-pressed="true">Overall</button><button id="per-domain" aria-pressed="false">By task area</button></div></div><img id="trajectory" class="chart" alt="Scores of each fully tested agent version" hidden><div id="trajectory-empty" class="empty">The chart will appear when the starting agent has finished all its tasks.</div></section>
 <div class="columns">
 <section><h2>Scores across task areas</h2><p class="muted"><span id="radar-note">The starting agent sets the comparison point.</span></p><img id="radar" class="chart" alt="Scores across task areas; only fully tested versions are shown" hidden><div id="radar-empty" class="empty">We’re still measuring the starting agent.</div></section>
 <section><h2>What changed?</h2><p class="muted" id="comparison-note" style="margin-bottom:12px">The comparison appears after an evolved version finishes every task.</p><table><thead><tr><th>Task area</th><th class="num">Tasks</th><th class="num">Start</th><th class="num">Selected</th><th class="num">Change</th></tr></thead><tbody id="domain-rows"></tbody></table></section>
 </div>
 <section><h2>Improvements tried</h2><p class="muted" style="margin-bottom:12px">We try each change on a few tasks first. Promising versions take the full test.</p><div class="events" id="events"></div></section>
-<section><h2>Results by benchmark</h2><p class="muted" id="sample-note" style="margin-bottom:12px">Mean scores on the fixed evaluation panel. Task counts show how much evidence is behind each percentage.</p><div style="overflow-x:auto"><table><thead><tr><th>Benchmark / metric</th><th>Task area</th><th class="num">Tasks</th><th class="num">Base Astra</th><th class="num">Selected agent</th><th class="num">Δ pp</th></tr></thead><tbody id="benchmark-rows"></tbody></table></div></section>
+<section id="baselines"><div class="section-head"><h2>Results by benchmark</h2><div class="controls"><button id="benchmark-evolution" aria-pressed="true">Evolution</button><button id="benchmark-references" aria-pressed="false">Base Codex comparison</button></div></div><p class="muted" id="sample-note" style="margin-bottom:12px">Mean scores on the fixed evaluation panel.</p><p class="muted" id="reference-status" style="margin-bottom:12px" hidden></p><div style="overflow-x:auto"><table><thead id="benchmark-head"></thead><tbody id="benchmark-rows"></tbody></table></div><p class="progress-note" id="reference-note" hidden></p></section>
 <section id="source-section" hidden>
 <div class="section-head"><div><h2>Harness code &amp; changes</h2><p class="muted">This run evolves the shared instructions. The execution code, model, tools and graders stay fixed.</p></div><select id="source-version" aria-label="Harness version"></select></div>
 <p class="muted" id="source-status"></p>
@@ -38,10 +48,42 @@ pre{background:#f7f9f7;border:1px solid #e0e8e1;border-radius:8px;padding:16px;f
 <footer><p id="pilot-note"></p><p id="refresh" class="refresh"></p></footer>
 </main>
 <script>
-const LIVE=__LIVE__;let current=__INITIAL_DATA__;let view="progress",sourceMode="code",chosenSource=null,chosenFile=null;
+const LIVE=__LIVE__;let current=__INITIAL_DATA__;let view="progress",sourceMode="code",chosenSource=null,chosenFile=null,taskFilter="all",benchmarkView=window.location.hash==="#baselines"?"references":"evolution";
 const el=id=>document.getElementById(id),areas={finance:"Finance",science:"Science",mathematics:"Math",planning:"Planning",operations_research:"Optimization & logistics",data_analysis:"Data analysis",professional_work:"Professional work",software_terminal:"Terminal tasks",legal:"Legal",medicine:"Medicine",customer_service:"Customer service"},benchmarks={finqa:"FinQA",bizfinbench2:"BizFinBench",genebench_pro:"GeneBench",amo:"AMO-Bench",putnambench:"PutnamBench",travelplanner:"TravelPlanner",oragentbench:"ORAgentBench",dsbench:"DSBench",gdpval:"GDPval",terminal_bench_2:"Terminal-Bench",harvey_lab:"Harvey LAB",healthbench_professional:"HealthBench",tau3_bench:"τ-bench",automationbench:"AutomationBench",eduagentbench:"EduAgentBench",terminal_bench_science:"Terminal-Bench Science"},name=s=>areas[s]||benchmarks[s]||s.replaceAll("_"," "),score=v=>v==null?"—":(100*v).toFixed(1)+"%",change=v=>v==null?"—":(v>0?"+":"")+v.toFixed(1);
 function cell(row,value,klass=""){const td=document.createElement("td");td.textContent=value;td.className=klass;row.appendChild(td)}
 function figure(id,key,empty){const img=el(id),available=current.figures?.[key];img.hidden=!available;el(empty).hidden=!!available;if(available)img.src="data:image/png;base64,"+available}
+function renderProgress(){
+ const p=current.progress;if(!p)return;
+ const stage=p.phase==="baseline"?"Starting agent · full test":p.phase==="quick_check"?`Candidate ${p.screen} · quick check`:p.phase==="full_test"?`Candidate ${p.screen} · full test`:p.screen?`Last check · candidate ${p.screen}`:"Starting agent · test complete";
+ const percent=p.stage_total?100*p.stage_scored/p.stage_total:0;
+ el("slice-label").textContent=`Slice ${p.slice_index} of ${p.slice_total} · standalone run`;
+ el("stage-title").textContent=stage;el("stage-count").textContent=`${p.stage_scored} / ${p.stage_total} tasks scored`;el("stage-percent").textContent=`${Math.round(percent)}%`;
+ el("progress-fill").style.width=percent+"%";el("progress-bar").setAttribute("aria-valuenow",String(Math.round(percent)));el("progress-bar").setAttribute("aria-valuetext",`${p.stage_scored} of ${p.stage_total} tasks scored`);
+ const working=p.tasks.filter(t=>t.status==="running"||t.status==="started"),queued=p.stage_queued;
+ el("stage-summary").textContent=working.length?`Working on: ${working.map(t=>name(t.benchmark)).join(", ")} · ${queued} waiting`:p.stage_scored===p.stage_total?"All tasks in this stage are scored":`${p.stage_scored} scored · ${queued} waiting · ${p.stage_errors} technical failures`;
+ if(current.task_errors)el("stage-summary").textContent+=` · ${current.task_errors} technical failures recorded in this run`;
+ el("coverage-summary").textContent=`Slice coverage: ${p.unique_tasks_scored} / ${p.total_tasks} tasks scored at least once`;
+ const planned=current.planned_steps||4,finished=current.search_steps_completed||0;
+ el("changes-progress-label").textContent=`Search steps finished: ${finished} / ${planned}`;el("changes-fill").style.width=Math.min(100,100*finished/planned)+"%";el("changes-progress").setAttribute("aria-label","Search steps completed");el("changes-progress").setAttribute("aria-valuenow",String(Math.min(100,Math.round(100*finished/planned))));
+ const when=p.last_activity_utc?new Date(p.last_activity_utc).toLocaleTimeString():"not recorded";
+ const process=current.status==="completed"?"Run finished":current.status==="failed"||current.status==="interrupted"?"Run stopped":p.process.state==="active"?"Experiment process active":p.process.state==="stopped"?"Experiment process stopped; saved status has not updated":"Process status unavailable";
+ el("worker-activity").textContent=`${process} · Last experiment activity ${when} · ${p.attempts_charged} task attempts used (cap ${current.task_budget??"—"})`;
+ el("stage-note").textContent=p.phase==="quick_check"?"Only this check’s tasks count toward the bar. Other tasks run if the version advances to a full test. Cached parent scores are reused.":p.phase==="full_test"?"The full test includes scores already earned in the quick check. A task is counted only after its score is saved.":"The bar measures tasks scored in this stage, not time remaining. The planned eight-slice study is separate.";
+ el("queue-note").textContent=`${stage} · all ${p.total_tasks} slice tasks listed. Zero credit is a completed score, not a technical failure.`;
+ el("task-score-heading").textContent=p.screen?`Candidate ${p.screen}`:"Starting agent";
+ const labels={scored:"Scored",running:"In progress",started:"Started · status unknown",queued:"Waiting",not_in_check:"Not in this check",error:"Technical failure",unfinished:"Unfinished",not_run:"Not run"};
+ const rows=el("task-rows");rows.replaceChildren();
+ for(const task of p.tasks){
+  if(taskFilter==="active"&&!['running','started'].includes(task.status)||taskFilter==="pending"&&task.status!=="queued"||taskFilter==="scored"&&task.status!=="scored")continue;
+  const row=document.createElement("tr");if(task.status==="running")row.className="task-running";
+  cell(row,String(task.index));cell(row,name(task.benchmark),"task-id-cell");const identity=document.createElement("span");identity.className="task-id";identity.textContent=task.task_id;row.lastElementChild.appendChild(identity);
+  const td=document.createElement("td"),badge=document.createElement("span");badge.className="task-state "+task.status;badge.textContent=labels[task.status]||task.status;td.appendChild(badge);
+  if(['running','started','unfinished','error'].includes(task.status)){const detail=document.createElement("small");detail.className="task-detail";detail.textContent=task.detail;td.appendChild(detail)}row.appendChild(td);
+  cell(row,score(task.seed_score),"num");cell(row,score(task.score),"num");rows.appendChild(row);
+ }
+ el("queue-empty").hidden=rows.children.length>0;
+ for(const filter of ["all","active","pending","scored"])el("tasks-"+filter).setAttribute("aria-pressed",String(filter===taskFilter));
+}
 function renderSource(){
  const data=current.source_view,section=el("source-section");section.hidden=!data?.versions?.length;if(section.hidden)return;
  const versions=data.versions,select=el("source-version");
@@ -60,26 +102,47 @@ function renderSource(){
  fileSelect.replaceChildren();for(const file of files){const option=document.createElement("option");option.value=file.path;option.textContent=file.path;fileSelect.appendChild(option)}
  fileSelect.value=chosenFile||"";el("fixed-source").textContent=files.find(f=>f.path===chosenFile)?.code||"No matching frozen source files are available.";
 }
+function renderBenchmarks(){
+ const data=current,reference=benchmarkView==="references",comparison=data.reference_baselines,arms=comparison?.arms||{};
+ const full=data.complete_evolved_versions??Math.max(0,data.history.length-1),hasComparison=full>0;
+ const headings=["Benchmark / metric","Task area","Tasks",reference?"Codex CLI (Astra)":"Starting harness",reference?"Starting harness · rerun":"Selected agent",reference?"Seed − Codex · pp":"Δ pp"];
+ const header=document.createElement("tr");for(const [i,label] of headings.entries()){const th=document.createElement("th");th.textContent=label;if(i>=2)th.className="num";header.appendChild(th)}el("benchmark-head").replaceChildren(header);
+ const rows=el("benchmark-rows");rows.replaceChildren();
+ const statusLabel=row=>row?.status==="running"?"Running":row?.status==="error"?"Technical failure":row?.status==="interrupted"?"Unfinished":"Waiting";
+ for(const item of data.aggregate.benchmarks){
+  const row=document.createElement("tr"),base=arms.codex_cli_task_only?.benchmarks[item.benchmark],seed=arms.seed_reference?.benchmarks[item.benchmark];
+  const first=reference?base?.score:item.baseline,second=reference?seed?.score:hasComparison?item.candidate:null;
+  const diff=first!=null&&second!=null?100*(second-first):null;
+  cell(row,name(item.benchmark));const note=document.createElement("small");note.style.cssText="display:block;color:#75857d;font-size:11px";note.textContent=item.metric;row.lastElementChild.appendChild(note);
+  cell(row,name(item.domain));cell(row,String(item.n_tasks),"num");
+  cell(row,first==null?(reference?statusLabel(base):`Waiting (${item.baseline_evaluated}/${item.n_evaluations})`):score(first),"num");
+  cell(row,second==null?(reference?statusLabel(seed):"—"):score(second),"num");cell(row,change(diff),"num "+(diff>0?"up":diff<0?"down":""));rows.appendChild(row);
+ }
+ el("sample-note").textContent=reference?"Same task IDs and scoring rules. Codex CLI uses the benchmark tools with no shared MOEvo instructions; the matched rerun uses the starting instructions.":`Mean normalized scores (%) on ${data.aggregate.overall.n_tasks} fixed search tasks. The starting harness includes shared instructions; it is not bare Astra.`;
+ el("reference-status").hidden=!reference;el("reference-note").hidden=!reference;
+ if(reference){
+  el("reference-status").textContent=Object.values(arms).map(a=>`${a.label}: ${a.scored}/${a.total} scored · ${a.status.replaceAll("_"," ")}`).join(". ");
+  el("reference-note").textContent="These reference runs use the corrected rule that permits valid direct answers without a tool call. A separate unwrapped Astra result is unavailable through the current Codex-account transport. One task is not benchmark-wide accuracy."+(comparison?.issues?.length?" "+comparison.issues.join("; "):"");
+ }
+ for(const mode of ["evolution","references"])el("benchmark-"+mode).setAttribute("aria-pressed",String(benchmarkView===mode));
+}
 function render(data){
- current=data;renderSource();
+ current=data;renderSource();renderProgress();renderBenchmarks();
  const total=data.benchmarks.length,done=data.benchmarks.filter(b=>b.seed_score!=null).length;
  const versions=data.screens.length,planned=data.planned_steps||4,complete=data.status==="completed",started=!!data.baseline;
  const full=data.complete_evolved_versions??Math.max(0,data.history.length-1),hasComparison=full>0;
- const active=data.active_evaluation,failed=data.status==="failed",phase=complete?3:started?2:1;
+ const active=data.active_evaluation,failed=["failed","interrupted"].includes(data.status)||(data.status==="running"&&data.progress?.process.state==="stopped"),phase=complete?3:started?2:1;
  const selected=hasComparison?data.champion:null;
- el("setup").textContent=`Mini-test · 1 task panel · ${total} tasks · ${planned} planned changes`;
- el("status").textContent=failed?"Run needs attention":complete?"Mini-test finished":active?`Testing change ${active.screen} of ${planned}`:started?"Preparing the next change":"Measuring the starting agent";
- el("headline").textContent=failed?"The run stopped before finishing":complete?"The mini-test is finished":active?`Testing change ${active.screen} of ${planned}`:started?"The starting point is measured":"First, test the starting agent";
- el("next").textContent=failed?"Completed measurements are preserved below.":complete?(hasComparison?`${full} evolved version${full===1?"":"s"} finished the full test. Compare the results below.`:"No evolved version finished the full test; evolution is not yet validated."):active?(active.stage==="full_test"?`The quick check is finished. This version is now taking the full ${total}-task test.`:"The quick check is running on a few tasks. Its results will appear when grading finishes."):started?"Astra is preparing the next shared-instruction change.":`${done} of ${total} tasks checked. Then we’ll try ${planned} changes to the agent.`;
+ el("setup").textContent=`${data.run_label||"Single-slice test"} · ${total} tasks · ${planned} search steps · up to ${data.candidate_attempt_cap||planned} candidate attempts`;
+ el("related-run").hidden=!data.related_run;if(data.related_run){el("related-run").textContent=data.related_run.label+" →";el("related-run").href=data.related_run.url}
+ el("status").textContent=failed?"Run needs attention":complete?"Mini-test finished":active?`Testing candidate ${active.screen}`:started?"Preparing the next candidate":"Measuring the starting agent";
+ el("headline").textContent=failed?"The run stopped before finishing":complete?"The mini-test is finished":active?`Testing candidate ${active.screen}`:started?"The starting point is measured":"First, test the starting agent";
+ el("next").textContent=failed?"Completed measurements are preserved below.":complete?(hasComparison?`${full} evolved version${full===1?"":"s"} finished the full test. Compare the results below.`:"No evolved version finished the full test; evolution is not yet validated."):active?`Search step ${Math.min(planned,(data.search_steps_completed||0)+1)} of ${planned}. `+(active.stage==="full_test"?`This candidate is taking the full ${total}-task test.`:"The quick check is running on a few tasks."):started?"Astra is preparing the next shared-instruction candidate.":`${done} of ${total} tasks checked. Then we’ll run ${planned} search steps, with retries counted separately.`;
  for(let i=1;i<=3;i++)el("step"+i).className="step "+(i===phase?"active":i<phase?"done":"");
- const progress=started?100*versions/planned:total?100*done/total:0;
- el("progress-fill").style.width=progress+"%";
- el("progress-bar").setAttribute("aria-label",started?"Quick checks completed":"Starting tasks checked");
- el("progress-bar").setAttribute("aria-valuenow",String(Math.round(progress)));
  el("starting-count").textContent=`${done} / ${total}`;
  el("starting-note").textContent=started?"starting point measured":"measuring the starting point";
- el("versions").textContent=`${versions} / ${planned}`;
- el("versions-note").textContent=`${full} evolved version${full===1?"":"s"} fully tested`;
+ el("versions").textContent=String(versions);
+ el("versions-note").textContent=`${data.screens_started} checks started · ${full} versions fully tested`;
  el("score-label").textContent=hasComparison?"Selected agent’s score":"Starting score";
  el("best-score").textContent=score((selected||data.baseline)?.mean);
  el("aggregate-note").textContent=hasComparison&&data.comparison_status==="starting_agent_retained"?"starting agent still selected":`${data.objectives.length} task areas, weighted equally`;
@@ -98,22 +161,15 @@ function render(data){
   cell(row,name(d));cell(row,count??"—","num");cell(row,score(base),"num");cell(row,score(value),"num");cell(row,change(diff),"num "+(diff>0?"up":diff<0?"down":""));domains.appendChild(row);
  }
  const events=el("events");events.replaceChildren();
- if(active){const p=document.createElement("p");p.className="event";p.textContent=`Change ${active.screen} · ${active.stage==="full_test"?"full test":"quick check"} in progress`;events.appendChild(p)}
+ if(active){const p=document.createElement("p");p.className="event";p.textContent=`Candidate ${active.screen} · ${active.stage==="full_test"?"full test":"quick check"} in progress`;events.appendChild(p)}
  if(!versions&&!active){const p=document.createElement("p");p.className="muted";p.textContent=complete||failed?"No quick checks completed.":started?"Astra is preparing the first change.":"Changes begin after the starting test finishes.";events.appendChild(p)}
  for(const item of [...data.screens].reverse()){
   const row=document.createElement("div");row.className="event";const head=document.createElement("div");head.className="event-head";
-  const label=document.createElement("b");label.textContent="Change "+item.screen;const state=document.createElement("span");state.className="badge";
-  state.textContent=item.confirmed?"Full test finished":item.improved||item.audit?(failed||complete?"Full test incomplete":"Taking the full test"):"Stopped after quick check";
+  const label=document.createElement("b");label.textContent="Candidate "+item.screen;const state=document.createElement("span");state.className="badge";
+  state.textContent=item.confirmed?"Full test finished":item.improved||item.audit?(active?.screen===item.screen&&active.stage==="full_test"?"Taking the full test":"Full test incomplete"):"Stopped after quick check";
   const values=document.createElement("p");values.textContent="Quick check versus its parent: "+Object.entries(item.delta||{}).map(([k,v])=>`${name(k)} ${v>=0?"+":""}${(100*v).toFixed(1)} pp`).join(" · ");
   head.append(label,state);row.append(head,values);events.appendChild(row);
  }
- const rows=el("benchmark-rows");rows.replaceChildren();
- for(const item of data.aggregate.benchmarks){
-  const row=document.createElement("tr"),value=hasComparison?item.candidate:null,diff=hasComparison?item.delta_pp:null;
-  cell(row,name(item.benchmark));const note=document.createElement("small");note.style.cssText="display:block;color:#75857d;font-size:11px";note.textContent=item.metric;row.lastElementChild.appendChild(note);
-  cell(row,name(item.domain));cell(row,String(item.n_tasks),"num");cell(row,item.baseline==null?`Waiting (${item.baseline_evaluated}/${item.n_evaluations})`:score(item.baseline),"num");cell(row,score(value),"num");cell(row,change(diff),"num "+(diff>0?"up":diff<0?"down":""));rows.appendChild(row);
- }
- el("sample-note").textContent=`Mean normalized scores (%) on ${data.aggregate.overall.n_tasks} fixed search tasks. A 100% score with 1 task means that one task earned full credit.`;
  el("excluded").replaceChildren();for(const [key,value] of Object.entries(data.excluded)){const p=document.createElement("p");p.textContent=`${name(key)}: ${value}`;el("excluded").appendChild(p)}
  el("models").textContent=`Code and task solving: ${data.solver}. Written-answer judge: ${data.judge}. Both use the signed-in Codex account.`;
  el("budget").textContent=`${data.task_evaluations} task attempts used out of a limit of ${data.task_budget??"—"}. Failed attempts also count.`;
@@ -128,8 +184,11 @@ function render(data){
   const gaps=[...new Set((study.unsupported_tasks||[]).map(t=>name(t.benchmark)))];
   el("study-gaps").textContent=gaps.length?`Runtime support still needed: ${gaps.join(", ")}. Allocated tasks are not counted as validated runs.`:"Task adapters are prepared. New tasks still need end-to-end validation.";
  }
- el("refresh").textContent=(LIVE?"Updates automatically · last update ":"Saved snapshot · ")+new Date().toLocaleTimeString();
+ el("refresh").textContent=(LIVE?"Page refreshed ":"Snapshot viewed ")+new Date().toLocaleTimeString()+" · Experiment activity is shown above.";
 }
+for(const filter of ["all","active","pending","scored"])el("tasks-"+filter).onclick=()=>{taskFilter=filter;renderProgress()};
+el("baseline-link").onclick=()=>{benchmarkView="references";renderBenchmarks()};
+for(const mode of ["evolution","references"])el("benchmark-"+mode).onclick=()=>{benchmarkView=mode;renderBenchmarks()};
 for(const mode of ["diff","code","instructions"])el("source-"+mode).onclick=()=>{sourceMode=mode;renderSource()};
 el("source-version").onchange=()=>{chosenSource=el("source-version").value;renderSource()};
 el("fixed-file").onchange=()=>{chosenFile=el("fixed-file").value;renderSource()};

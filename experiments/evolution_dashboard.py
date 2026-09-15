@@ -13,6 +13,8 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 from moevo.reporting.aggregate import aggregate_panel
+from moevo.reporting.progress import controller_liveness, task_progress
+from moevo.reporting.references import reference_comparison
 from moevo.reporting.results import export_tables
 from moevo.reporting.source import source_view
 
@@ -67,13 +69,19 @@ def task_outcome(benchmark: str, row: dict | None) -> tuple[str, str]:
 
 
 def snapshot(
-    run_root: Path, study_root: Path | None = None, *, include_source: bool = False
+    run_root: Path,
+    study_root: Path | None = None,
+    *,
+    include_source: bool = False,
+    observe_process: bool = False,
+    reference_roots: list[Path] | None = None,
 ) -> dict:
     run = read_json(run_root / "run.json", {})
     manifest = read_json(run_root / "search.json", {})
     state = read_json(run_root / "evaluation_state.json", {})
     checkpoints = sorted(run_root.glob("checkpoint_*.json"))
-    database = read_json(checkpoints[-1], {}).get("database", {}) if checkpoints else {}
+    checkpoint = read_json(checkpoints[-1], {}) if checkpoints else {}
+    database = checkpoint.get("database", {})
     objectives = database.get("objectives", run.get("config", {}).get("objectives", []))
     history = []
     seen = {}
@@ -191,11 +199,32 @@ def snapshot(
         "task_evaluations": state.get("task_evaluations", 0),
         "task_budget": run.get("config", {}).get("max_task_evaluations"),
         "planned_steps": run.get("config", {}).get("iterations"),
+        "search_steps_completed": max(0, checkpoint.get("iteration", -1) + 1),
+        "candidate_attempt_cap": run.get("config", {}).get("iterations", 0)
+        * (run.get("config", {}).get("retry_attempts", 0) + 1),
         "task_errors": sum(e["stage"] == "task_error" for e in state.get("events", [])),
         "excluded": run.get("excluded", {}),
         "error": run.get("error"),
         "next_study": read_json(study_root / "summary.json", None) if study_root else None,
         "source_view": source_view(run_root, database, state) if include_source else None,
+        "progress": task_progress(
+            run_root,
+            run,
+            manifest,
+            state,
+            database,
+            process=controller_liveness(run_root) if observe_process else None,
+        ),
+        "run_label": (
+            "Fresh-task first-slice test"
+            if run.get("execution_role") == "search"
+            else "Earlier fixture diagnostic"
+            if "existing fixtures" in run.get("purpose", "")
+            else run_root.name
+        ),
+        "reference_baselines": reference_comparison(
+            manifest, run.get("policy", {}), reference_roots or [], observe_process=observe_process
+        ),
     }
 
 
@@ -347,6 +376,15 @@ def main():
     parser.add_argument("--run", type=Path, required=True)
     parser.add_argument("--port", type=int, default=8765)
     parser.add_argument("--study", type=Path, help="Show the separately prepared eight-slice study")
+    parser.add_argument("--related-url", help="Link to the other local run dashboard")
+    parser.add_argument("--related-label", default="Other run")
+    parser.add_argument(
+        "--reference-run",
+        type=Path,
+        action="append",
+        default=[],
+        help="Show a task-only Codex or matched seed reference run",
+    )
     parser.add_argument("--export", type=Path)
     parser.add_argument(
         "--export-results", type=Path, help="Export percentage tables and PDF/SVG/PNG figures"
@@ -366,7 +404,7 @@ def main():
         print(args.export.resolve())
         return
     lock = threading.Lock()
-    cache: dict[str, object] = {"signature": None, "data": None}
+    cache: dict[str, object] = {"signature": None, "figures": {}}
 
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self):
@@ -374,15 +412,38 @@ def main():
                 self.send_error(404)
                 return
             with lock:
-                data = snapshot(run_root, args.study, include_source=True)
-                signature = json.dumps(data, sort_keys=True)
+                data = snapshot(
+                    run_root,
+                    args.study,
+                    include_source=True,
+                    observe_process=True,
+                    reference_roots=args.reference_run,
+                )
+                if args.related_url:
+                    data["related_run"] = {"url": args.related_url, "label": args.related_label}
+                # Activity changes independently of scientific figures; avoid redrawing
+                # every chart whenever a worker writes a log or finishes a partial task.
+                signature = json.dumps(
+                    {
+                        key: data[key]
+                        for key in (
+                            "history",
+                            "objectives",
+                            "baseline",
+                            "champion",
+                            "planned_steps",
+                        )
+                    },
+                    sort_keys=True,
+                )
                 if signature != cache["signature"]:
-                    cache.update(signature=signature, data={**data, "figures": charts(data)})
+                    cache.update(signature=signature, figures=charts(data))
+                data["figures"] = cache["figures"]
                 if self.path == "/data":
-                    body = json.dumps(cache["data"], allow_nan=False).encode()
+                    body = json.dumps(data, allow_nan=False).encode()
                     mime = "application/json"
                 else:
-                    payload = json.dumps(cache["data"], allow_nan=False).replace("<", "\\u003c")
+                    payload = json.dumps(data, allow_nan=False).replace("<", "\\u003c")
                     body = (
                         TEMPLATE.read_text()
                         .replace("__INITIAL_DATA__", payload)

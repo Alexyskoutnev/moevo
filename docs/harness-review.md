@@ -65,7 +65,8 @@ dashboard distinguishes in-progress, screened-out, and fully tested candidates.
 
 ## Limits that still matter
 
-- Four proposals with twelve slots per island do not exercise NSGA-III pruning.
+- Four search steps, allowing up to eight candidate attempts with retries, and
+  twelve slots per island do not exercise NSGA-III pruning.
   This is pipeline validation, not evidence that NSGA-III beats another selector.
 - A zero-valued objective collapses the current zero-reference hypervolume;
   gains on other domains can be invisible to that island-reward signal.
@@ -79,6 +80,21 @@ dashboard distinguishes in-progress, screened-out, and fully tested candidates.
 - One task per benchmark cannot establish accuracy, uncertainty, generalization,
   or safety. Independent full searches, matched baselines, larger development
   panels, and a fresh frozen final evaluation remain separate work.
+
+## Direct-answer validation finding
+
+The earlier diagnostic rejected three valid arithmetic responses because its
+runtime required a tool call before native grading. A separate audit graded all
+three at 1.0 with passing positive/negative controls. Original failed attempts and
+incomplete candidates were preserved; these audit scores were not inserted into
+the search ledger.
+
+The new reference arms use `container_runtime_v2.py`, which records zero tool calls
+and grades a successfully returned direct answer normally. Both the task-only
+Codex arm and the matched seed rerun use this same rule. See the
+[live monitor and baseline guide](live-monitor.md). Existing running evolution
+protocols retain their original identities; their task failures must not be
+presented as model regressions or completed comparisons.
 
 ## Views and commands
 

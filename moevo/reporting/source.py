@@ -76,6 +76,8 @@ def source_view(root: Path, database: dict, state: dict) -> dict:
         baseline = sha == code_hash(seed)
         event = screen_events.get(sha, {})
         program = complete.get(sha)
+        raw_prefix = hashlib.sha256(code.encode()).hexdigest()[:12]
+        failed_attempt = any((root / "tasks").glob(f"*/{raw_prefix}-*/error.json"))
         phase = (
             "starting_agent"
             if baseline
@@ -83,6 +85,8 @@ def source_view(root: Path, database: dict, state: dict) -> dict:
             if program
             else "screened_out"
             if event and not (event.get("improved") or event.get("audit"))
+            else "evaluation_incomplete"
+            if failed_attempt or event and state.get("screens", 0) > event.get("screen", 0)
             else "evaluation_in_progress"
         )
         versions.append(

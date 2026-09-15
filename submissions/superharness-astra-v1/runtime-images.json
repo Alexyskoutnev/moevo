@@ -1,0 +1,12 @@
+{
+  "architecture": "arm64",
+  "captured_utc": "2026-09-15T17:14:22.207142+00:00",
+  "images": {
+    "moevo-or-runtime:20260915": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+    "moevo-doc-runtime:20260915": "sha256:d5ce1a6bbaa90584614338c8c8e170953822c49e6b69b73746048a3ea6e57b2b",
+    "moevo-terminal-verifier:20260915": "sha256:5ad7529807cb9736a2d0c266b4f6a13f895a52472c26016d1caacc228786fe07",
+    "moevo-cilia-agent:20260915": "sha256:efd50de86e67b70419c93aa8c17b51cf4b2afd59f91f95750316f9bc2c07de0e",
+    "moevo-cilia-verifier:20260915": "sha256:0effb3c422520ae7c0a891b146b7a9620bb168e1568f895704b04ee408da316a",
+    "moevo-putnam-runtime:20260915": "sha256:87750ad800ac5b55b5f6e84a266584d0e6b041267c5f78863940cf843326db91"
+  }
+}

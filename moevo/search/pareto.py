@@ -35,7 +35,7 @@ def pareto_rank(programs: list[Program], objectives: list[str]) -> list[list[int
     F = _objectives_matrix(programs, objectives)
     nds = NonDominatedSorting()
     fronts = nds.do(F)
-    return [front.tolist() for front in fronts]
+    return [np.asarray(front).tolist() for front in fronts]
 
 
 def crowding_distance(programs: list[Program], objectives: list[str]) -> np.ndarray:
@@ -61,11 +61,11 @@ def crowding_distance(programs: list[Program], objectives: list[str]) -> np.ndar
         for j in range(m):
             order = np.argsort(front_F[:, j])
             sorted_idx = [front[i] for i in order]
-            dist[sorted_idx[0]] = np.inf
-            dist[sorted_idx[-1]] = np.inf
             f_range = front_F[order[-1], j] - front_F[order[0], j]
             if f_range == 0:
                 continue
+            dist[sorted_idx[0]] = np.inf
+            dist[sorted_idx[-1]] = np.inf
             for k in range(1, len(order) - 1):
                 dist[sorted_idx[k]] += (
                     front_F[order[k + 1], j] - front_F[order[k - 1], j]
@@ -105,7 +105,8 @@ def select_parent(
     if len(programs) == 1:
         return programs[0]
 
-    rng = rng or np.random.default_rng()
+    if rng is None:
+        rng = np.random.default_rng()
     fronts = pareto_rank(programs, objectives)
     front0_idx = fronts[0] if fronts else list(range(len(programs)))
     front0 = [programs[i] for i in front0_idx]
@@ -149,7 +150,8 @@ def hypervolume(
 
     try:
         indicator = HV(ref_point=ref)
-        return float(indicator(front_F))
+        value = indicator(front_F)
+        return 0.0 if value is None else float(value)
     except Exception:
         return 0.0
 

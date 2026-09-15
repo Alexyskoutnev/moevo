@@ -3,13 +3,13 @@
 from __future__ import annotations
 
 import logging
-import random
 from typing import Any
 
 import numpy as np
 
 from ..core.types import Program
 from .adaptation import AdaptationState
+from .many_objective import balanced_champion, nsga3_select, reference_directions
 from .pareto import (
     crowding_distance,
     get_pareto_front,
@@ -38,8 +38,30 @@ class ParetoDatabase:
         migration_count: int = 1,
         ref_point: list[float] | None = None,
         adaptation: AdaptationState | None = None,
+        random_seed: int | None = None,
+        selection: str = "pareto",
+        weights: list[float] | None = None,
     ):
+        if not objectives or len(set(objectives)) != len(objectives):
+            raise ValueError("Objectives must be nonempty and unique")
+        if num_islands < 1 or population_size < 2 * num_islands:
+            raise ValueError("Each island needs capacity for at least two programs")
+        if population_size % num_islands:
+            raise ValueError("Population size must be divisible by number of islands")
+        if selection not in {"pareto", "scalar", "nsga3"}:
+            raise ValueError("Selection must be pareto, nsga3, or scalar")
+        if selection == "nsga3":
+            reference_directions(len(objectives), population_size // num_islands)
+        weights = list(weights) if weights is not None else [1.0] * len(objectives)
+        if (
+            len(weights) != len(objectives)
+            or any(not np.isfinite(w) or w < 0 for w in weights)
+            or sum(weights) <= 0
+        ):
+            raise ValueError("Weights must be finite, nonnegative, and match objectives")
         self.objectives = objectives
+        self.selection = selection
+        self.weights = [w / sum(weights) for w in weights]
         self.population_size = population_size
         self.num_islands = num_islands
         self.migration_interval = migration_interval
@@ -51,12 +73,15 @@ class ParetoDatabase:
         self.adaptation = adaptation or AdaptationState(
             num_islands=num_islands,
         )
-        self._rng = np.random.default_rng()
+        self._rng = np.random.default_rng(random_seed)
         self._prev_hv = 0.0
 
     def add(self, program: Program, iteration: int) -> None:
         """Add a program to its assigned island, pruning if over capacity."""
         island_id = program.island_id
+        program.get_objectives(self.objectives)
+        if not 0 <= island_id < self.num_islands:
+            raise ValueError("Invalid island ID")
         self.islands[island_id].append(program)
         self.all_programs.append(program)
 
@@ -64,12 +89,12 @@ class ParetoDatabase:
         current_hv = self._global_hypervolume()
         hv_delta = max(0.0, current_hv - self._prev_hv)
         self.adaptation.update(island_id, hv_delta)
-        self._prev_hv = current_hv
+        self._prev_hv = max(self._prev_hv, current_hv)
 
         # Prune island if over capacity
         cap = self._island_capacity()
         if len(self.islands[island_id]) > cap:
-            self.islands[island_id] = nsga2_select(self.islands[island_id], cap, self.objectives)
+            self.islands[island_id] = self._select(self.islands[island_id], cap)
 
     def sample(self, num_context: int = 2) -> tuple[Program, list[Program], bool]:
         """Sample a parent and context programs for mutation.
@@ -94,13 +119,24 @@ class ParetoDatabase:
 
         # Explore vs exploit based on adaptive search intensity
         intensity = self.adaptation.get_search_intensity(island_id)
-        explore = random.random() < intensity
+        explore = bool(self._rng.random() < intensity)
 
         # Select parent from island's Pareto front
-        parent = select_parent(island, self.objectives, self._rng)
+        parent = (
+            select_parent(island, self.objectives, self._rng)
+            if self.selection == "pareto"
+            else max(island, key=self._scalar_score)
+        )
+        if self.selection == "nsga3":
+            frontier = get_pareto_front(island, self.objectives)
+            parent = frontier[int(self._rng.integers(len(frontier)))]
 
         # Context: diverse programs from global Pareto front
-        global_front = self.get_pareto_front()
+        global_front = (
+            self.get_pareto_front()
+            if self.selection in {"pareto", "nsga3"}
+            else [p for isl in self.islands for p in isl]
+        )
         context = self._select_diverse_context(global_front, parent, num_context)
 
         return parent, context, explore
@@ -119,7 +155,12 @@ class ParetoDatabase:
         all_pop = []
         for island in self.islands:
             all_pop.extend(island)
-        return get_pareto_front(all_pop, self.objectives)
+        unique = list({p.id: p for p in all_pop}.values())
+        return get_pareto_front(unique, self.objectives)
+
+    def get_balanced_program(self) -> Program | None:
+        """One champion selected by its weakest domain, for normalized success rates."""
+        return balanced_champion(self.get_pareto_front(), self.objectives)
 
     def get_best_program(self) -> Program | None:
         """Program with highest hypervolume contribution (backward compat)."""
@@ -158,16 +199,28 @@ class ParetoDatabase:
         """Per-island capacity (total population / num_islands, min 2)."""
         return max(2, self.population_size // self.num_islands)
 
+    def _scalar_score(self, program: Program) -> float:
+        return sum(
+            w * program.get_objective(o) for w, o in zip(self.weights, self.objectives, strict=True)
+        )
+
+    def _select(self, programs: list[Program], n: int) -> list[Program]:
+        if self.selection == "nsga3":
+            return nsga3_select(programs, n, self.objectives, self._rng)
+        if self.selection == "scalar":
+            return sorted(programs, key=self._scalar_score, reverse=True)[:n]
+        return nsga2_select(programs, n, self.objectives)
+
     def _migrate(self) -> None:
         """Send Pareto-front members between islands."""
         if self.num_islands < 2:
             return
 
         for _ in range(self.migration_count):
-            source_id = random.randrange(self.num_islands)
-            dest_id = random.randrange(self.num_islands)
+            source_id = int(self._rng.integers(self.num_islands))
+            dest_id = int(self._rng.integers(self.num_islands))
             while dest_id == source_id:
-                dest_id = random.randrange(self.num_islands)
+                dest_id = int(self._rng.integers(self.num_islands))
 
             source = self.islands[source_id]
             if not source:
@@ -177,7 +230,14 @@ class ParetoDatabase:
             if not front:
                 continue
 
-            migrant = select_parent(front, self.objectives, self._rng)
+            if self.selection == "scalar":
+                migrant = max(source, key=self._scalar_score)
+            elif self.selection == "nsga3":
+                migrant = front[int(self._rng.integers(len(front)))]
+            else:
+                migrant = select_parent(front, self.objectives, self._rng)
+            if any(p.id == migrant.id for p in self.islands[dest_id]):
+                continue
 
             migrated = Program(
                 id=migrant.id,
@@ -199,7 +259,7 @@ class ParetoDatabase:
 
             cap = self._island_capacity()
             if len(self.islands[dest_id]) > cap:
-                self.islands[dest_id] = nsga2_select(self.islands[dest_id], cap, self.objectives)
+                self.islands[dest_id] = self._select(self.islands[dest_id], cap)
 
             logger.debug(
                 "Migrated %s from island %d -> %d (dHV=%.4f)",
@@ -213,7 +273,7 @@ class ParetoDatabase:
         self, front: list[Program], parent: Program, n: int
     ) -> list[Program]:
         """Select diverse context programs from the frontier, excluding parent."""
-        candidates = [p for p in front if p.id != parent.id]
+        candidates = list({p.id: p for p in front if p.id != parent.id}.values())
         if not candidates:
             return []
         if len(candidates) <= n:
@@ -235,6 +295,9 @@ class ParetoDatabase:
             "all_programs": [p.to_dict() for p in self.all_programs],
             "adaptation": self.adaptation.to_dict(),
             "prev_hv": self._prev_hv,
+            "rng_state": self._rng.bit_generator.state,
+            "selection": self.selection,
+            "weights": self.weights,
         }
 
     @classmethod
@@ -248,8 +311,12 @@ class ParetoDatabase:
             migration_count=d["migration_count"],
             ref_point=d.get("ref_point"),
             adaptation=adaptation,
+            selection=d.get("selection", "pareto"),
+            weights=d.get("weights"),
         )
         db.islands = [[Program.from_dict(p) for p in island] for island in d["islands"]]
         db.all_programs = [Program.from_dict(p) for p in d["all_programs"]]
         db._prev_hv = d.get("prev_hv", 0.0)
+        if "rng_state" in d:
+            db._rng.bit_generator.state = d["rng_state"]
         return db

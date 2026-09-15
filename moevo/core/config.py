@@ -17,7 +17,7 @@ class MoevoConfig:
     objectives: list[str] = field(default_factory=lambda: ["score"])
 
     # LLM
-    model: str = "gemini/gemini-3-flash-preview"
+    model: str = "codex/gpt-6-astra"
     temperature: float = 0.7
     max_tokens: int = 32000
 
@@ -30,6 +30,9 @@ class MoevoConfig:
     retry_attempts: int = 2
     fresh_start: bool = True
     max_code_lines: int = 10000
+    random_seed: int = 42
+    selection: str = "pareto"
+    weights: list[float] | None = None
 
     # Adaptation
     ucb_constant: float = 1.41
@@ -64,7 +67,10 @@ def build_arg_parser() -> argparse.ArgumentParser:
     p.add_argument(
         "--objectives", nargs="+", default=["score"], help="Objective metric names (all maximized)"
     )
-    p.add_argument("--model", default="gemini/gemini-3-flash-preview")
+    p.add_argument("--model", default="codex/gpt-6-astra")
+    p.add_argument("--random-seed", type=int, default=42)
+    p.add_argument("--selection", choices=["pareto", "nsga3", "scalar"], default="pareto")
+    p.add_argument("--weights", nargs="+", type=float)
     p.add_argument("--temperature", type=float, default=0.7)
     p.add_argument("--max-tokens", type=int, default=32000)
     p.add_argument("--iterations", type=int, default=50)
@@ -98,6 +104,9 @@ def config_from_args(args: argparse.Namespace) -> MoevoConfig:
         initial_program=args.initial_program,
         evaluator_path=args.evaluator,
         objectives=args.objectives,
+        random_seed=args.random_seed,
+        selection=args.selection,
+        weights=args.weights,
         model=args.model,
         temperature=args.temperature,
         max_tokens=args.max_tokens,

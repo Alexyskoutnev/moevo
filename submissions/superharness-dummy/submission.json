@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "submission_id": "superharness-dummy-v0",
+  "description": "Unevolved shared harness for local submission and evaluator smoke tests.",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "xhigh",
+  "authentication": "codex_chatgpt_account",
+  "instructions": "Solve the supplied task using its permitted evidence and tools. Check calculations and constraints before returning the requested answer or deliverable. Use the benchmark run tool when tools are available. Follow the task's output format exactly.",
+  "timeout_seconds": 600,
+  "max_tool_calls": 30,
+  "seed": 20260915,
+  "benchmarks": [
+    "finqa", "bizfinbench2", "genebench_pro", "terminal_bench_science",
+    "amo", "putnambench", "travelplanner", "oragentbench", "dsbench",
+    "gdpval", "automationbench", "terminal_bench_2", "harvey_lab",
+    "healthbench_professional", "tau3_bench", "eduagentbench"
+  ]
+}

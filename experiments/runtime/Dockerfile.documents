@@ -1,0 +1,8 @@
+FROM docker.io/library/moevo-or-runtime:20260915
+
+# Local document-processing tools. Account credentials remain on the host.
+RUN apt-get update && apt-get install -y --no-install-recommends pandoc poppler-utils \
+    && rm -rf /var/lib/apt/lists/*
+RUN python -m pip install --no-cache-dir \
+    python-docx==1.2.0 pdfplumber==0.11.7 reportlab==4.4.3 \
+    python-pptx==1.0.2 matplotlib==3.10.6

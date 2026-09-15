@@ -1,0 +1,676 @@
+{
+  "purpose": "One real task per benchmark where runtime is available; integration validation only",
+  "model": "gpt-6-astra",
+  "effort": "xhigh",
+  "authentication": "Signed-in Codex ChatGPT account; API-key fallback disabled",
+  "cli_version": "codex-cli 0.154.0",
+  "policy_sha256": "f20ef0fbfc6abd5313c0368ede8baa823323b339a8127450de6e195cffebb043",
+  "generated_utc": "2026-09-15T17:28:44.611510+00:00",
+  "dummy": false,
+  "evolved": false,
+  "full_benchmark_scores": false,
+  "headroom_confirmed": false,
+  "validated": 14,
+  "real_tasks_scored": 15,
+  "results": [
+    {
+      "benchmark": "finqa",
+      "domain": "Finance",
+      "name": "FinQA",
+      "status": "scored",
+      "score": 1.0,
+      "e2e_validated": true,
+      "adapter_sha256": "76a000e737c366739f19da104400be8c2dff39f9ebbad9420fde2d2be8baa41f",
+      "task_id": "SLB/2011/page_41.pdf-1",
+      "protocol": "Official reference grader; one development task; shared account-Astra policy",
+      "base_preflight_image_id": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+      "grade_summary": {
+        "score": 1.0
+      },
+      "private_evidence": "results/mini-suite/astra-v1/finqa/report.json",
+      "private_report_sha256": "3948261a3a8ddf6d3d6a4227bceaeaebbac55c94fbd71db20c1878fe8e9ce98a",
+      "recorded_agent_runtimes": [
+        {
+          "path": "results/mini-suite/astra-v1/finqa/attempt-01/agent/runtime.json",
+          "image_id": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+          "network": "none",
+          "cpus": 2,
+          "memory": "4g",
+          "max_tool_calls": 80,
+          "timeout_seconds": 1200
+        }
+      ],
+      "task_tool_calls": 1,
+      "source_manifests": [
+        {
+          "path": "data/raw/finqa/manifest.json",
+          "sha256": "a9884aa227c1630940d6108e960cc312533b95c65c5fed3a268aa24cd23f1a78",
+          "dataset": "FinQA",
+          "repository": "https://github.com/czyssrs/FinQA",
+          "revision": "0f16e2867befa6840783e58be38c9efb9229d742"
+        }
+      ]
+    },
+    {
+      "benchmark": "bizfinbench2",
+      "domain": "Finance",
+      "name": "BizFinBench.v2",
+      "status": "scored",
+      "score": 1.0,
+      "e2e_validated": true,
+      "adapter_sha256": "76a000e737c366739f19da104400be8c2dff39f9ebbad9420fde2d2be8baa41f",
+      "task_id": "numeric-0656",
+      "protocol": "Official BizFinBench.v2 numeric grader; English subset",
+      "base_preflight_image_id": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+      "grade_summary": {
+        "score": 1.0
+      },
+      "private_evidence": "results/mini-suite/astra-v1/bizfinbench2/report.json",
+      "private_report_sha256": "dbede0ec0ed99d7fa967e13e60216a51b3a9ed96731929310af29b1fa6cb474d",
+      "recorded_agent_runtimes": [
+        {
+          "path": "results/mini-suite/astra-v1/bizfinbench2/attempt-01/agent/runtime.json",
+          "image_id": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+          "network": "none",
+          "cpus": 2,
+          "memory": "4g",
+          "max_tool_calls": 80,
+          "timeout_seconds": 1200
+        }
+      ],
+      "task_tool_calls": 1,
+      "source_manifests": [
+        {
+          "path": "data/raw/bizfinbench2/_moevo_manifest.json",
+          "sha256": "e6616740ede2f28cafac71be345648ba12c9691808a35be94cf0c7ecc47623bd",
+          "dataset": "bizfinbench2",
+          "repository": "https://huggingface.co/datasets/HiThink-Research/BizFinBench.v2",
+          "revision": "16983117cd5022097d672f06cb951b9e981754e4"
+        },
+        {
+          "path": "data/external/bizfinbench2/source_manifest.json",
+          "sha256": "0d225c5858e890f07baf216800c7d7991758852aceac34437911300330bc9a94",
+          "dataset": "bizfinbench2",
+          "repository": "https://github.com/HiThink-Research/BizFinBench.v2",
+          "revision": "b4d65ff68a5ac1a37fbfee6e71aaa41b3a84f6e3",
+          "archive_sha256": "bb174ce88d92b8b613bfa159a7ced6b41df78348e6a1d3bfc4bbbfa89261ae36"
+        }
+      ]
+    },
+    {
+      "benchmark": "genebench_pro",
+      "domain": "Science",
+      "name": "GeneBench Pro public",
+      "status": "scored",
+      "score": 0.9564000000000001,
+      "e2e_validated": true,
+      "adapter_sha256": "76a000e737c366739f19da104400be8c2dff39f9ebbad9420fde2d2be8baa41f",
+      "task_id": "wf_selection",
+      "protocol": "Public 10-case release; official composite grader",
+      "strict_pass": true,
+      "base_preflight_image_id": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+      "grade_summary": {
+        "passed": true,
+        "score": 0.9564000000000001
+      },
+      "private_evidence": "results/mini-suite/astra-v1/genebench_pro/report.json",
+      "private_report_sha256": "baf39a9b57bcbd2e1fc42af81a15dc96786c87b7d8702c3955e004a41469e21d",
+      "recorded_agent_runtimes": [
+        {
+          "path": "results/mini-suite/astra-v1/genebench_pro/attempt-01/agent/runtime.json",
+          "image_id": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+          "network": "none",
+          "cpus": 2,
+          "memory": "4g",
+          "max_tool_calls": 80,
+          "timeout_seconds": 1200
+        }
+      ],
+      "task_tool_calls": 6,
+      "source_manifests": [
+        {
+          "path": "data/raw/genebench_pro/manifest.json",
+          "sha256": "0e80d5dca9ac5211fb9dfa5c0ea8d26e9d557e2039c8f20b0f5a328ea3cd6c58"
+        },
+        {
+          "path": "data/raw/genebench_pro/_moevo_manifest.json",
+          "sha256": "7bf54b01e0171cc06c60d22c2d23de40661166528b509ce182b17be5bb5dd534",
+          "dataset": "genebench_pro",
+          "repository": "https://huggingface.co/datasets/openai/genebench-pro-public-package",
+          "revision": "eb75a3c0996b3cedcc9af685bad02fd166848fa2"
+        }
+      ]
+    },
+    {
+      "benchmark": "terminal_bench_science",
+      "domain": "Science",
+      "name": "Terminal-Bench Science",
+      "status": "scored",
+      "score": 0.0,
+      "e2e_validated": true,
+      "adapter_sha256": "3656000de0e0e76777921b9727dcaf07cb7948fdca6e551ce5e7ec97bbbbd2a8",
+      "task_id": "cilia-segmentation",
+      "protocol": "Official science environment, oracle and separate verifier; 1200s/2CPU/4GB offline mini-run variant; source commit pinned",
+      "base_preflight_image_id": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+      "grade_summary": {
+        "score": 0.0,
+        "exit_code": 0
+      },
+      "private_evidence": "results/mini-suite/astra-v1-extended/terminal_bench_science/report.json",
+      "private_report_sha256": "de61dd35d12cf7c68b16c7fac55744f698e2b52bd3ca4241966f88903cab2c0e",
+      "recorded_agent_runtimes": [
+        {
+          "path": "results/mini-suite/astra-v1-extended/terminal_bench_science/attempt-01/agent/runtime.json",
+          "image_id": "sha256:efd50de86e67b70419c93aa8c17b51cf4b2afd59f91f95750316f9bc2c07de0e",
+          "network": "none",
+          "cpus": 2,
+          "memory": "4g",
+          "max_tool_calls": 80,
+          "timeout_seconds": 1200
+        }
+      ],
+      "task_tool_calls": 80,
+      "validation_note": "Official science environment, oracle and separate verifier; 1200s/2CPU/4GB offline mini-run variant; source commit pinned. The attempt reached its 80-call budget while reading image base64 through the text-only terminal and produced no required result files. No image-display tool was enabled; this is an explicit limitation of this harness configuration.",
+      "source_manifests": [
+        {
+          "path": "data/external/terminal_bench_science/source_manifest.json",
+          "sha256": "9a266f3071acdc09b75d7240db1069420020dc18fd8a8c7c492c49fb24d8f6cc",
+          "dataset": "terminal_bench_science",
+          "repository": "https://github.com/harbor-framework/terminal-bench-science",
+          "revision": "749bc764b667502d47d2d99de988ee6e089b6aa4",
+          "archive_sha256": "eb36db204732da043577ba56a518050c4e75178ca51c6132d8888132264fa0de"
+        }
+      ]
+    },
+    {
+      "benchmark": "amo",
+      "domain": "Mathematics",
+      "name": "AMO-Bench P subset",
+      "status": "scored",
+      "score": 1.0,
+      "e2e_validated": true,
+      "adapter_sha256": "76a000e737c366739f19da104400be8c2dff39f9ebbad9420fde2d2be8baa41f",
+      "task_id": "p-subset-0036",
+      "protocol": "Official reference grader; one development task; shared account-Astra policy",
+      "base_preflight_image_id": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+      "grade_summary": {
+        "score": 1.0
+      },
+      "private_evidence": "results/mini-suite/astra-v1/amo/report.json",
+      "private_report_sha256": "9caa8c6b84d1196d9dba1663e109a165bac47c36f49a17e9e11322044664b14e",
+      "recorded_agent_runtimes": [
+        {
+          "path": "results/mini-suite/astra-v1/amo/attempt-01/agent/runtime.json",
+          "image_id": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+          "network": "none",
+          "cpus": 2,
+          "memory": "4g",
+          "max_tool_calls": 80,
+          "timeout_seconds": 1200
+        }
+      ],
+      "task_tool_calls": 3,
+      "source_manifests": [
+        {
+          "path": "data/raw/amo_bench/_moevo_manifest.json",
+          "sha256": "d37d0a0b26037d8dfaf1e0839263be96ac0560ddf7536e963cae02cf19536f48",
+          "dataset": "amo_bench",
+          "repository": "https://huggingface.co/datasets/meituan-longcat/AMO-Bench",
+          "revision": "2f422616c25d862984408fbbfaed63a961e8e025"
+        },
+        {
+          "path": "data/external/amo_bench/source_manifest.json",
+          "sha256": "3e97b7c267c15344630c3f7a0690ac4339d34b0ac1c423e6389b6e5b76f9e9ba",
+          "dataset": "amo_bench",
+          "repository": "https://github.com/meituan-longcat/AMO-Bench",
+          "revision": "52e1f378e4bcb0c593e860be38f9251b1a192571",
+          "archive_sha256": "a65f385c14f1a85aca0cd145e57297ae946073d21717d75b7ac208ee3c23cebf"
+        }
+      ]
+    },
+    {
+      "benchmark": "putnambench",
+      "domain": "Mathematics",
+      "name": "PutnamBench",
+      "status": "scored",
+      "score": 1.0,
+      "e2e_validated": true,
+      "adapter_sha256": "26c74c8b845dd8720633b1df977dc29e7c9e014b39d4dd95f24301f48c556054",
+      "task_id": "putnam_2010_a4",
+      "protocol": "Pinned PutnamBench theorem, Lean 4.27.0 / Mathlib kernel; restricted proof-term protocol and local budget variant",
+      "agent_image_id": "sha256:87750ad800ac5b55b5f6e84a266584d0e6b041267c5f78863940cf843326db91",
+      "verifier_image_id": "sha256:87750ad800ac5b55b5f6e84a266584d0e6b041267c5f78863940cf843326db91",
+      "task_sha256": "a7224e3b91f9ddf07ed3f9ddcfaca9fd0c578001bb5d3fefcd07505339881496",
+      "control_scope": "Compiler and axiom validation; no published oracle proof for this Putnam task",
+      "base_preflight_image_id": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+      "grade_summary": {
+        "score": 1.0,
+        "returncode": 0,
+        "kernel_checked": true
+      },
+      "private_evidence": "results/mini-suite/astra-v1-extended/putnambench/report.json",
+      "private_report_sha256": "34781d4420c75b774e760aaa6e8492a8431e8d7513dea4c14174cb774dc23c56",
+      "recorded_agent_runtimes": [
+        {
+          "path": "results/mini-suite/astra-v1-extended/putnambench/attempt-01/agent/runtime.json",
+          "image_id": "sha256:87750ad800ac5b55b5f6e84a266584d0e6b041267c5f78863940cf843326db91",
+          "network": "none",
+          "cpus": 2,
+          "memory": "4g",
+          "max_tool_calls": 80,
+          "timeout_seconds": 1200
+        }
+      ],
+      "task_tool_calls": 9,
+      "source_manifests": [
+        {
+          "path": "data/external/putnambench/source_manifest.json",
+          "sha256": "805b5fa093ee4967950605945c35cda1dc78275446452d9bed5fc3a7f9ece4ba",
+          "dataset": "putnambench",
+          "repository": "https://github.com/trishullab/PutnamBench",
+          "revision": "f0018466aa391817c3377c28d7ae662d43d30cdb",
+          "archive_sha256": "68c0f3c836d16b86bbd990e4d398c6c7e35cc098f6fe7d0c1c12645b2ebd92e9"
+        }
+      ]
+    },
+    {
+      "benchmark": "travelplanner",
+      "domain": "Planning",
+      "name": "TravelPlanner",
+      "status": "scored",
+      "score": 1.0,
+      "e2e_validated": true,
+      "adapter_sha256": "76a000e737c366739f19da104400be8c2dff39f9ebbad9420fde2d2be8baa41f",
+      "task_id": "train-12",
+      "protocol": "Official sole-planning constraints; fixture selected for valid annotation; not a representative score",
+      "base_preflight_image_id": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+      "grade_summary": {
+        "score": 1.0
+      },
+      "private_evidence": "results/mini-suite/astra-v1/travelplanner/report.json",
+      "private_report_sha256": "c7566ced4be4feec61f096a2d5a56898ea88d80470ce3c53020f09a78b7d7a37",
+      "recorded_agent_runtimes": [
+        {
+          "path": "results/mini-suite/astra-v1/travelplanner/attempt-01/agent/runtime.json",
+          "image_id": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+          "network": "none",
+          "cpus": 2,
+          "memory": "4g",
+          "max_tool_calls": 80,
+          "timeout_seconds": 1200
+        }
+      ],
+      "task_tool_calls": 6,
+      "source_manifests": [
+        {
+          "path": "data/raw/travelplanner/_moevo_manifest.json",
+          "sha256": "6e053a6e17f7a9166a00a309d7c32cf042199d1619b5affbf4ac440a847eb426",
+          "dataset": "travelplanner",
+          "repository": "https://huggingface.co/datasets/osunlp/TravelPlanner",
+          "revision": "8736504ecfc31b7f8b7e40122873c337e83fff7c"
+        },
+        {
+          "path": "data/raw/travelplanner/_moevo_assets_manifest.json",
+          "sha256": "991d363e8e84f3cb4175f32836350ea1edac601e4fbefa50a4fedc7f7243cf74"
+        },
+        {
+          "path": "data/external/travelplanner/source_manifest.json",
+          "sha256": "414af64f7a74b6876b605e1f001f6dfba38f8c2a6ef57554bd8b268f8da0cb71",
+          "dataset": "travelplanner",
+          "repository": "https://github.com/OSU-NLP-Group/TravelPlanner",
+          "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+          "archive_sha256": "6d8b9f741587816a0beff243a07cc52e611d63b30c45189c59bc795d082dfa65"
+        }
+      ]
+    },
+    {
+      "benchmark": "oragentbench",
+      "domain": "Operations research",
+      "name": "ORAgentBench",
+      "status": "scored",
+      "score": 1.0,
+      "e2e_validated": true,
+      "adapter_sha256": "26c74c8b845dd8720633b1df977dc29e7c9e014b39d4dd95f24301f48c556054",
+      "task_id": "industrial_water_reuse_blending",
+      "protocol": "Official oracle and grader; local 2CPU/4GB budget variant",
+      "from_scratch_replay_validated": false,
+      "base_preflight_image_id": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+      "grade_summary": {},
+      "private_evidence": "results/mini-suite/astra-v1-extended/oragentbench/report.json",
+      "private_report_sha256": "8f42e1ba9686c7b5501b25b3f83aaacbd4b0eb6f62b5c3032e02897d9065e62b",
+      "recorded_agent_runtimes": [
+        {
+          "path": "results/mini-suite/astra-v1-extended/oragentbench/attempt-01/agent/runtime.json",
+          "image_id": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+          "network": "none",
+          "cpus": 2,
+          "memory": "4g",
+          "max_tool_calls": 80,
+          "timeout_seconds": 1200
+        }
+      ],
+      "task_tool_calls": 5,
+      "source_manifests": [
+        {
+          "path": "data/external/oragentbench/source_manifest.json",
+          "sha256": "f66262c14b3d64cb0dca1b1100f06afbe2a9a940255787d55d1289a519e66695",
+          "dataset": "oragentbench",
+          "repository": "https://github.com/ORAgentBench/ORAgentBench",
+          "revision": "c9eb952435a4352f33daa2a35efe0f8c76d31b28",
+          "archive_sha256": "4e68ea993dcb27d784445163d88582e79f16e1fc3cae93c3b70dba0501ca25cc"
+        }
+      ]
+    },
+    {
+      "benchmark": "dsbench",
+      "domain": "Data analysis",
+      "name": "DSBench",
+      "status": "scored",
+      "score": 1.0,
+      "e2e_validated": true,
+      "adapter_sha256": "76a000e737c366739f19da104400be8c2dff39f9ebbad9420fde2d2be8baa41f",
+      "task_id": "00000034/question9",
+      "protocol": "Official data and judge prompt; account-Astra judge variant",
+      "base_preflight_image_id": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+      "grade_summary": {
+        "score": 1.0
+      },
+      "private_evidence": "results/mini-suite/astra-v1/dsbench/report.json",
+      "private_report_sha256": "e179cb2dbd3f49d931e4580b88b322975bcc0de3430843f3fe71d43140e0a4f3",
+      "recorded_agent_runtimes": [
+        {
+          "path": "results/mini-suite/astra-v1/dsbench/attempt-01/agent/runtime.json",
+          "image_id": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+          "network": "none",
+          "cpus": 2,
+          "memory": "4g",
+          "max_tool_calls": 80,
+          "timeout_seconds": 1200
+        }
+      ],
+      "task_tool_calls": 3,
+      "source_manifests": [
+        {
+          "path": "data/raw/dsbench/_moevo_manifest.json",
+          "sha256": "54a5a42335b4b49c4d327ed09e5f3585678462064f3c5e4b7298e2f3341fd60e",
+          "dataset": "dsbench",
+          "repository": "https://huggingface.co/datasets/liqiang888/DSBench",
+          "revision": "1196d6553ec200e1262841efc89cda5954ffe89f"
+        },
+        {
+          "path": "data/raw/dsbench/_moevo_assets_manifest.json",
+          "sha256": "59e41f10975ef46c1bf87725e7dc9307bb4e1cf1f63ce17933449ebafccecdd2"
+        },
+        {
+          "path": "data/external/dsbench/source_manifest.json",
+          "sha256": "f732497f4e73ef9ff6e603e1b7f62edeb142f013a94e830dc0822fb6a6739561",
+          "dataset": "dsbench",
+          "repository": "https://github.com/LiqiangJing/DSBench",
+          "revision": "ba786096137a5108af11c016ad3f09cdb97beefd",
+          "archive_sha256": "37f927e93a9c3653f2993688ad2b387e308bc1afd208f8d02c6bd1032f938c2c"
+        }
+      ]
+    },
+    {
+      "benchmark": "gdpval",
+      "domain": "Professional work",
+      "name": "GDPval",
+      "status": "scored",
+      "score": 0.6666666666666666,
+      "e2e_validated": true,
+      "adapter_sha256": "b48cb8bd7d94f27a46968752b54e2aa898d497b42536dc1e768817bcbddc6d35",
+      "task_id": "83d10b06-26d1-4636-a32c-23f92c57f30b",
+      "protocol": "Public GDPval weighted rubric and actual artifact extraction; account-Astra judge variant; not expert pairwise win rate",
+      "artifact_count": 2,
+      "visual_layout_evaluated": false,
+      "controls_scope": "Rubric transport and point calculation",
+      "base_preflight_image_id": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+      "grade_summary": {
+        "raw_points": 42,
+        "positive_points": 63,
+        "score": 0.6666666666666666
+      },
+      "private_evidence": "results/mini-suite/astra-v1-extended/gdpval/report.json",
+      "private_report_sha256": "f1ca140ca00e2e2c4eed05c86c178bb7fba70ddc9670565f0b3cd3ab35e69e2e",
+      "recorded_agent_runtimes": [
+        {
+          "path": "results/mini-suite/astra-v1-extended/gdpval/attempt-01/agent/runtime.json",
+          "image_id": "sha256:d5ce1a6bbaa90584614338c8c8e170953822c49e6b69b73746048a3ea6e57b2b",
+          "network": "none",
+          "cpus": 2,
+          "memory": "4g",
+          "max_tool_calls": 80,
+          "timeout_seconds": 1200
+        }
+      ],
+      "task_tool_calls": 8,
+      "source_manifests": [
+        {
+          "path": "data/raw/gdpval/_moevo_manifest.json",
+          "sha256": "443ee894419b7a04438107ac103a37e7494a85cd1ab989903fc9b11ab033ce76",
+          "dataset": "gdpval",
+          "repository": "https://huggingface.co/datasets/openai/gdpval",
+          "revision": "11e7900cdcac61bc4daf59e65feb238acda98fbf"
+        }
+      ]
+    },
+    {
+      "benchmark": "automationbench",
+      "domain": "Professional work",
+      "name": "AutomationBench public",
+      "status": "needs_audit",
+      "score": 0.6,
+      "e2e_validated": false,
+      "adapter_sha256": "76a000e737c366739f19da104400be8c2dff39f9ebbad9420fde2d2be8baa41f",
+      "task_id": 1201,
+      "protocol": "Official public simulated-world assertions; known task-ID inconsistency remains under audit",
+      "strict_pass": 0.0,
+      "positive_control_validated": false,
+      "validation_note": "Real task and native grader ran; no-op/synthetic-positive controls passed. Fixed assertion IDs disagree with generated tool IDs, so task validity remains under audit.",
+      "base_preflight_image_id": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+      "grade_summary": {
+        "partial_credit": 0.6,
+        "strict_pass": 0.0
+      },
+      "private_evidence": "results/mini-suite/astra-v1/automationbench/report.json",
+      "private_report_sha256": "3a09281d3eef8d0b10c3d2f99cd78e950e5cfd3b742aefc30062b19feca0b6ae",
+      "recorded_agent_runtimes": [],
+      "postrun_assertion_audit": {
+        "task_id": 1201,
+        "native_score_unchanged": 0.6,
+        "negative_noop_score": 0.0,
+        "synthetic_positive_score": 1.0,
+        "strict_assertion_errors": false,
+        "expected_task_ids": [
+          "1208765432109876"
+        ],
+        "created_task_ids": [
+          "asana_b80e9c6cb11542348049d60f111a5062"
+        ],
+        "id_contract_mismatch": true,
+        "scope": "Controls prove native assertions distinguish passing/failing states; synthetic positive is not a reachable oracle. Fixed assertion IDs disagree with generated tool IDs. Score remains under audit."
+      },
+      "source_manifests": [
+        {
+          "path": "data/external/automationbench/source_manifest.json",
+          "sha256": "fe45a50ac70672c169e105907dc48dbc64205eed3bf9d07aa4a5c8a036a83409",
+          "dataset": "automationbench",
+          "repository": "https://github.com/zapier/AutomationBench",
+          "revision": "4a8e1061254004d9dac807054eed33fad7d1ff14",
+          "archive_sha256": "3e725336ef5a58dd67c70a81cde6d628317426641a49e90931a21cb1d2028f05"
+        }
+      ]
+    },
+    {
+      "benchmark": "terminal_bench_2",
+      "domain": "Software / terminal",
+      "name": "Terminal-Bench 2",
+      "status": "scored",
+      "score": 1.0,
+      "e2e_validated": true,
+      "adapter_sha256": "3656000de0e0e76777921b9727dcaf07cb7948fdca6e551ce5e7ec97bbbbd2a8",
+      "task_id": "regex-log",
+      "protocol": "Official Terminal-Bench 2 test code/Python 3.13; dependencies preinstalled; local agent runtime and resource variant",
+      "base_preflight_image_id": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+      "grade_summary": {
+        "score": 1.0,
+        "exit_code": 0
+      },
+      "private_evidence": "results/mini-suite/astra-v1-extended/terminal_bench_2/report.json",
+      "private_report_sha256": "b989f5c1b04f5c685a3064b76d0bada2d25196c4b54b29edd1f08c0bfae9542f",
+      "recorded_agent_runtimes": [
+        {
+          "path": "results/mini-suite/astra-v1-extended/terminal_bench_2/attempt-01/agent/runtime.json",
+          "image_id": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+          "network": "none",
+          "cpus": 2,
+          "memory": "4g",
+          "max_tool_calls": 80,
+          "timeout_seconds": 1200
+        }
+      ],
+      "task_tool_calls": 3,
+      "source_manifests": [
+        {
+          "path": "data/external/terminal_bench_2/source_manifest.json",
+          "sha256": "4ce098e1750ecf7b8fac9eb06be35d5dd92beec20bce2b49bec3e91634294c55",
+          "dataset": "terminal_bench_2",
+          "repository": "https://github.com/harbor-framework/terminal-bench-2",
+          "revision": "2fd12b88aafdd04a52c298e3940bcb189f9766d6",
+          "archive_sha256": "fd2188bc69d2dd629b3f02e825ea95ebf8f5f2f0f2c4a6e4d1598dd33a212268"
+        }
+      ]
+    },
+    {
+      "benchmark": "harvey_lab",
+      "domain": "Legal",
+      "name": "Harvey LAB",
+      "status": "scored",
+      "score": 0.0,
+      "e2e_validated": true,
+      "adapter_sha256": "b48cb8bd7d94f27a46968752b54e2aa898d497b42536dc1e768817bcbddc6d35",
+      "task_id": "banking-finance/extract-lien-and-debt-information-from-ucc-filings",
+      "protocol": "Official LAB criterion prompt and all-pass rule; single account-Astra judge variant; DOCX extracted with pandoc",
+      "criterion_pass_rate": 0.9152542372881356,
+      "controls_scope": "Rubric transport; not an independent legal accuracy audit",
+      "artifact_count": 1,
+      "base_preflight_image_id": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+      "grade_summary": {
+        "all_pass": false,
+        "n_passed": 54,
+        "n_criteria": 59
+      },
+      "private_evidence": "results/mini-suite/astra-v1-extended/harvey_lab/report.json",
+      "private_report_sha256": "efe46337f91bdd97155e0471ff77fa71524bd654d825b4c31518285f2dc7a4c5",
+      "recorded_agent_runtimes": [
+        {
+          "path": "results/mini-suite/astra-v1-extended/harvey_lab/attempt-01/agent/runtime.json",
+          "image_id": "sha256:d5ce1a6bbaa90584614338c8c8e170953822c49e6b69b73746048a3ea6e57b2b",
+          "network": "none",
+          "cpus": 2,
+          "memory": "4g",
+          "max_tool_calls": 80,
+          "timeout_seconds": 1200
+        }
+      ],
+      "task_tool_calls": 16,
+      "source_manifests": [
+        {
+          "path": "data/external/harvey_lab/source_manifest.json",
+          "sha256": "9c9bba77ea40feabcfdc32741ed29d68b95dd23c21c5b346cb48e76a21ac81e0",
+          "dataset": "harvey_lab",
+          "repository": "https://github.com/harveyai/harvey-labs",
+          "revision": "cd079c294f7266ac3ab2c280800420c1b7257d59",
+          "archive_sha256": "ef3e6a8701c72894cc65cddb4d9fe033b6b89693a3b22a6f2a8f9a856ff6557a"
+        }
+      ]
+    },
+    {
+      "benchmark": "healthbench_professional",
+      "domain": "Medicine",
+      "name": "HealthBench Professional",
+      "status": "scored",
+      "score": 1.0,
+      "e2e_validated": true,
+      "adapter_sha256": "76a000e737c366739f19da104400be8c2dff39f9ebbad9420fde2d2be8baa41f",
+      "task_id": "d52fb2405d6f6c57e1e1472bfe5be65e",
+      "protocol": "Public HealthBench scorer; account-Astra solver/judge; text only; external protocol variant",
+      "strict_pass": true,
+      "base_preflight_image_id": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+      "grade_summary": {
+        "raw_rubric_score": 1.0,
+        "length_adjusted_score": 1.018228,
+        "all_criteria_passed": true,
+        "response_characters": 1380
+      },
+      "private_evidence": "results/mini-suite/astra-v1/healthbench_professional/report.json",
+      "private_report_sha256": "038e1e96c287635a591c6e0be536a5212b6a5382fb8d53bdc7c0e453fde67d95",
+      "recorded_agent_runtimes": [],
+      "source_manifests": [
+        {
+          "path": "data/raw/healthbench_professional/_moevo_manifest.json",
+          "sha256": "198580c35eba8bfff33723a639b8e68e00c369e0fbe613ac4c62d37f8ee26e80",
+          "dataset": "healthbench_professional",
+          "repository": "https://huggingface.co/datasets/openai/healthbench-professional",
+          "revision": "349962fd46dd02343a0d8a606491baf59154ea1a"
+        }
+      ]
+    },
+    {
+      "benchmark": "tau3_bench",
+      "domain": "Customer service",
+      "name": "tau3-bench",
+      "status": "scored",
+      "score": 0.0,
+      "e2e_validated": true,
+      "adapter_sha256": "26c74c8b845dd8720633b1df977dc29e7c9e014b39d4dd95f24301f48c556054",
+      "task_id": "1",
+      "protocol": "Native text simulator and reward; account Astra agent/user; JSON tool transport; 50-step cap",
+      "termination": "user_stop",
+      "base_preflight_image_id": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+      "grade_summary": {
+        "reward": 0.0,
+        "actions_matched": 4,
+        "actions_total": 5,
+        "db_match": false
+      },
+      "private_evidence": "results/mini-suite/astra-v1-extended/tau3_bench/report.json",
+      "private_report_sha256": "684a2c44b184864ab05277c1975d3b2cb745b26c47009d8de1b3f30752879e30",
+      "recorded_agent_runtimes": [],
+      "source_manifests": [
+        {
+          "path": "data/external/tau3_bench/source_manifest.json",
+          "sha256": "17db52d4becd56ec2c951b40d31cc08708fc3213b71aeafe5e2608def0765d90",
+          "dataset": "tau3_bench",
+          "repository": "https://github.com/sierra-research/tau2-bench",
+          "revision": "2174a603f6d014ef94473ffa95957f6ce27100db",
+          "archive_sha256": "2def0d4eefe05b050e1807bc77071e5287e3c8aa7267688c7705d6c0656609a8"
+        }
+      ]
+    },
+    {
+      "benchmark": "eduagentbench",
+      "domain": "Education",
+      "name": "EduAgentBench",
+      "status": "blocked",
+      "score": null,
+      "e2e_validated": false,
+      "adapter_sha256": "26c74c8b845dd8720633b1df977dc29e7c9e014b39d4dd95f24301f48c556054",
+      "error": "EduAgentBench: all 22 asset checksums pass, but the downloaded public release has no evaluator or Canvas runtime; cannot claim official E2E validation",
+      "base_preflight_image_id": "sha256:848a0d9934c951d142d180b71d09866953dd4c288e2caf1b85b72b853468d0cb",
+      "grade_summary": {},
+      "private_evidence": "results/mini-suite/astra-v1-extended/eduagentbench/report.json",
+      "private_report_sha256": "f4f24e3a7e46e1e56d427a9b6dc40cae8910b04ed3bdd89ecb6a107203b1ece8",
+      "recorded_agent_runtimes": [],
+      "source_manifests": [
+        {
+          "path": "data/raw/eduagentbench/_moevo_manifest.json",
+          "sha256": "e415e6caef44720ba46eff2499642632fa8099b6fb68b6d93c2a663b29dea6be",
+          "dataset": "eduagentbench",
+          "repository": "https://huggingface.co/datasets/eduagentbench/eduagentbench",
+          "revision": "8aa08d4b466c13ccc17cc00e2870c26495ffeeaa"
+        }
+      ]
+    }
+  ]
+}

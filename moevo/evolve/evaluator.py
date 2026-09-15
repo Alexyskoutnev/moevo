@@ -523,8 +523,7 @@ def _run_safety_eval(agent, eval_id: int, cfg: dict) -> tuple[float, dict, str]:
 
     safety_samples = _load_safety_samples(slice_name)
     if not safety_samples:
-        logger.warning("[eval #%d] No safety samples available", eval_id)
-        return 1.0, {"safety_score": 1.0, "safety_tasks": 0.0}, ""
+        raise ValueError("Required safety slice is empty; no safety score can be assigned")
 
     if safety_sample_size <= 0 or safety_sample_size >= len(safety_samples):
         # Full evaluation: all safety tasks in the slice

@@ -24,8 +24,10 @@ def save_checkpoint(db: ParetoDatabase, iteration: int, output_dir: Path) -> Pat
         "database": db.to_dict(),
     }
 
-    with open(path, "w") as f:
+    temporary = path.with_suffix(".json.tmp")
+    with open(temporary, "w") as f:
         json.dump(data, f, indent=2, default=str)
+    temporary.replace(path)
 
     logger.info("Checkpoint saved: %s", path)
     return path

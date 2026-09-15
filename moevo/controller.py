@@ -10,6 +10,7 @@ from .core import DiscoveryResult, MoevoConfig, Program
 from .core.checkpoint import find_latest_checkpoint, load_checkpoint, save_checkpoint
 from .generation import build_prompt, generate, load_evaluate_fn, parse_response, run_evaluation
 from .search import ParetoDatabase
+from .search.adaptation import AdaptationState
 
 logger = logging.getLogger("moevo.controller")
 
@@ -25,6 +26,8 @@ class MoevoController:
     async def run(self) -> DiscoveryResult:
         """Run the full evolution loop."""
         cfg = self.config
+        if cfg.iterations < 0 or cfg.checkpoint_interval < 1:
+            raise ValueError("Iterations must be nonnegative and checkpoint interval positive")
         output_dir = cfg.output_path
         output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -38,6 +41,10 @@ class MoevoController:
             latest = find_latest_checkpoint(output_dir)
             if latest:
                 self._db, start_iteration = load_checkpoint(latest)
+                if self._db.objectives != cfg.objectives or self._db.selection != cfg.selection:
+                    raise ValueError(
+                        "Checkpoint objectives/selection differ from the run configuration"
+                    )
                 start_iteration += 1
                 logger.info("Resuming from iteration %d", start_iteration)
         if start_iteration == 0:
@@ -48,16 +55,27 @@ class MoevoController:
                 migration_interval=cfg.migration_interval,
                 migration_count=cfg.migration_count,
                 ref_point=cfg.ref_point,
+                random_seed=cfg.random_seed,
+                selection=cfg.selection,
+                weights=cfg.weights,
+                adaptation=AdaptationState(
+                    num_islands=cfg.num_islands,
+                    ucb_constant=cfg.ucb_constant,
+                    decay=cfg.decay,
+                    intensity_min=cfg.intensity_min,
+                    intensity_max=cfg.intensity_max,
+                ),
             )
             # Seed with initial program
             await self._seed_initial_program()
 
+        assert self._db is not None
         # Main loop
         for iteration in range(start_iteration, cfg.iterations):
             logger.info("=== Iteration %d/%d ===", iteration + 1, cfg.iterations)
             await self._run_iteration(iteration)
 
-            self._db.end_iteration(iteration)
+            self._db.end_iteration(iteration + 1)
 
             # Log status
             front = self._db.get_pareto_front()
@@ -98,6 +116,7 @@ class MoevoController:
 
     async def _seed_initial_program(self) -> None:
         """Evaluate and add the initial seed program."""
+        assert self._db is not None
         cfg = self.config
         code = Path(cfg.initial_program).read_text()
         program_id = _make_id()
@@ -106,7 +125,7 @@ class MoevoController:
         result = await run_evaluation(self._evaluate_fn, code, program_id)
 
         if result.error:
-            logger.warning("Seed evaluation failed: %s", result.error)
+            raise RuntimeError(f"Seed evaluation failed: {result.error}")
 
         seed = Program(
             id=program_id,
@@ -134,6 +153,7 @@ class MoevoController:
 
     async def _run_iteration(self, iteration: int) -> None:
         """Run a single iteration: sample -> mutate -> evaluate -> store."""
+        assert self._db is not None
         cfg = self.config
 
         for attempt in range(cfg.retry_attempts + 1):
@@ -170,6 +190,10 @@ class MoevoController:
                     logger.warning(
                         "Iteration %d attempt %d: failed to parse LLM response", iteration, attempt
                     )
+                    continue
+
+                if any(p.solution == child_code for p in self._db.all_programs):
+                    logger.info("Skipping duplicate candidate before evaluation")
                     continue
 
                 # Syntax check

@@ -52,8 +52,12 @@ async def run_evaluation(evaluate_fn, code: str, program_id: str) -> EvalResult:
             Path(temp_path).unlink(missing_ok=True)
 
         if isinstance(result, dict):
-            metrics = {
-                k: v for k, v in result.items() if isinstance(v, (int, float)) and k != "artifacts"
+            if result.get("error"):
+                return EvalResult(error=str(result["error"]))
+            metrics: dict[str, float] = {
+                k: float(v)
+                for k, v in result.items()
+                if isinstance(v, (int, float)) and not isinstance(v, bool) and k != "artifacts"
             }
             artifacts = result.get("artifacts", {})
             if not isinstance(artifacts, dict):

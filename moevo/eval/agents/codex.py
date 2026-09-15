@@ -15,6 +15,7 @@ import asyncio
 import logging
 from typing import TYPE_CHECKING
 
+from moevo.codex.client import DEFAULT_MODEL, run_codex
 from moevo.eval.agents.base import AgentResult, BaseAgent
 
 if TYPE_CHECKING:
@@ -30,59 +31,19 @@ class CodexAgent(BaseAgent):
         return "codex"
 
     async def _run(self, prompt: str, cwd: Path) -> AgentResult:
-        bin_path = self._find_binary("@openai/codex", "codex")
-
-        # Ensure cwd is absolute (Codex needs it to exist)
-        cwd = cwd.resolve()
-        cwd.mkdir(parents=True, exist_ok=True)
-
-        # Init a git repo if needed (Codex requires it)
-        git_dir = cwd / ".git"
-        if not git_dir.exists():
-            proc = await asyncio.create_subprocess_exec(
-                "git",
-                "init",
-                cwd=str(cwd),
-                stdout=asyncio.subprocess.DEVNULL,
-                stderr=asyncio.subprocess.DEVNULL,
+        try:
+            response = await asyncio.to_thread(
+                run_codex,
+                f"{self._system_prompt}\n\n{prompt}",
+                cwd=cwd,
+                model=self._model or DEFAULT_MODEL,
+                tools=True,
+                timeout=1800,
             )
-            await proc.wait()
-
-        # Codex CLI: exec for non-interactive, --full-auto for auto-approve,
-        # --json for JSONL output
-        full_prompt = f"{self._system_prompt}\n\nYour working directory is: {cwd}\nAll files MUST be saved there.\n\n{prompt}"
-
-        model = self._model or "gpt-5.4"
-        cmd = [
-            *bin_path.split(),
-            "exec",
-            "--full-auto",
-            "--json",
-            "-m",
-            model,
-            "-c",
-            "model_reasoning_effort=xhigh",
-            "-C",
-            str(cwd),
-            full_prompt,
-        ]
-
-        stdout, stderr, rc = await self._run_subprocess(cmd, cwd)
-
-        result = AgentResult(raw_output=stdout)
-
-        if rc != 0 and not stdout.strip():
-            result.error = f"Exit code {rc}: {stderr[:500]}"
-            return result
-
-        # Parse Codex JSONL output
-        events = self._parse_jsonl(stdout)
-        if events:
-            result.response, result.tool_calls, result.messages = self._parse_codex_events(events)
-        else:
-            result.response = stdout
-
-        return result
+            _, calls, messages = self._parse_codex_events(response.events)
+            return AgentResult(response=response.text, tool_calls=calls, messages=messages)
+        except RuntimeError as exc:
+            return AgentResult(error=str(exc))
 
     @staticmethod
     def _parse_codex_events(events: list[dict]) -> tuple[str, list[dict], list[dict]]:

@@ -69,7 +69,7 @@ class GDPvalLoader(BaseLoader):
     def load(self) -> list[Sample]:
         df = self._read_parquet()
         samples = []
-        for _, row in df.iterrows():
+        for row in df.to_dict(orient="records"):
             samples.append(
                 Sample(
                     id=row["task_id"],
@@ -102,12 +102,14 @@ class GDPvalLoader(BaseLoader):
         parquet_files = list(self._data_dir.glob("*.parquet"))
         if parquet_files:
             return pd.read_parquet(parquet_files[0])
-        # Fall back to reading all parquets in train/ subdirectory.
-        train_dir = self._data_dir / "train"
-        if train_dir.exists():
-            parquet_files = list(train_dir.glob("*.parquet"))
+        # Hugging Face snapshots use data/train-*.parquet; older downloads
+        # used train/*.parquet. Read every shard from the matching layout.
+        for train_dir in (self._data_dir / "data", self._data_dir / "train"):
+            parquet_files = sorted(train_dir.glob("*.parquet"))
             if parquet_files:
-                return pd.read_parquet(parquet_files[0])
+                return pd.concat(
+                    [pd.read_parquet(path) for path in parquet_files], ignore_index=True
+                )
         raise FileNotFoundError(
             f"No parquet files found in {self._data_dir}. Run the download script first."
         )

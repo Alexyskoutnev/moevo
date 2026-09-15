@@ -5,6 +5,8 @@ from __future__ import annotations
 import asyncio
 import logging
 import os
+import tempfile
+from pathlib import Path
 
 import openai
 
@@ -58,6 +60,20 @@ async def generate(
     timeout: float = 120.0,
 ) -> str:
     """Generate text from an LLM. Returns the response text."""
+    if model.startswith("codex/"):
+        from moevo.codex.client import run_codex
+
+        with tempfile.TemporaryDirectory(prefix="moevo-mutation-") as cwd:
+            response = await asyncio.to_thread(
+                run_codex,
+                f"{system}\n\n{user}",
+                cwd=Path(cwd),
+                model=model.removeprefix("codex/"),
+                timeout=max(timeout, 300),
+            )
+            return response.text
+    if os.environ.get("MOEVO_ACCOUNT_ONLY") == "1":
+        raise ValueError("Account-only mode requires a codex/ model; API fallback is disabled")
     client, actual_model = _get_client(model)
 
     messages = [

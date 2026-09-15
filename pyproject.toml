@@ -19,7 +19,7 @@ keywords = [
 dependencies = [
     # Pareto sorting and crowding distance. The one piece of the search we do
     # not implement ourselves.
-    "pymoo>=0.6",
+    "pymoo>=0.6.2",
     "numpy>=1.24",
     # LLM providers: the agent and judges run on OpenAI, the mutator on Gemini.
     "openai>=1.0",
@@ -44,6 +44,15 @@ baselines = ["claude-agent-sdk>=0.1.48"]
 moevo = "moevo.cli:main"
 
 [dependency-groups]
+benchmarks = [
+    "mcp>=1.20,<2",
+    "openai-agents>=0.8",
+    "pyscipopt>=6",
+    "h5py>=3.12",
+    "openpyxl>=3.1",
+    "scikit-learn>=1.6",
+    "gdown>=5.2",
+]
 dev = [
     "pytest>=8.0",
     "pytest-asyncio>=0.23",
@@ -95,6 +104,10 @@ ignore = [
 known-first-party = ["moevo"]
 
 [tool.pyright]
+include = ["moevo", "tests", "experiments"]
+exclude = ["moevo/evolve/seeds", "data", "results"]
+venvPath = "."
+venv = ".venv"
 pythonVersion = "3.11"
 typeCheckingMode = "basic"
 reportMissingImports = false

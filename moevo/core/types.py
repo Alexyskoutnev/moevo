@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -20,7 +21,10 @@ class Program:
     metadata: dict[str, Any] = field(default_factory=dict)
 
     def get_objective(self, name: str) -> float:
-        return self.metrics.get(name, 0.0)
+        value = self.metrics[name]
+        if isinstance(value, bool) or not math.isfinite(value):
+            raise ValueError(f"Objective {name!r} must be a finite number, got {value!r}")
+        return float(value)
 
     def get_objectives(self, names: list[str]) -> list[float]:
         return [self.get_objective(n) for n in names]

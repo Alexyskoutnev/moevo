@@ -14,6 +14,7 @@ from pathlib import Path
 
 from moevo.reporting.aggregate import aggregate_panel
 from moevo.reporting.results import export_tables
+from moevo.reporting.source import source_view
 
 ROOT = Path(__file__).resolve().parents[1]
 TEMPLATE = ROOT / "moevo/reporting/dashboard.html"
@@ -65,7 +66,9 @@ def task_outcome(benchmark: str, row: dict | None) -> tuple[str, str]:
     return f"{int(passed)} passed / 1 tested", detail
 
 
-def snapshot(run_root: Path) -> dict:
+def snapshot(
+    run_root: Path, study_root: Path | None = None, *, include_source: bool = False
+) -> dict:
     run = read_json(run_root / "run.json", {})
     manifest = read_json(run_root / "search.json", {})
     state = read_json(run_root / "evaluation_state.json", {})
@@ -149,6 +152,23 @@ def snapshot(run_root: Path) -> dict:
         seed_hash,
         champion["candidate_sha256"] if champion else None,
     )
+    evolved = [point for point in history if point["step"] > 0]
+    comparison = (
+        "pending"
+        if not evolved
+        else "starting_agent_retained"
+        if champion and baseline and champion["id"] == baseline["id"]
+        else "evolved_agent_selected"
+    )
+    # A screen is charged before it finishes; show that work as active, not completed.
+    screens_started = state.get("screens", len(screens))
+    active = None
+    if run.get("status") == "running" and screens_started:
+        latest = screens[-1] if screens else None
+        if latest is None or screens_started > (latest.get("screen") or 0):
+            active = {"screen": screens_started, "stage": "quick_check"}
+        elif not latest["confirmed"] and (latest["improved"] or latest["audit"]):
+            active = {"screen": screens_started, "stage": "full_test"}
     return {
         "title": "SuperHarness · one epoch",
         "status": run.get("status", "waiting"),
@@ -160,6 +180,10 @@ def snapshot(run_root: Path) -> dict:
         "baseline": baseline,
         "champion": champion,
         "screens": screens,
+        "screens_started": screens_started,
+        "active_evaluation": active,
+        "complete_evolved_versions": len(evolved),
+        "comparison_status": comparison,
         "benchmarks": benchmarks,
         "aggregate": aggregate,
         "split": manifest.get("split", "unknown"),
@@ -170,6 +194,8 @@ def snapshot(run_root: Path) -> dict:
         "task_errors": sum(e["stage"] == "task_error" for e in state.get("events", [])),
         "excluded": run.get("excluded", {}),
         "error": run.get("error"),
+        "next_study": read_json(study_root / "summary.json", None) if study_root else None,
+        "source_view": source_view(run_root, database, state) if include_source else None,
     }
 
 
@@ -282,6 +308,7 @@ def charts(data: dict, output: Path | None = None) -> dict[str, str]:
     )
     angles = np.linspace(0, 2 * np.pi, len(objectives), endpoint=False).tolist()
     angles += angles[:1]
+    plotted = set()
     for label, point, color, style in [
         ("Starting agent", baseline, "#9aaab2", "--"),
         ("Latest version", history[-1], "#cb7656", "-"),
@@ -289,6 +316,9 @@ def charts(data: dict, output: Path | None = None) -> dict[str, str]:
     ]:
         if point is None:
             continue
+        if point["id"] in plotted:
+            continue
+        plotted.add(point["id"])
         values = [100 * point["metrics"][o] for o in objectives]
         ax.plot(angles, values + values[:1], style, label=label, color=color, linewidth=1.8)
     assert isinstance(ax, PolarAxes)
@@ -316,6 +346,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run", type=Path, required=True)
     parser.add_argument("--port", type=int, default=8765)
+    parser.add_argument("--study", type=Path, help="Show the separately prepared eight-slice study")
     parser.add_argument("--export", type=Path)
     parser.add_argument(
         "--export-results", type=Path, help="Export percentage tables and PDF/SVG/PNG figures"
@@ -323,7 +354,7 @@ def main():
     args = parser.parse_args()
     run_root = args.run.resolve()
     if args.export_results:
-        data = snapshot(run_root)
+        data = snapshot(run_root, args.study, include_source=True)
         export_tables(data, args.export_results)
         charts(data, args.export_results)
         (args.export_results / "dashboard.html").write_text(document(data, False))
@@ -331,7 +362,7 @@ def main():
         return
     if args.export:
         args.export.parent.mkdir(parents=True, exist_ok=True)
-        args.export.write_text(document(snapshot(run_root), False))
+        args.export.write_text(document(snapshot(run_root, args.study, include_source=True), False))
         print(args.export.resolve())
         return
     lock = threading.Lock()
@@ -343,7 +374,7 @@ def main():
                 self.send_error(404)
                 return
             with lock:
-                data = snapshot(run_root)
+                data = snapshot(run_root, args.study, include_source=True)
                 signature = json.dumps(data, sort_keys=True)
                 if signature != cache["signature"]:
                     cache.update(signature=signature, data={**data, "figures": charts(data)})

@@ -66,7 +66,26 @@ def test_dashboard_uses_complete_vectors_and_deduplicates_island_seeds(tmp_path)
     assert len(data["history"]) == 2
     assert data["history"][1]["step"] == 1
     assert data["champion"]["metrics"] == seed["metrics"]
+    assert data["comparison_status"] == "starting_agent_retained"
+    assert data["complete_evolved_versions"] == 1
     assert "PRIVATE SOURCE" not in json.dumps(data)
+
+
+def test_in_progress_screen_is_not_a_completed_comparison(tmp_path):
+    (tmp_path / "run.json").write_text(json.dumps({"status": "running"}))
+    state = {"screens": 1, "events": []}
+    (tmp_path / "evaluation_state.json").write_text(json.dumps(state))
+    data = snapshot(tmp_path)
+    assert data["screens"] == []
+    assert data["active_evaluation"] == {"screen": 1, "stage": "quick_check"}
+    assert data["comparison_status"] == "pending"
+    state["events"] = [
+        {"stage": "screen", "screen": 1, "improved": True, "confirmed": False}
+    ]
+    (tmp_path / "evaluation_state.json").write_text(json.dumps(state))
+    assert snapshot(tmp_path)["active_evaluation"] == {"screen": 1, "stage": "full_test"}
+    (tmp_path / "run.json").write_text(json.dumps({"status": "failed"}))
+    assert snapshot(tmp_path)["active_evaluation"] is None
 
 
 def test_dashboard_has_no_fabricated_zero_baseline(tmp_path):

@@ -99,6 +99,26 @@ task-budget settings and the remaining integration work. The
 mini-run must demonstrate before larger experiments begin. The paper-reproduction
 setup below documents the original experiments and their provider configuration.
 
+### Current account-based development runs
+
+The new adapters evaluate exact task IDs across 13 benchmarks. The first sliced
+study has eight development panels, a separate fixed development monitor, and
+a blocked final reservation. See [the slice plan](docs/new-multidomain-slices.md)
+and [the harness review](docs/harness-review.md) for readiness and scope.
+
+```sh
+uv sync --extra monitor
+python -m experiments.run_sliced_study --study configs/studies/multidomain-eight-v2 --output results/sliced-study/run-01 --seed 20260915 --dry-run
+python -m experiments.run_first_slice --output results/first-slice/new-run
+```
+
+The full eight-slice launch currently reports unsupported Terminal-Bench
+environments. The first-slice bridge runs twelve new tasks plus the supported
+terminal fixture. It uses signed-in Codex account Astra solving/mutation and
+Terra rubric judging. The evolved component is the shared instruction string;
+tools and grading code are fixed. The API-key instructions below belong to the
+legacy paper-reproduction path.
+
 MOEvo evolves an agent by rewriting its source and executing it. **LLM-authored
 code is run in-process, and the agent's shell tool inherits your environment
 including your API keys.** The per-task workspace is a working directory, not a

@@ -1,0 +1,154 @@
+{
+  "version": 1,
+  "split": "search",
+  "slice": "S1",
+  "protocol": "d09adbfe6644eb34fc71af792f8bfbe4b864263724cb0765d5bd073eccc646e0",
+  "mutation_scope": "Evolve only the shared instruction component. Return a Python file with exactly one literal INSTRUCTIONS string assignment, optionally a module docstring. Do not add imports, functions, other assignments, executable code, task IDs or reference answers. Improve general planning, verification and recovery across domains.",
+  "tasks": [
+    {
+      "id": "finqa:d054e3222e006685de55",
+      "benchmark": "finqa",
+      "task_id": "RE/2015/page_131.pdf-1",
+      "objective": "finance",
+      "seed": 20260915,
+      "component": "75ddea23b44df28cb958cad6be80d4c8dcac154e41db1feaf2cf4ccf789ecfb2",
+      "content_sha256": "ed579f4739eb6ecb9f753bb8dcdf85f61386d22bf2980f55b36d88586343ea4f",
+      "adapter_ready": true
+    },
+    {
+      "id": "bizfinbench2:dff0cf938a45d13c243c",
+      "benchmark": "bizfinbench2",
+      "task_id": "numeric-0407",
+      "objective": "finance",
+      "seed": 20260915,
+      "component": "934cbe31709331af3136cfc7174a30bdafe63358b6f60c672f9670f9c9c4e499",
+      "content_sha256": "de5e4ac0db16d9412a19dd6a2123f8c24a3167bf5c13997e68734afa4b5270dd",
+      "adapter_ready": true
+    },
+    {
+      "id": "genebench_pro:039c3a16f7502159cec4",
+      "benchmark": "genebench_pro",
+      "task_id": "txr1_mtb_causal_sv",
+      "objective": "science",
+      "seed": 20260915,
+      "component": "c7f0be45b3d8bbc4248ca069c0175520c72b0a8110728a7e1a9a82af21a1fb84",
+      "content_sha256": "70e42198f9cc6b2fe7d1e478d187dd540c4284f7bd15a8affea3169aae5986b2",
+      "adapter_ready": true
+    },
+    {
+      "id": "amo:0e65f1a4e671375c2b2c",
+      "benchmark": "amo",
+      "task_id": "p-subset-0000",
+      "objective": "mathematics",
+      "seed": 20260915,
+      "component": "71f18099e4eb442e32a987698ecfa9454aeb6080ef71fde36118ab87ea9a2976",
+      "content_sha256": "6e948b007b293b1d6ffa41aa437f9fa7f6bb9bf2fe86e99bd934a7519cb3c204",
+      "adapter_ready": true
+    },
+    {
+      "id": "putnambench:425037d11137fa83fd78",
+      "benchmark": "putnambench",
+      "task_id": "putnam_1971_a3",
+      "objective": "mathematics",
+      "seed": 20260915,
+      "component": "0fc91a2f32454fc833af12a119da8c97dbaf7d8ecfc957fbd42de02315be6a7b",
+      "content_sha256": "a11cccb4d7b47acf391fc0d23decd3801516e905165a9e579fc84e781e2f2261",
+      "adapter_ready": true
+    },
+    {
+      "id": "travelplanner:2fcf91712e7cfadc8fa7",
+      "benchmark": "travelplanner",
+      "task_id": "train-18",
+      "objective": "planning",
+      "seed": 20260915,
+      "component": "bf2c851369818cff6c3e17e34fc3912f3414a8f14f7b3531d346cdf56760f17d",
+      "content_sha256": "4e32ee030d71d35299880084649c9cf3afecfb63f3135cb8e9f155fcfd49525c",
+      "adapter_ready": true
+    },
+    {
+      "id": "oragentbench:438b62fe1165b5b01f6f",
+      "benchmark": "oragentbench",
+      "task_id": "offshore_wind_maintenance",
+      "objective": "operations_research",
+      "seed": 20260915,
+      "component": "3225368d3f48255a933e00f003019009cc751c7db7c1e0b93a519f2aa6def6b4",
+      "content_sha256": "e51115fdc59a60b1012162682672723af4def3d8499327d603ec208ee78fdbab",
+      "adapter_ready": true
+    },
+    {
+      "id": "dsbench:efd16437ea5ce972e56b",
+      "benchmark": "dsbench",
+      "task_id": "00000034/question14",
+      "objective": "data_analysis",
+      "seed": 20260915,
+      "component": "0fa29144eb16daa77085e3d7988ee7d8a257d607ba9220586a78df570be93ef9",
+      "content_sha256": "9dcb5737684e4902d963565728f2a05a203ae3de73586477af335db98b6e7227",
+      "adapter_ready": true
+    },
+    {
+      "id": "gdpval:6fd46803bf190e4a1669",
+      "benchmark": "gdpval",
+      "task_id": "a1963a68-1bea-4bb1-b7e0-145c92a57449",
+      "objective": "professional_work",
+      "seed": 20260915,
+      "component": "981b538409d83dac5b26570e756d84716056ea7fdadb1f3cb8a715e054665a2a",
+      "content_sha256": "c9b6d5d127a959499e36d192a5b560e22cfd445a965646eeb8e027e49ab2572a",
+      "adapter_ready": true
+    },
+    {
+      "id": "terminal_bench_2:bfd0629ebbe823c717ad",
+      "benchmark": "terminal_bench_2",
+      "task_id": "financial-document-processor",
+      "objective": "software_terminal",
+      "seed": 20260915,
+      "component": "aec950cb24001b7587c77d31268ea0afa33d0067d44e309006fd75e78af40921",
+      "content_sha256": "d02ba1e191b98eebb2a68d2fe010ea70f64ac368ffa6823204c4f3f3104cbb4f",
+      "adapter_ready": false
+    },
+    {
+      "id": "harvey_lab:b656195e71e2b5a551c8",
+      "benchmark": "harvey_lab",
+      "task_id": "contracts/commercial-vendor-customer/vendor-services-agreement-first-draft/scenario-05",
+      "objective": "legal",
+      "seed": 20260915,
+      "component": "e2763c93779a1eabcac10b5176559751171f5484ef0b10de6f3d64c2a0b01557",
+      "content_sha256": "f4cfc7893d5aa03105016ffb408afd396da73e3354d217644549ee3996be7641",
+      "adapter_ready": true
+    },
+    {
+      "id": "healthbench_professional:bf175e83103a7f019a59",
+      "benchmark": "healthbench_professional",
+      "task_id": "d52fb2405d6f6c57e1e1472bfe5be65e",
+      "objective": "medicine",
+      "seed": 20260915,
+      "component": "492cedac104b2b220bd7b8dcbd25be7e16a47c16821ab6cf3e06480a0142911b",
+      "content_sha256": "e13bd2daed1ffc904568a0b485d2305f914606a1eccf00cf3cd249d76bb04ce3",
+      "adapter_ready": true
+    },
+    {
+      "id": "tau3_bench:b0e8041ff0863ad68bf0",
+      "benchmark": "tau3_bench",
+      "task_id": "retail/14",
+      "objective": "customer_service",
+      "seed": 20260915,
+      "component": "99a118321867ba5cc5a3eb690e228ef2456b16d2af88256a9ed229c43f07beb1",
+      "content_sha256": "10201a40236500b4114122dc0d0c10ab5974cabc046ab2a822348c99167ef4fc",
+      "adapter_ready": true
+    }
+  ],
+  "confirmation_ids": [
+    "finqa:d054e3222e006685de55",
+    "bizfinbench2:dff0cf938a45d13c243c",
+    "genebench_pro:039c3a16f7502159cec4",
+    "amo:0e65f1a4e671375c2b2c",
+    "putnambench:425037d11137fa83fd78",
+    "travelplanner:2fcf91712e7cfadc8fa7",
+    "oragentbench:438b62fe1165b5b01f6f",
+    "dsbench:efd16437ea5ce972e56b",
+    "gdpval:6fd46803bf190e4a1669",
+    "terminal_bench_2:bfd0629ebbe823c717ad",
+    "harvey_lab:b656195e71e2b5a551c8",
+    "healthbench_professional:bf175e83103a7f019a59",
+    "tau3_bench:b0e8041ff0863ad68bf0"
+  ]
+}

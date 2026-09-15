@@ -1,0 +1,154 @@
+{
+  "version": 1,
+  "split": "search",
+  "slice": "S3",
+  "protocol": "d09adbfe6644eb34fc71af792f8bfbe4b864263724cb0765d5bd073eccc646e0",
+  "mutation_scope": "Evolve only the shared instruction component. Return a Python file with exactly one literal INSTRUCTIONS string assignment, optionally a module docstring. Do not add imports, functions, other assignments, executable code, task IDs or reference answers. Improve general planning, verification and recovery across domains.",
+  "tasks": [
+    {
+      "id": "finqa:b479bbfd29b7c3fa8a0b",
+      "benchmark": "finqa",
+      "task_id": "C/2017/page_119.pdf-2",
+      "objective": "finance",
+      "seed": 20260915,
+      "component": "6d90575783f801fb19cb7e1d3fc060d905993320dc31c7fff442691a4f88948a",
+      "content_sha256": "adb953510ac354e4d135d9cbda577279f55616dcb67a870aa852ff3a0a77b6f2",
+      "adapter_ready": true
+    },
+    {
+      "id": "bizfinbench2:b8186b5613532e2507b2",
+      "benchmark": "bizfinbench2",
+      "task_id": "numeric-0979",
+      "objective": "finance",
+      "seed": 20260915,
+      "component": "7d07c7e8e8f4a449c0f44eee799a2d2b48bdad2864081b5f30ad9a38a4ac963c",
+      "content_sha256": "f3617a3090301bb81fa0537fd68b1e929bf67038d59c041efb9789d176177b8d",
+      "adapter_ready": true
+    },
+    {
+      "id": "genebench_pro:afe5168261d3054e7667",
+      "benchmark": "genebench_pro",
+      "task_id": "statgen_cis_mvmr_winnerscurse_scaling_ldaware",
+      "objective": "science",
+      "seed": 20260915,
+      "component": "249f82ecf32973388c93381e79c742631fe098e9f9db0253dc16222265f74e68",
+      "content_sha256": "1843d3ecf6dba4eff4aab276100759ba582d5c8960859ef52b9b691c5207ca8f",
+      "adapter_ready": true
+    },
+    {
+      "id": "amo:8a9814c8dae8f4939b40",
+      "benchmark": "amo",
+      "task_id": "p-subset-0020",
+      "objective": "mathematics",
+      "seed": 20260915,
+      "component": "3dddedab88703aaa01cef21f736cd547dc49440a1f916cd2c9157ec7c24658f3",
+      "content_sha256": "b90a3226baa39563a97a53e73ffe30d1855dcb2e466700e7694493c32156d943",
+      "adapter_ready": true
+    },
+    {
+      "id": "putnambench:196eda86202e1cbe6592",
+      "benchmark": "putnambench",
+      "task_id": "putnam_2002_a5",
+      "objective": "mathematics",
+      "seed": 20260915,
+      "component": "9eb6d1fa04302bbae29c69b8cc6492f673e9a81b2b4c6a5b2f8bcc23fbaccbda",
+      "content_sha256": "09bf9256b5d8e748be897fad5093136fe49f15f6572467ed27d96a08bd0a04ef",
+      "adapter_ready": true
+    },
+    {
+      "id": "travelplanner:c44797ade0214c4425f4",
+      "benchmark": "travelplanner",
+      "task_id": "train-14",
+      "objective": "planning",
+      "seed": 20260915,
+      "component": "b11ee94cc661dcc63b79147f70af67de6f8d07bf011b7c0f4317117560db6c3f",
+      "content_sha256": "c6e5467011c9539deb89c1fe2fccc602374bcf38ac4119778d214c852decf5a1",
+      "adapter_ready": true
+    },
+    {
+      "id": "oragentbench:da64f9a92ed7b5a6b87c",
+      "benchmark": "oragentbench",
+      "task_id": "precision_ag_sprayer_tanker_routing",
+      "objective": "operations_research",
+      "seed": 20260915,
+      "component": "290b25abdbf7bd72af284cb714fe66e88f188e482a1eb4b9ea4e3c8153b4bbd1",
+      "content_sha256": "a9295aa520528d88bad3efdd0a3e3e976a49473d4c402082988c1f7b66a7b215",
+      "adapter_ready": true
+    },
+    {
+      "id": "dsbench:bf02f41c81b37aa6b44a",
+      "benchmark": "dsbench",
+      "task_id": "00000022/question36",
+      "objective": "data_analysis",
+      "seed": 20260915,
+      "component": "9ea578298935e65696ff859e95db4260a6960a05fd3c559d92f786951fc4ceee",
+      "content_sha256": "3ae0f7a7462200188a99ca47e3c5e42b30d9c14d3ef2fb498b628eb4176b70a3",
+      "adapter_ready": true
+    },
+    {
+      "id": "gdpval:2c9497f7ec497b4c2bfb",
+      "benchmark": "gdpval",
+      "task_id": "3a4c347c-4aec-43c7-9a54-eb1f816ab1f9",
+      "objective": "professional_work",
+      "seed": 20260915,
+      "component": "6e1429521b56fb167c9e35f519cb15d129b868f9163a1a5f72cf6be1d7a0f7bf",
+      "content_sha256": "fd87e4f7993190a869f5a968e5edce170c206a818ecbf97c58ca7954383b57f0",
+      "adapter_ready": true
+    },
+    {
+      "id": "terminal_bench_2:6ea4002eb7860ece1474",
+      "benchmark": "terminal_bench_2",
+      "task_id": "train-fasttext",
+      "objective": "software_terminal",
+      "seed": 20260915,
+      "component": "cfa394b867cc1f2a7da1281135358a466ae38d40c5f06b0d92c696d9ffa0d9ed",
+      "content_sha256": "3b10b9b1aacda70c97f801eb2bb96536afc41929f4dece9635f08e5ae4842c52",
+      "adapter_ready": false
+    },
+    {
+      "id": "harvey_lab:5bb6bf2ec5db7025fb6b",
+      "benchmark": "harvey_lab",
+      "task_id": "corporate-governance/extract-indemnification-provisions-from-bylaws",
+      "objective": "legal",
+      "seed": 20260915,
+      "component": "f85ab0cdc95957dd18ce539a4bbf4eb2a5bac79d537bdbe22e9ccbb0549014eb",
+      "content_sha256": "93aec9fc5c5cd2353c75203e0339656a103b83e0465b33f20366980d125d30c1",
+      "adapter_ready": true
+    },
+    {
+      "id": "healthbench_professional:9ce3b462fb0f222d68f2",
+      "benchmark": "healthbench_professional",
+      "task_id": "b2c8b3738be92e4d365863ecbe2f8a58",
+      "objective": "medicine",
+      "seed": 20260915,
+      "component": "829b50b76ec1138eb2f8b71db87650577b61c4e938a46498edc27daf182ddc51",
+      "content_sha256": "f572deb8a1401fa5f38b58fc9a988b72efb4953f3ef0984f3bfcfabf1c661cc2",
+      "adapter_ready": true
+    },
+    {
+      "id": "tau3_bench:07ea0eb755cee857ee1c",
+      "benchmark": "tau3_bench",
+      "task_id": "retail/78",
+      "objective": "customer_service",
+      "seed": 20260915,
+      "component": "880210062a52a5b0c7c4b25eaaf8f80c34dd964ca42a97ec05765ef895bec7d1",
+      "content_sha256": "b9605c126ef7299e13bab032176be0f019a58aa61d9cc174e76d514fb3be7db2",
+      "adapter_ready": true
+    }
+  ],
+  "confirmation_ids": [
+    "finqa:b479bbfd29b7c3fa8a0b",
+    "bizfinbench2:b8186b5613532e2507b2",
+    "genebench_pro:afe5168261d3054e7667",
+    "amo:8a9814c8dae8f4939b40",
+    "putnambench:196eda86202e1cbe6592",
+    "travelplanner:c44797ade0214c4425f4",
+    "oragentbench:da64f9a92ed7b5a6b87c",
+    "dsbench:bf02f41c81b37aa6b44a",
+    "gdpval:2c9497f7ec497b4c2bfb",
+    "terminal_bench_2:6ea4002eb7860ece1474",
+    "harvey_lab:5bb6bf2ec5db7025fb6b",
+    "healthbench_professional:9ce3b462fb0f222d68f2",
+    "tau3_bench:07ea0eb755cee857ee1c"
+  ]
+}

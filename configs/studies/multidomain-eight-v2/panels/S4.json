@@ -1,0 +1,154 @@
+{
+  "version": 1,
+  "split": "search",
+  "slice": "S4",
+  "protocol": "d09adbfe6644eb34fc71af792f8bfbe4b864263724cb0765d5bd073eccc646e0",
+  "mutation_scope": "Evolve only the shared instruction component. Return a Python file with exactly one literal INSTRUCTIONS string assignment, optionally a module docstring. Do not add imports, functions, other assignments, executable code, task IDs or reference answers. Improve general planning, verification and recovery across domains.",
+  "tasks": [
+    {
+      "id": "finqa:c505b09852761a58007c",
+      "benchmark": "finqa",
+      "task_id": "MO/2014/page_76.pdf-1",
+      "objective": "finance",
+      "seed": 20260915,
+      "component": "13e9a740695a38f18c892b44842a9b544b30178c7c32472feca6294f95ae4383",
+      "content_sha256": "5836e148c1ee622f4844ec82cf87d36ef8f5ad565bdd0e6c0ce7a2d39838cb75",
+      "adapter_ready": true
+    },
+    {
+      "id": "bizfinbench2:b2f211aa609a4787630f",
+      "benchmark": "bizfinbench2",
+      "task_id": "numeric-0000",
+      "objective": "finance",
+      "seed": 20260915,
+      "component": "5f87a6d5dd87ba4ec28a0a22624d81f4eac3b13dfaa55dc9a5a84e82568cad6a",
+      "content_sha256": "de7f8a2537987542aaa835f40e6d68209a4057975eed17d6d7fb8ab8ec34917c",
+      "adapter_ready": true
+    },
+    {
+      "id": "genebench_pro:3cbafadb47e1756d798f",
+      "benchmark": "genebench_pro",
+      "task_id": "carrier_cnv_pseudogene_residual_risk",
+      "objective": "science",
+      "seed": 20260915,
+      "component": "6227338cb4abf7ef3fb038f6cca30938751c0023feb6c3556bbf1e2da6262912",
+      "content_sha256": "839cc1a8df105a72e3c41c474cadcf0040076adad79ad8d846d4ee957c04519d",
+      "adapter_ready": true
+    },
+    {
+      "id": "amo:319cbc18ac44cdca38f2",
+      "benchmark": "amo",
+      "task_id": "p-subset-0036",
+      "objective": "mathematics",
+      "seed": 20260915,
+      "component": "08841f7a1b4f18f359a194c2ca91c6d20a85d2f868ded3d2af685dfbafd718f8",
+      "content_sha256": "a904f144f30077d5809b8385ca111a18ac3dcca5b3017b150c6a7bf3a031841a",
+      "adapter_ready": true
+    },
+    {
+      "id": "putnambench:67bd7c8cf9f020262fe7",
+      "benchmark": "putnambench",
+      "task_id": "putnam_2010_a6",
+      "objective": "mathematics",
+      "seed": 20260915,
+      "component": "4b6137fe8e7de5ca88426a317b428b5b55e77c65320bd754a5124eef6aae3e4e",
+      "content_sha256": "83351581356b1694e498d285183a2114336e710a8aef0f8b0a391637f803e30c",
+      "adapter_ready": true
+    },
+    {
+      "id": "travelplanner:1d91ba343f6da25f605a",
+      "benchmark": "travelplanner",
+      "task_id": "train-30",
+      "objective": "planning",
+      "seed": 20260915,
+      "component": "952c4ab6ab5d1e737709d1f2e175935fdbb05ca18a25b93d7b542c9226f956c6",
+      "content_sha256": "54c34ebfcd1977afb44bc6533e2bdc1236278b56f440d37276dec26152f9b01a",
+      "adapter_ready": true
+    },
+    {
+      "id": "oragentbench:6a6cbd960510a8b7ab88",
+      "benchmark": "oragentbench",
+      "task_id": "wastewater_sentinel_site_selection",
+      "objective": "operations_research",
+      "seed": 20260915,
+      "component": "ce240abd0ca037730f246ff6ac4fba8108d8eae6bffaa36754c7982fe10c975d",
+      "content_sha256": "3977c100ae982852e7a088e176742ee0cb6766bf2449ba6fc3014c70ab839629",
+      "adapter_ready": true
+    },
+    {
+      "id": "dsbench:65a1edbd849a4678443d",
+      "benchmark": "dsbench",
+      "task_id": "00000019/question15",
+      "objective": "data_analysis",
+      "seed": 20260915,
+      "component": "3168b4678f7def706af4ae78ba9e79dd41f1b8058c5ac09d3339617bb238e29c",
+      "content_sha256": "e927a5b52238e1a77c6c9355eb680a3836fab3271465557fb0b2f13d2a5a278a",
+      "adapter_ready": true
+    },
+    {
+      "id": "gdpval:25483070336fa7960725",
+      "benchmark": "gdpval",
+      "task_id": "76d10872-9ffa-4ede-83ee-e0f1ec5e2b8d",
+      "objective": "professional_work",
+      "seed": 20260915,
+      "component": "9af55fb6fd9aaf5e3e472ea610dd0442b551ac545c58ce1a7750c26c2e43ecbc",
+      "content_sha256": "2114e0655038d875ae0ac500df65e39e0ef55a7d845dbea6570270aed5717f4e",
+      "adapter_ready": true
+    },
+    {
+      "id": "terminal_bench_2:3705953c5863febeb772",
+      "benchmark": "terminal_bench_2",
+      "task_id": "qemu-startup",
+      "objective": "software_terminal",
+      "seed": 20260915,
+      "component": "c01515ffcbc2dac526ac9297a8d796c3faa5858653797d674c705ef584c32800",
+      "content_sha256": "441a617665f29b5b420841d95d1b02825cf45b69b6926edccd1e63ff8a0200ec",
+      "adapter_ready": false
+    },
+    {
+      "id": "harvey_lab:54612a090b06d4155043",
+      "benchmark": "harvey_lab",
+      "task_id": "corporate-ma/analyze-change-of-control-provisions-across-targets-material-contracts",
+      "objective": "legal",
+      "seed": 20260915,
+      "component": "a2bb80272a2aee9120e6fa9e2c9e0df973101482e1202742a47a72f443c9f62b",
+      "content_sha256": "bff720284d62adfac504a962b32ba0b8ed552e381495af41ddf6a127274fd504",
+      "adapter_ready": true
+    },
+    {
+      "id": "healthbench_professional:d9255ce1a4f013bc7f54",
+      "benchmark": "healthbench_professional",
+      "task_id": "9566084de89c416408691006a6f06f9c",
+      "objective": "medicine",
+      "seed": 20260915,
+      "component": "a16f979af2b9e2747e2bee238d3cc985c279a7a644bceb9c12961ee4e61efeb6",
+      "content_sha256": "9d6c8d2bb28fca906b9ff7e8a7de44a2be67edc5e9e3330b42cf191477749e3f",
+      "adapter_ready": true
+    },
+    {
+      "id": "tau3_bench:f8dbd82835f7b6b78c5b",
+      "benchmark": "tau3_bench",
+      "task_id": "retail/100",
+      "objective": "customer_service",
+      "seed": 20260915,
+      "component": "7ad2766891b49e50e334d7d29d6f63de40f3f7b193067ab706d36f5ac04cff28",
+      "content_sha256": "2909c655791f17ad74b01cd821fc3037290cb51043fabba04c1b2e6c9ed09764",
+      "adapter_ready": true
+    }
+  ],
+  "confirmation_ids": [
+    "finqa:c505b09852761a58007c",
+    "bizfinbench2:b2f211aa609a4787630f",
+    "genebench_pro:3cbafadb47e1756d798f",
+    "amo:319cbc18ac44cdca38f2",
+    "putnambench:67bd7c8cf9f020262fe7",
+    "travelplanner:1d91ba343f6da25f605a",
+    "oragentbench:6a6cbd960510a8b7ab88",
+    "dsbench:65a1edbd849a4678443d",
+    "gdpval:25483070336fa7960725",
+    "terminal_bench_2:3705953c5863febeb772",
+    "harvey_lab:54612a090b06d4155043",
+    "healthbench_professional:d9255ce1a4f013bc7f54",
+    "tau3_bench:f8dbd82835f7b6b78c5b"
+  ]
+}

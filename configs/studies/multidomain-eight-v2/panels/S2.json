@@ -1,0 +1,154 @@
+{
+  "version": 1,
+  "split": "search",
+  "slice": "S2",
+  "protocol": "d09adbfe6644eb34fc71af792f8bfbe4b864263724cb0765d5bd073eccc646e0",
+  "mutation_scope": "Evolve only the shared instruction component. Return a Python file with exactly one literal INSTRUCTIONS string assignment, optionally a module docstring. Do not add imports, functions, other assignments, executable code, task IDs or reference answers. Improve general planning, verification and recovery across domains.",
+  "tasks": [
+    {
+      "id": "finqa:518373e91cbaf475e5c5",
+      "benchmark": "finqa",
+      "task_id": "ADI/2009/page_90.pdf-1",
+      "objective": "finance",
+      "seed": 20260915,
+      "component": "2ca9424f2e7bbce6c376176d76b0451c4e4a87198e63b006c3a9e7fa789fea5b",
+      "content_sha256": "a7bc7a052fb4bccec4e8dc9218a5d81eca62d43b58cd22874e39552a9fc67e45",
+      "adapter_ready": true
+    },
+    {
+      "id": "bizfinbench2:5eb0b8cf58bbb03dd175",
+      "benchmark": "bizfinbench2",
+      "task_id": "numeric-0433",
+      "objective": "finance",
+      "seed": 20260915,
+      "component": "5fa79f10c0f6229e4c65d1c77e60443d40a1970e0de104b464b1dcb721b4b1c5",
+      "content_sha256": "9cc9f0c76b2ea987a508b36c68662849ee886e4784fe8044120c01a920ae97d6",
+      "adapter_ready": true
+    },
+    {
+      "id": "genebench_pro:fc6427147612dca2a3e2",
+      "benchmark": "genebench_pro",
+      "task_id": "crispri_casrx_transcript_vs_locus",
+      "objective": "science",
+      "seed": 20260915,
+      "component": "9224cf8e2ebc91a3410c5b4015b84592726814e0798a3d6f6608b44cfaba840a",
+      "content_sha256": "bcb43b03eac9cfec60dabddf218cda4586bb88b0abc9edebdcedf76bdff4cc5e",
+      "adapter_ready": true
+    },
+    {
+      "id": "amo:24416ac53de33a0cb906",
+      "benchmark": "amo",
+      "task_id": "p-subset-0034",
+      "objective": "mathematics",
+      "seed": 20260915,
+      "component": "fee26062af1bb103d3a2e9874dbd4088bdcce57346d650375dcdf2763540c4a2",
+      "content_sha256": "de5f878ab3c65b67fd3992ff3bcce8d71125d84aec1082e8a362937c81f8fd2b",
+      "adapter_ready": true
+    },
+    {
+      "id": "putnambench:52c38cb7102c2d240dd3",
+      "benchmark": "putnambench",
+      "task_id": "putnam_2011_a6",
+      "objective": "mathematics",
+      "seed": 20260915,
+      "component": "5d2346c9e2af0cc571a40a513095d89b95e9123877accf29eadfe8b55dd5d7bf",
+      "content_sha256": "733f96966edf7d8d150c13aa54884bf6a1a2d0b174a750fe598e337263ac7b5f",
+      "adapter_ready": true
+    },
+    {
+      "id": "travelplanner:9a76a360b3eb7b905a55",
+      "benchmark": "travelplanner",
+      "task_id": "train-44",
+      "objective": "planning",
+      "seed": 20260915,
+      "component": "ee45d9814cf0a1c9c4d7c71b1e5822ccc5fca7f19d3499dc2ff685fcba09993e",
+      "content_sha256": "95b27e901c566dad6aa2b82accd3cd5da707d7ca08afebc1e47e6ff81a3768e4",
+      "adapter_ready": true
+    },
+    {
+      "id": "oragentbench:9abb54d7f3e4450875fd",
+      "benchmark": "oragentbench",
+      "task_id": "IndustryOR_9_easy",
+      "objective": "operations_research",
+      "seed": 20260915,
+      "component": "588af23e3b7ad96a041fb6fdca9c4f633dbef4d99c48dd2181d05e69628863ba",
+      "content_sha256": "26524f3147a851d65de5df224b9a9b028ffd2c2962962b0df0c16d400d6581ec",
+      "adapter_ready": true
+    },
+    {
+      "id": "dsbench:2c4ce49ab83aa3c8c5c0",
+      "benchmark": "dsbench",
+      "task_id": "00000027/question15",
+      "objective": "data_analysis",
+      "seed": 20260915,
+      "component": "f34f6f652ec260569ab5b16e7d12bc8b9b96038659fa60586f61c3a863192f75",
+      "content_sha256": "47a6db5f708fdf1ea55faabf1cbee50bbe0b6d1c824e925862623f71cafa5f87",
+      "adapter_ready": true
+    },
+    {
+      "id": "gdpval:da38ff016ae6e2b7d259",
+      "benchmark": "gdpval",
+      "task_id": "93b336f3-61f3-4287-86d2-87445e1e0f90",
+      "objective": "professional_work",
+      "seed": 20260915,
+      "component": "4c99c57f05c30dc6b51f0b5880c16561684bff7336e3a8d892207c703ce99cd3",
+      "content_sha256": "56ac1f97e33b8deeb3ef644e18001e4ecc581d35cecb8ff85ab967617f740865",
+      "adapter_ready": true
+    },
+    {
+      "id": "terminal_bench_2:abf5d95dba757c4834a2",
+      "benchmark": "terminal_bench_2",
+      "task_id": "code-from-image",
+      "objective": "software_terminal",
+      "seed": 20260915,
+      "component": "e95c67a1dc53f88568a4ffafa70d5fb092dec9161b7fe9578d1e8af3689c406b",
+      "content_sha256": "47207aa7803a6b813c5c963021be7924aec51381d08f29780dd9038c0aa75139",
+      "adapter_ready": false
+    },
+    {
+      "id": "harvey_lab:33ef321e2c0cf669ae57",
+      "benchmark": "harvey_lab",
+      "task_id": "emerging-companies-venture-capital/identify-issues-in-merger-agreement",
+      "objective": "legal",
+      "seed": 20260915,
+      "component": "382cf5fc979f35a223ad47a15f0026c03adde21b326cfca42f22c9fd20270f61",
+      "content_sha256": "29a1620b238e9d9485e682c657cab5b196571f86b87877879a740ce376e3cd16",
+      "adapter_ready": true
+    },
+    {
+      "id": "healthbench_professional:e8f9692d53d10375115e",
+      "benchmark": "healthbench_professional",
+      "task_id": "b49146d79a995a2e32ce3f2f7eb52955",
+      "objective": "medicine",
+      "seed": 20260915,
+      "component": "cd367f3d6151a558303e51a072dfb29cf07839bb2da97fba8ec6520cb780f1d3",
+      "content_sha256": "7722455a55b64e19a33c93f2477688c6b6373dd695693d4fe8cfb71d21bfb0b4",
+      "adapter_ready": true
+    },
+    {
+      "id": "tau3_bench:316ac6ebb705ff3591aa",
+      "benchmark": "tau3_bench",
+      "task_id": "retail/94",
+      "objective": "customer_service",
+      "seed": 20260915,
+      "component": "ae6938f8acc24f88e0e30eaf19ad2b85bc7fc3a8a80c6ea0d2303286a1e408c6",
+      "content_sha256": "60c552f513f14dbeca381c2fcc9807735485ba34939c619f57a0ee3dc4eb055e",
+      "adapter_ready": true
+    }
+  ],
+  "confirmation_ids": [
+    "finqa:518373e91cbaf475e5c5",
+    "bizfinbench2:5eb0b8cf58bbb03dd175",
+    "genebench_pro:fc6427147612dca2a3e2",
+    "amo:24416ac53de33a0cb906",
+    "putnambench:52c38cb7102c2d240dd3",
+    "travelplanner:9a76a360b3eb7b905a55",
+    "oragentbench:9abb54d7f3e4450875fd",
+    "dsbench:2c4ce49ab83aa3c8c5c0",
+    "gdpval:da38ff016ae6e2b7d259",
+    "terminal_bench_2:abf5d95dba757c4834a2",
+    "harvey_lab:33ef321e2c0cf669ae57",
+    "healthbench_professional:e8f9692d53d10375115e",
+    "tau3_bench:316ac6ebb705ff3591aa"
+  ]
+}

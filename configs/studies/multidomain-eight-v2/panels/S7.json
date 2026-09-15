@@ -1,0 +1,154 @@
+{
+  "version": 1,
+  "split": "search",
+  "slice": "S7",
+  "protocol": "d09adbfe6644eb34fc71af792f8bfbe4b864263724cb0765d5bd073eccc646e0",
+  "mutation_scope": "Evolve only the shared instruction component. Return a Python file with exactly one literal INSTRUCTIONS string assignment, optionally a module docstring. Do not add imports, functions, other assignments, executable code, task IDs or reference answers. Improve general planning, verification and recovery across domains.",
+  "tasks": [
+    {
+      "id": "finqa:c0360cacaabee12aba1f",
+      "benchmark": "finqa",
+      "task_id": "DISCA/2011/page_35.pdf-3",
+      "objective": "finance",
+      "seed": 20260915,
+      "component": "a5f20f8defe68cd592df1c6017091c522de5be3eeb07a5034d54c9bc1147b8d3",
+      "content_sha256": "1278f1d88a28d36fcff935683cd63174d55210c9946432c5b6a7a2d8971b8851",
+      "adapter_ready": true
+    },
+    {
+      "id": "bizfinbench2:8ce8e9220070adb6f48b",
+      "benchmark": "bizfinbench2",
+      "task_id": "numeric-0656",
+      "objective": "finance",
+      "seed": 20260915,
+      "component": "3518a13befa88210a1ff9948e6d51554f756aa8de4af97376bb8ae5fbd4006d0",
+      "content_sha256": "31116230aca03a1e3567458e5847dae3956520a159c15dae85f61411ee6ac18f",
+      "adapter_ready": true
+    },
+    {
+      "id": "genebench_pro:c6fac96e6139091cbf16",
+      "benchmark": "genebench_pro",
+      "task_id": "structural_inversion_subhap_expression_risk",
+      "objective": "science",
+      "seed": 20260915,
+      "component": "d4cc5b36317b56f52421760389dd6c283c1a394302ba849b94b985811605459c",
+      "content_sha256": "4857420bf2f20d7daa71fc07552c28004fef6b707ca7c7e07c9f2c2ad4c58792",
+      "adapter_ready": true
+    },
+    {
+      "id": "amo:653a696e4b413310ddce",
+      "benchmark": "amo",
+      "task_id": "p-subset-0001",
+      "objective": "mathematics",
+      "seed": 20260915,
+      "component": "f392e3d449996ae1681414739814855bdb0fdf0a8f1c0942e147dd3f5dafab70",
+      "content_sha256": "8741b11b940c5fcd0af749dbdac824fd7f58872bb59d6f8dce2b03bf6c903b2f",
+      "adapter_ready": true
+    },
+    {
+      "id": "putnambench:2e0415b3074c107c7f09",
+      "benchmark": "putnambench",
+      "task_id": "putnam_1988_b4",
+      "objective": "mathematics",
+      "seed": 20260915,
+      "component": "137ad2a0f597faab96de15882932f12073044a729c4178deb3a7b84c8b8cdb4e",
+      "content_sha256": "b91d0a64b09ba7ad44b31b3b524e239742efebdd6b2424043fe68287d4f2a67b",
+      "adapter_ready": true
+    },
+    {
+      "id": "travelplanner:19c6b5427769a2225227",
+      "benchmark": "travelplanner",
+      "task_id": "train-23",
+      "objective": "planning",
+      "seed": 20260915,
+      "component": "2b3ace8216ab9b394a77681dbfc5413d3eef50a19d3aade7187d4ff0dc93fc8f",
+      "content_sha256": "48c8e27a5748758d95cde49219420b32d4662095cb89831d7489303064afd820",
+      "adapter_ready": true
+    },
+    {
+      "id": "oragentbench:efe0a3f2a081df6f3e70",
+      "benchmark": "oragentbench",
+      "task_id": "aerospace_composite_autoclave_scheduling",
+      "objective": "operations_research",
+      "seed": 20260915,
+      "component": "772641169176cccfa90e66b97ed50e41d2a77fe78d5e9a6ceb6594dfb2244e49",
+      "content_sha256": "b28c752fcab403880cad2434e9c08605cc4e1f54067540b7441431975c53d2df",
+      "adapter_ready": true
+    },
+    {
+      "id": "dsbench:a8567b66e0e4ae99b95e",
+      "benchmark": "dsbench",
+      "task_id": "00000041/question2",
+      "objective": "data_analysis",
+      "seed": 20260915,
+      "component": "8ceb3922ba17baf995e8c225ab1707a92c09225ccf0dcb96ebf09805d9a356f2",
+      "content_sha256": "081f725fd126d53daa210da22a7498320f166473eba1ab739447780fee1dbb38",
+      "adapter_ready": true
+    },
+    {
+      "id": "gdpval:c8daab801b9d0b0a9b9d",
+      "benchmark": "gdpval",
+      "task_id": "f2986c1f-2bbf-4b83-bc93-624a9d617f45",
+      "objective": "professional_work",
+      "seed": 20260915,
+      "component": "aa77ac0887abe6fb4733e0d110e5d6c736d9b039563dd7e7cebe0c7779cfaa3a",
+      "content_sha256": "140315e0f14ba60701d2e051ddd6652d8c42f28154e01b4858acc10949f59093",
+      "adapter_ready": true
+    },
+    {
+      "id": "terminal_bench_2:e4ef22464d25a2ea58b2",
+      "benchmark": "terminal_bench_2",
+      "task_id": "polyglot-c-py",
+      "objective": "software_terminal",
+      "seed": 20260915,
+      "component": "d8c54ddf026b21df15eb464616034af89e6a19b0b637e5c685d962feed5a1353",
+      "content_sha256": "f7cab679aadd0c0d779f00d5dd56c3c19ededc31874304ffde3f162e7a1c77d1",
+      "adapter_ready": false
+    },
+    {
+      "id": "harvey_lab:10b14d9f1a75a8a540ca",
+      "benchmark": "harvey_lab",
+      "task_id": "contracts/pe-funds/limited-partnership-agreement-counterparty-paper-review",
+      "objective": "legal",
+      "seed": 20260915,
+      "component": "44fe5d2512d26535230b758433339d447dd8cbc063aadc18178e3ba2f24fb014",
+      "content_sha256": "61a72d24547df3fd503fd91834fa55f534daddd2e908eb1c1e79d1c3b8d31def",
+      "adapter_ready": true
+    },
+    {
+      "id": "healthbench_professional:e052fd11d3bb18316981",
+      "benchmark": "healthbench_professional",
+      "task_id": "e14ef032fa77fe2f8f13967b5272b5d3",
+      "objective": "medicine",
+      "seed": 20260915,
+      "component": "f9aee3b4214fa3b4a5e6c7eb2d4f89e91f2ff136b92137b0dbb696df60030fb4",
+      "content_sha256": "373cff5f9eb436d1e9fb88197a90f116a14b658cc4f30801b9b673c6aa332869",
+      "adapter_ready": true
+    },
+    {
+      "id": "tau3_bench:44caff02edc618ac0865",
+      "benchmark": "tau3_bench",
+      "task_id": "retail/1",
+      "objective": "customer_service",
+      "seed": 20260915,
+      "component": "c4a4733c1c1f649f69f362f7bef99eae6682fa52e64c6b12be25f24027530453",
+      "content_sha256": "0c548f1c6f1b83e6a5c8a27ca6f7b67cecae347bd962be9a42cce88b8f753158",
+      "adapter_ready": true
+    }
+  ],
+  "confirmation_ids": [
+    "finqa:c0360cacaabee12aba1f",
+    "bizfinbench2:8ce8e9220070adb6f48b",
+    "genebench_pro:c6fac96e6139091cbf16",
+    "amo:653a696e4b413310ddce",
+    "putnambench:2e0415b3074c107c7f09",
+    "travelplanner:19c6b5427769a2225227",
+    "oragentbench:efe0a3f2a081df6f3e70",
+    "dsbench:a8567b66e0e4ae99b95e",
+    "gdpval:c8daab801b9d0b0a9b9d",
+    "terminal_bench_2:e4ef22464d25a2ea58b2",
+    "harvey_lab:10b14d9f1a75a8a540ca",
+    "healthbench_professional:e052fd11d3bb18316981",
+    "tau3_bench:44caff02edc618ac0865"
+  ]
+}

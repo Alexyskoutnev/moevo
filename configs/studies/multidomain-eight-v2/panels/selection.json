@@ -1,0 +1,154 @@
+{
+  "version": 1,
+  "split": "selection",
+  "slice": "selection",
+  "protocol": "d09adbfe6644eb34fc71af792f8bfbe4b864263724cb0765d5bd073eccc646e0",
+  "mutation_scope": "Evolve only the shared instruction component. Return a Python file with exactly one literal INSTRUCTIONS string assignment, optionally a module docstring. Do not add imports, functions, other assignments, executable code, task IDs or reference answers. Improve general planning, verification and recovery across domains.",
+  "tasks": [
+    {
+      "id": "finqa:eb658dad66d778e1bcae",
+      "benchmark": "finqa",
+      "task_id": "JPM/2003/page_28.pdf-4",
+      "objective": "finance",
+      "seed": 20260915,
+      "component": "3bb37fdbfd62a10afb31109ee87c96308bce8eb02de3553c519731d929392339",
+      "content_sha256": "780acfa87af487fc2ac000e9fe881e5707f29499ea92f208fd33b17d61c8b0c2",
+      "adapter_ready": true
+    },
+    {
+      "id": "bizfinbench2:9bbd082bfa95355d73ca",
+      "benchmark": "bizfinbench2",
+      "task_id": "numeric-0155",
+      "objective": "finance",
+      "seed": 20260915,
+      "component": "cafb8cace442905adaadbcc63c164b17e8693328d4137b37f9235521921652fd",
+      "content_sha256": "cbed43f47dc0953cc21bf85dcd36477245185efe6e2f9e6436d1bd22f31e4fa5",
+      "adapter_ready": true
+    },
+    {
+      "id": "genebench_pro:2bace03641c47b543e3c",
+      "benchmark": "genebench_pro",
+      "task_id": "multiparent_qtl_hmm_lmm",
+      "objective": "science",
+      "seed": 20260915,
+      "component": "15004f54ce80f7fbadcf3c39d928e63f50550763c55824445e6731752263b007",
+      "content_sha256": "978eefa77cba75fc27b9a62e16c9a56aae5677bdfd506597880155ea1a1286bd",
+      "adapter_ready": true
+    },
+    {
+      "id": "amo:c6b6db4d3f318d5096e4",
+      "benchmark": "amo",
+      "task_id": "p-subset-0016",
+      "objective": "mathematics",
+      "seed": 20260915,
+      "component": "e5d0501c4a66435c0b1f943a36c4457092dc815ca0461b4d989c3b2b0253badd",
+      "content_sha256": "e0bc30cf6c409364693269e991c3b1b51601913cb9cdd4049ddbd4abaae72e7f",
+      "adapter_ready": true
+    },
+    {
+      "id": "putnambench:8691f543ad1bf7727d72",
+      "benchmark": "putnambench",
+      "task_id": "putnam_2001_a1",
+      "objective": "mathematics",
+      "seed": 20260915,
+      "component": "5dc1d4574cea047a0efa7133160806118220fa27bcfbdcb423fb071ce836579e",
+      "content_sha256": "999649979f86ace5925c2846008aca4483168b9148299a6161e6783347a036e8",
+      "adapter_ready": true
+    },
+    {
+      "id": "travelplanner:441f9b44c4f261a4eea7",
+      "benchmark": "travelplanner",
+      "task_id": "train-43",
+      "objective": "planning",
+      "seed": 20260915,
+      "component": "56debfa9efc47ba45c0830727f35ad4894418ce627772b942b3d652a3be701b7",
+      "content_sha256": "54e5708b345a5279b1f1786fb0c52befadaf7d17416266e37fe292bb2c629e83",
+      "adapter_ready": true
+    },
+    {
+      "id": "oragentbench:a7594c732ff2ac68a8a8",
+      "benchmark": "oragentbench",
+      "task_id": "urban_drainage_mpc_control",
+      "objective": "operations_research",
+      "seed": 20260915,
+      "component": "5695c3ddfaacc237566124de03c50d4f9d180ecdaf7d120f0df5ec9ff46d2c5c",
+      "content_sha256": "2a344443d0546558c1234a14d42b875839964e0cd136a22511be4d32ba0eedbf",
+      "adapter_ready": true
+    },
+    {
+      "id": "dsbench:16bcdd4ca18d7e4ca176",
+      "benchmark": "dsbench",
+      "task_id": "00000031/question1",
+      "objective": "data_analysis",
+      "seed": 20260915,
+      "component": "f1d0e1d8c0514f853ee0c24e347e7526f5da29ca19eadb4ff3cc9d823d5bf8c7",
+      "content_sha256": "d72da224c919646faf35136a1db2d474174fd502d0a9a37bff1743b2139dbb74",
+      "adapter_ready": true
+    },
+    {
+      "id": "gdpval:1458bd7f20e96f9f01b4",
+      "benchmark": "gdpval",
+      "task_id": "6d2c8e55-fe20-45c6-bdaf-93e676868503",
+      "objective": "professional_work",
+      "seed": 20260915,
+      "component": "2b080bf57d92ffc470a559d16d8fcd53adedfd9d8ae09f9ad9bb422a4b532e98",
+      "content_sha256": "cc6b69b8d9901fa2a4252a745b407301d9e0b6061e10265a9728a9a1706ee651",
+      "adapter_ready": true
+    },
+    {
+      "id": "terminal_bench_2:c3a593c0efa5a32a6eb5",
+      "benchmark": "terminal_bench_2",
+      "task_id": "mcmc-sampling-stan",
+      "objective": "software_terminal",
+      "seed": 20260915,
+      "component": "a0a7a44916576b5ebd93e426de947f2b04b6dc4385a6c473bb24566f4f261045",
+      "content_sha256": "21142c83d2c13e7518e09524754ee9c791514ff1460cc078b15eb87f87006aa0",
+      "adapter_ready": false
+    },
+    {
+      "id": "harvey_lab:188a5552b56d175d6ec1",
+      "benchmark": "harvey_lab",
+      "task_id": "contracts/commercial-channel-partnerships/teaming-agreement-playbook-escalation",
+      "objective": "legal",
+      "seed": 20260915,
+      "component": "8e568bddddb2412cd3275d58ebe1eb633222f9936a80901f72bd6687d58880fd",
+      "content_sha256": "ef79eb63bc4e6031da9fb69568cdb4f9986deaf76448f7900d7ef0457ee7eb5d",
+      "adapter_ready": true
+    },
+    {
+      "id": "healthbench_professional:5fc1539007ab2c2df3ed",
+      "benchmark": "healthbench_professional",
+      "task_id": "873d2a07e72b02a20cdfb0c2f9c5399a",
+      "objective": "medicine",
+      "seed": 20260915,
+      "component": "9191f497fdda201bfb9acb80be51536fa0ce75510bef1336c90286332e00d282",
+      "content_sha256": "49aea61c9ee3a15ba2ed094aa219dfc1880d7dfc2d8bc1313d86ac06ae1ee598",
+      "adapter_ready": true
+    },
+    {
+      "id": "tau3_bench:081b4e1d5c77eedf187a",
+      "benchmark": "tau3_bench",
+      "task_id": "retail/48",
+      "objective": "customer_service",
+      "seed": 20260915,
+      "component": "0714b99b50c4b1f5e0c0dedbf6c5d390fd5fcd67906d354e749910bd403e1015",
+      "content_sha256": "d1afd245d50eaa14298dc037b1683fd96f0d5a0e83151b8b871b7c1303d30239",
+      "adapter_ready": true
+    }
+  ],
+  "confirmation_ids": [
+    "finqa:eb658dad66d778e1bcae",
+    "bizfinbench2:9bbd082bfa95355d73ca",
+    "genebench_pro:2bace03641c47b543e3c",
+    "amo:c6b6db4d3f318d5096e4",
+    "putnambench:8691f543ad1bf7727d72",
+    "travelplanner:441f9b44c4f261a4eea7",
+    "oragentbench:a7594c732ff2ac68a8a8",
+    "dsbench:16bcdd4ca18d7e4ca176",
+    "gdpval:1458bd7f20e96f9f01b4",
+    "terminal_bench_2:c3a593c0efa5a32a6eb5",
+    "harvey_lab:188a5552b56d175d6ec1",
+    "healthbench_professional:5fc1539007ab2c2df3ed",
+    "tau3_bench:081b4e1d5c77eedf187a"
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "version": 1,
+  "split": "search",
+  "slice": "S6",
+  "protocol": "d09adbfe6644eb34fc71af792f8bfbe4b864263724cb0765d5bd073eccc646e0",
+  "mutation_scope": "Evolve only the shared instruction component. Return a Python file with exactly one literal INSTRUCTIONS string assignment, optionally a module docstring. Do not add imports, functions, other assignments, executable code, task IDs or reference answers. Improve general planning, verification and recovery across domains.",
+  "tasks": [
+    {
+      "id": "finqa:2a9ed8489aaced8ef69f",
+      "benchmark": "finqa",
+      "task_id": "SLB/2011/page_41.pdf-1",
+      "objective": "finance",
+      "seed": 20260915,
+      "component": "787a5e4074c5af939cb260873c32eecfec7982261340d2501675d0c7ccd6ae2b",
+      "content_sha256": "2707b9f82888d8e61c74377318a588479065f6c0611a7e0379dc3b77c88039b1",
+      "adapter_ready": true
+    },
+    {
+      "id": "bizfinbench2:60ed9ef25bfd3382cbf1",
+      "benchmark": "bizfinbench2",
+      "task_id": "numeric-0310",
+      "objective": "finance",
+      "seed": 20260915,
+      "component": "e8525fc0b80e88de0ea2d6b83831f939f3ba7ed1b62cbe4e1423c3385460331a",
+      "content_sha256": "b02a9b77c9427a02b98346887589aee9bee409924888dd1341257b194eb11826",
+      "adapter_ready": true
+    },
+    {
+      "id": "genebench_pro:87b92888ed8688f2778d",
+      "benchmark": "genebench_pro",
+      "task_id": "popgen_recent_pulse_sexbias",
+      "objective": "science",
+      "seed": 20260915,
+      "component": "9bc6c3957f3bca0880c240db3cfee095f6cd531099ee6ccd0fe6ab494400d3e9",
+      "content_sha256": "6aca2e51d2568e07c18a42092be081fc4c94ba2c9ca06607b02a5bcae4c6fc50",
+      "adapter_ready": true
+    },
+    {
+      "id": "amo:af6899f1ccb977325eaa",
+      "benchmark": "amo",
+      "task_id": "p-subset-0033",
+      "objective": "mathematics",
+      "seed": 20260915,
+      "component": "55d8b7f3ac8218203b3266aa7f2d81eb0c0d395f9f28960f0d1fbd8cb58b3abf",
+      "content_sha256": "0c82d45b92c0bcebee61fee688ac1e6dacc0ee976d1aca45f946cfd577e67a97",
+      "adapter_ready": true
+    },
+    {
+      "id": "putnambench:9fdadd228acfb4d74251",
+      "benchmark": "putnambench",
+      "task_id": "putnam_1980_a4",
+      "objective": "mathematics",
+      "seed": 20260915,
+      "component": "e1b33126029b0271685ad0f4190c10d77e5ebccd34d38a2aefc1694253e4cbc1",
+      "content_sha256": "06efc75fe9286079e06c907da706f22cb1dc931100a75974373fdb0acac4ca5e",
+      "adapter_ready": true
+    },
+    {
+      "id": "travelplanner:06909a04c3c3cfbda524",
+      "benchmark": "travelplanner",
+      "task_id": "train-12",
+      "objective": "planning",
+      "seed": 20260915,
+      "component": "e753586f5a6d2ee0423a7f03bef217238a20fb95ba8566db2b5ea5d6513cfb2c",
+      "content_sha256": "6a651d5093afdcb2200f9129a9dddeba46264fbd28a0660c2099d09e8425732d",
+      "adapter_ready": true
+    },
+    {
+      "id": "oragentbench:3dca72d6e3d952b9098b",
+      "benchmark": "oragentbench",
+      "task_id": "heatwave_cooling_center_resource_plan",
+      "objective": "operations_research",
+      "seed": 20260915,
+      "component": "26059f7886e98e2cbd51df97d5a80fcad2cfde0141b686c586c63b84877d8ecb",
+      "content_sha256": "cf01cc6be99e2150d6d84054bf1ad65e58dc80fa36a3bbdf48e15dba5ce0027c",
+      "adapter_ready": true
+    },
+    {
+      "id": "dsbench:eed4be1ed38cac82e4d1",
+      "benchmark": "dsbench",
+      "task_id": "00000039/question1",
+      "objective": "data_analysis",
+      "seed": 20260915,
+      "component": "027c2f74b91f756ea198994b1b74e83cb5a7a3f16d5a029176c652d0033592f2",
+      "content_sha256": "66d0b8e6e16bf11242c5bed3bc402d94de29f976e1936b58ccde9843f37be37b",
+      "adapter_ready": true
+    },
+    {
+      "id": "gdpval:21d34be6414a9f0703b3",
+      "benchmark": "gdpval",
+      "task_id": "87da214f-fd92-4c58-9854-f4d0d10adce0",
+      "objective": "professional_work",
+      "seed": 20260915,
+      "component": "c692c661f148ad53db47dee6a100975e42e145d6b0ec68515ab7fbce00cd06a7",
+      "content_sha256": "b8adb88371a3689993b817c4d98b7f7d69e5ef89b2829be44f2c73c8de81b724",
+      "adapter_ready": true
+    },
+    {
+      "id": "terminal_bench_2:7773f93b267da3f500c3",
+      "benchmark": "terminal_bench_2",
+      "task_id": "adaptive-rejection-sampler",
+      "objective": "software_terminal",
+      "seed": 20260915,
+      "component": "e142c2d2803c3a7e05604bcdadff14dc18bc1c258e9eda1f40b8d324303bce5c",
+      "content_sha256": "057bc894a7938f290952acc9ba44aa5a929ed6848021e0c2c3b6c7d007e7b551",
+      "adapter_ready": false
+    },
+    {
+      "id": "harvey_lab:8fd2994784f33de22c04",
+      "benchmark": "harvey_lab",
+      "task_id": "contracts/employment-compensation/severance-release-first-turn-redline",
+      "objective": "legal",
+      "seed": 20260915,
+      "component": "727f84fa45d8994a1e6489307da4ba32f97192f10cf3a828867a85e997c88185",
+      "content_sha256": "3705ce379e7b894fa8703a694b9fb0b15b96acf35b7721f0e608f80ea88c667e",
+      "adapter_ready": true
+    },
+    {
+      "id": "healthbench_professional:bb5de5d65be71dfeaac9",
+      "benchmark": "healthbench_professional",
+      "task_id": "4f060015d211847c8970cd651943a271",
+      "objective": "medicine",
+      "seed": 20260915,
+      "component": "8f0b2d05b422ea345fa720e8b869504df8c0a56dd7c5c1ee233e116457aafd60",
+      "content_sha256": "745796d1ff8e39368510448387845861e481b026d338de7daa082bbfe1cb6ab1",
+      "adapter_ready": true
+    },
+    {
+      "id": "tau3_bench:b5bed114e33e36d26f6d",
+      "benchmark": "tau3_bench",
+      "task_id": "retail/84",
+      "objective": "customer_service",
+      "seed": 20260915,
+      "component": "7302d583cace9892eafff1104869b3e81f1990a32e5d025ac08da5ee986c6fb9",
+      "content_sha256": "b4afe879f8d3ce43fb6389d82f054cbe25cf894e92e0ec74056e917af8d28085",
+      "adapter_ready": true
+    }
+  ],
+  "confirmation_ids": [
+    "finqa:2a9ed8489aaced8ef69f",
+    "bizfinbench2:60ed9ef25bfd3382cbf1",
+    "genebench_pro:87b92888ed8688f2778d",
+    "amo:af6899f1ccb977325eaa",
+    "putnambench:9fdadd228acfb4d74251",
+    "travelplanner:06909a04c3c3cfbda524",
+    "oragentbench:3dca72d6e3d952b9098b",
+    "dsbench:eed4be1ed38cac82e4d1",
+    "gdpval:21d34be6414a9f0703b3",
+    "terminal_bench_2:7773f93b267da3f500c3",
+    "harvey_lab:8fd2994784f33de22c04",
+    "healthbench_professional:bb5de5d65be71dfeaac9",
+    "tau3_bench:b5bed114e33e36d26f6d"
+  ]
+}

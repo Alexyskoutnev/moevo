@@ -1,0 +1,154 @@
+{
+  "version": 1,
+  "split": "search",
+  "slice": "S5",
+  "protocol": "d09adbfe6644eb34fc71af792f8bfbe4b864263724cb0765d5bd073eccc646e0",
+  "mutation_scope": "Evolve only the shared instruction component. Return a Python file with exactly one literal INSTRUCTIONS string assignment, optionally a module docstring. Do not add imports, functions, other assignments, executable code, task IDs or reference answers. Improve general planning, verification and recovery across domains.",
+  "tasks": [
+    {
+      "id": "finqa:7b89b9ca814cee294d42",
+      "benchmark": "finqa",
+      "task_id": "UPS/2010/page_33.pdf-4",
+      "objective": "finance",
+      "seed": 20260915,
+      "component": "54882b072a78431cbbb9d5a2af62f217613818bf5d3d7f6f06f8eb9f0387de19",
+      "content_sha256": "c58f17ce90a25e3f7fa3c9a3abd770b528671ef98111e47ca86b26fbc5797407",
+      "adapter_ready": true
+    },
+    {
+      "id": "bizfinbench2:962c4539a86b9ca32e26",
+      "benchmark": "bizfinbench2",
+      "task_id": "numeric-0981",
+      "objective": "finance",
+      "seed": 20260915,
+      "component": "6981ee58b78c2c161ce5e34a499c0ec565e0fe085a244c5d5c4ad291af6668f3",
+      "content_sha256": "36bf70d5a29dc2cebb53de54f1b0abec1db09838c25373bb1f8e7325d6fed2d8",
+      "adapter_ready": true
+    },
+    {
+      "id": "genebench_pro:1fa4d08845c3f94dee39",
+      "benchmark": "genebench_pro",
+      "task_id": "statgen_scrna_ambient_state_eqtl",
+      "objective": "science",
+      "seed": 20260915,
+      "component": "1fffbd541aeb45ff9105d9652a2b3e30847cb7976db212373b5ab75906c6a7a2",
+      "content_sha256": "54cc2e816cd096c1e206c89d19ff82519db82ed7a96349cdae1b08d8f0a0b6c9",
+      "adapter_ready": true
+    },
+    {
+      "id": "amo:40a0062ce1a712186232",
+      "benchmark": "amo",
+      "task_id": "p-subset-0029",
+      "objective": "mathematics",
+      "seed": 20260915,
+      "component": "d53e2fa33445b858cc09dfdf6cad1be870aed5e647ca934b1f8e2e41e3c21043",
+      "content_sha256": "b867807d8a2cd21c2a8e464e4807bacf43947b68daff5ab739b6d13abc6e36b0",
+      "adapter_ready": true
+    },
+    {
+      "id": "putnambench:fab9ffad3e074db961c1",
+      "benchmark": "putnambench",
+      "task_id": "putnam_1992_a1",
+      "objective": "mathematics",
+      "seed": 20260915,
+      "component": "4820f38eff6a6628f4ee0311f9a2460a878cd5df348425eb1ce98330297a03e1",
+      "content_sha256": "33cd0393bd5463420ee4d67a653ff57c1a5eeab4698c36494debbaa48607255a",
+      "adapter_ready": true
+    },
+    {
+      "id": "travelplanner:68dc5faa674596cc467a",
+      "benchmark": "travelplanner",
+      "task_id": "train-4",
+      "objective": "planning",
+      "seed": 20260915,
+      "component": "60db4f252daa0df09fcbceea7fafa6d25a6a06f139a3f7b7604ee3d36c16486a",
+      "content_sha256": "fcd90f9d094670604e163c6e97fa30959159b0a7994e1b13ae990a05a870b9e9",
+      "adapter_ready": true
+    },
+    {
+      "id": "oragentbench:b7816ae7969a0b199410",
+      "benchmark": "oragentbench",
+      "task_id": "industrial_water_reuse_blending",
+      "objective": "operations_research",
+      "seed": 20260915,
+      "component": "4757abbfe48486b41cc8098dc11337074035ec228dfb3ecd08cb8cd1a3f3bc5a",
+      "content_sha256": "4080e20d6fec9a805f60b1fb8d96abb32c336f277261384a0d17962b4cea38db",
+      "adapter_ready": true
+    },
+    {
+      "id": "dsbench:7982a89556e81a616a36",
+      "benchmark": "dsbench",
+      "task_id": "00000004/question43",
+      "objective": "data_analysis",
+      "seed": 20260915,
+      "component": "8624bd801e2b6259b60ef9846690e7cfecf787f7ffdb9168ba567a7a4eb087d4",
+      "content_sha256": "eb36f55a540a03ead41265c657c6a091f369cf938f319a9149fcbd0075b5b72e",
+      "adapter_ready": true
+    },
+    {
+      "id": "gdpval:9000e052fd24b24f85ca",
+      "benchmark": "gdpval",
+      "task_id": "7b08cd4d-df60-41ae-9102-8aaa49306ba2",
+      "objective": "professional_work",
+      "seed": 20260915,
+      "component": "714fb08b2c80e1a279ea8d0219998934b429bbf9b0500e55700c3d625bbc37a7",
+      "content_sha256": "fbd683ea58d4f382448ff8bb826e1ff14b259993b79a251c210e7b38a18c7529",
+      "adapter_ready": true
+    },
+    {
+      "id": "terminal_bench_2:f2c482578d600d40d47a",
+      "benchmark": "terminal_bench_2",
+      "task_id": "kv-store-grpc",
+      "objective": "software_terminal",
+      "seed": 20260915,
+      "component": "d49bb61bc543657db151387fd4854a0daab65b38a3dda054de7ddbb248be6c93",
+      "content_sha256": "f1acbcb81657e86fc55345035bb644b86460e2e1438e6a4c2452574b5c2f46b7",
+      "adapter_ready": false
+    },
+    {
+      "id": "harvey_lab:c08ce20cfa86190fcbf6",
+      "benchmark": "harvey_lab",
+      "task_id": "banking-finance/extract-lien-and-debt-information-from-ucc-filings",
+      "objective": "legal",
+      "seed": 20260915,
+      "component": "6d9ff1c8fcc27c9a818c1c3d83c0029b5afcc901e9bff903b33b6943ab6a98e8",
+      "content_sha256": "8972aece4c900ef19cace7d6135645008c3d2383ea432a4652498a49ba5d71d5",
+      "adapter_ready": true
+    },
+    {
+      "id": "healthbench_professional:d5aa65a78d48315d37d5",
+      "benchmark": "healthbench_professional",
+      "task_id": "05b6fa65abadeec22256cc7d67f46e30",
+      "objective": "medicine",
+      "seed": 20260915,
+      "component": "7fa9469956e975a5f87874a0be8218a1f2273d8825e856443f12c8f4b313e759",
+      "content_sha256": "9027ec0453a32484435283a79578c4ef785ee4fc44eb892d43a72c17c48acf1a",
+      "adapter_ready": true
+    },
+    {
+      "id": "tau3_bench:9e18c4fecd4d143a10b3",
+      "benchmark": "tau3_bench",
+      "task_id": "retail/49",
+      "objective": "customer_service",
+      "seed": 20260915,
+      "component": "397d97afc0786596e06a4a462e868fa4fe30b76f3b0e2615766d0b6b148a63c7",
+      "content_sha256": "34aa34d33186c339f1a7d2d7c7b8ae7da3378f492e74fc69836f01b79424d0ab",
+      "adapter_ready": true
+    }
+  ],
+  "confirmation_ids": [
+    "finqa:7b89b9ca814cee294d42",
+    "bizfinbench2:962c4539a86b9ca32e26",
+    "genebench_pro:1fa4d08845c3f94dee39",
+    "amo:40a0062ce1a712186232",
+    "putnambench:fab9ffad3e074db961c1",
+    "travelplanner:68dc5faa674596cc467a",
+    "oragentbench:b7816ae7969a0b199410",
+    "dsbench:7982a89556e81a616a36",
+    "gdpval:9000e052fd24b24f85ca",
+    "terminal_bench_2:f2c482578d600d40d47a",
+    "harvey_lab:c08ce20cfa86190fcbf6",
+    "healthbench_professional:d5aa65a78d48315d37d5",
+    "tau3_bench:9e18c4fecd4d143a10b3"
+  ]
+}
